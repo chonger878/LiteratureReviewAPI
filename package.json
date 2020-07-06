@@ -1,0 +1,22 @@
+{
+  "name": "literaturereview",
+  "version": "1.0.0",
+  "description": "Discord server: https://discord.gg/hx7ufM",
+  "main": "test.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chonger878/LiteratureReviewAPI.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chonger878/LiteratureReviewAPI/issues"
+  },
+  "homepage": "https://github.com/chonger878/LiteratureReviewAPI#readme",
+  "dependencies": {
+    "scholarly": "^1.0.19"
+  }
+}
