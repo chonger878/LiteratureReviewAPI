@@ -40,6 +40,21 @@ author: <name>
   example: author: Claude author:Shannon
     searches for works by Claude Shannon (and maybe unexpected combinations??)
 
+&as_ylo=<year>
+&as_yhi=<year>
+  specifies a lower/upper bound for year of publication
+
+  example: &as_ylo=1948&as_yhi=1948
+    searches for articles published in 1948
+
+&as_vis=1
+  exclude citations
+
+&as_sdt=1,5
+  exclude pattents
+
+&scisbd=1
+  sort by date
 */
 
 /**
@@ -53,6 +68,7 @@ function getArticles(searchTerm, names, year) {
   console.log('Searching ' + searchTerm +
     (names && names.length>0 ? `${names.join(' ').replace('','')}` : '') +
     (year ? ` from ${year}` : ''));
+
   return new Promise(async (resolve, reject) => {
     let currentURL=searchTerm +
       (names && names.length>0 ? `author:${names.join(' ').replace('','').split(' ').join(' author:')}` : '') +
@@ -60,6 +76,7 @@ function getArticles(searchTerm, names, year) {
       '&as_vis=1&as_sdt=1,5';
     console.log('query: '+currentURL);
 
+    //query multiple times in the event of an error, capped at 5 attempts
     let done=0;
     while(done<5){
       try{
@@ -72,7 +89,7 @@ function getArticles(searchTerm, names, year) {
         console.log(`error: ${e.code}\ntrying again . . . `+done);
       }
     }
-    reject('Errored persistently');
+    reject('Errored persistently');//throw an error if it doesn't work 5 times in a row
   });
 }
 
@@ -102,12 +119,15 @@ async function getChildrenArticles(article,citationMinimum = 10,maximumArticles 
   let children=[];
   let page=0;
   while(lowest>min&&children.length<max){
+    //offset Bell curve of delay to maybe look more human
     let ms=Math.random()*10000+Math.random()*4000+Math.random()*4000+10000;
     console.log('sleep for '+(ms/10>>0)/100+' seconds');
     await sleep(ms);
 
     let currentURL=url+`&as_vis=1&as_sdt=1,5${page?`&start=${page}`:''}`;
     console.log('- query: '+currentURL);
+
+    //try multiple times in the event of an error, like ECONNREFUSED or ETIMEDOUT
     let done=false,newChildren;
     while(!done){
       try{
@@ -118,15 +138,17 @@ async function getChildrenArticles(article,citationMinimum = 10,maximumArticles 
         console.log(`error: ${e.code}\ntrying again . . .`);
       }
     }
+
     page+=10;
-    children=children.concat(newChildren);
+    children=children.concat(newChildren);//concat children to output array
+
     lowest=newChildren[newChildren.length-1].numCitations;
     if(newChildren.length<=0){
       lowest=0;
     }
-    console.log(children.length+'/'+max);
+    console.log(children.length+'/'+max);//progress over maximum articles
   }
-  console.log(children.length+' hits');
+  console.log(children.length+' hits');//total articles returned
   return children;
 }
 
