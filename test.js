@@ -57,41 +57,6 @@ author: <name>
 */
 
 /**
- * Takes in search terms and returns an Article array promise
- * @param {string} searchTerm main search term within blurb/title
- * @param {[string]} [authors] author(s) name(s)
- * @param {number} [year] publication year
- * @return {[Article Array Promise]} Array of articles found with the given search terms
- */
-function getArticles(searchTerm, names, year) {
-  console.log('Searching ' + searchTerm +
-    (names && names.length > 0 ? `${names.join(' ').replace('','')}` : '') +
-    (year ? ` from ${year}` : ''));
-
-  return new Promise(async (resolve, reject) => {
-    let currentURL = searchTerm +
-      (names && names.length > 0 ? `author:${names.join(' ').replace('','').split(' ').join(' author:')}` : '') +
-      (year ? ` &as_ylo=${year}&as_yhi=${year}` : '') +
-      '&as_vis=1&as_sdt=1,5';
-    console.log('query: ' + currentURL);
-
-    //query multiple times in the event of an error, capped at 5 attempts
-    let done = 0;
-    while(done < 5) {
-      try {
-        let data = await scholarly.search(currentURL);
-        resolve(data);
-        done = Infinity;
-      } catch (e) {
-        done++;
-        console.log(`error: ${e}\ntrying again . . . ` + done);
-      }
-    }
-    reject('Errored persistently'); //throw an error if it doesn't work 5 times in a row
-  });
-}
-
-/**
  * sleep - wait a sepcified time before continuing execution
  *
  * @param  {number} ms milliseconds
@@ -106,13 +71,12 @@ function sleep(ms) {
 /**
  * getChildrenArticles - Retrieves the most relevent articles that cite a given article
  *
- * @param  {Article} article original article
+ * @param  {string} url search url
  * @param  {number} [citationMinimum = 10] minimum citations
  * @param  {number} [maximumArticles = 20] maximum number of articles to return
- * @return {[Article Array Promise]} resolves with a list of children articles
+ * @return {[Article Array Promise]} resolves with a list of found articles
  */
-async function getChildrenArticles(article, citationMinimum = 10, maximumArticles = 20) {
-  let url = article.citationUrl.replace('http://scholar.google.com/scholar?', '&');
+async function getArticles(url, citationMinimum = 10, maximumArticles = 20) {
   let lowest = Infinity;
   let children = [];
   let page = 0;
@@ -151,6 +115,39 @@ async function getChildrenArticles(article, citationMinimum = 10, maximumArticle
 }
 
 /**
+ * getChildrenArticles - Retrieves the most relevent articles that cite a given article
+ *
+ * @param  {Article} article original article
+ * @param  {number} [citationMinimum = 10] minimum citations
+ * @param  {number} [maximumArticles = 20] maximum number of articles to return
+ * @return {[Article Array Promise]} resolves with a list of children articles
+ */
+function getChildrenArticles(article, citationMinimum = 10, maximumArticles = 20) {
+  let url = article.citationUrl.replace('http://scholar.google.com/scholar?', '&');
+  return getArticles(url, citationMinimum, maximumArticles);
+}
+
+/**
+ * Takes in search terms and returns an Article array promise
+ * @param {string} searchTerm main search term within blurb/title
+ * @param {[string]} [authors] author(s) name(s)
+ * @param {number} [year] publication year
+ * @param  {number} [citationMinimum = 10] minimum citations
+ * @param  {number} [maximumArticles = 20] maximum number of articles to return
+ * @return {[Article Array Promise]} Array of articles found with the given search terms
+ */
+function searchArticles(searchTerm, names, year, citationMinimum = 10, maximumArticles = 20) {
+  console.log('Searching ' + searchTerm +
+    (names && names.length > 0 ? `${names.join(' ').replace('','')}` : '') +
+    (year ? ` from ${year}` : ''));
+  let url = searchTerm +
+    (names && names.length > 0 ? `author:${names.join(' ').replace('','').split(' ').join(' author:')}` : '') +
+    (year ? ` &as_ylo=${year}&as_yhi=${year}` : '') +
+    '&as_vis=1&as_sdt=1,5';
+  return getArticles(url);
+}
+
+/**
  * titlesMap - function used to map articles to article titles
  *
  * @param  {Article} article source article
@@ -160,13 +157,44 @@ function titlesMap(article) {
   return article.title;
 }
 
-async function main() {
-  const art = await getArticles('information theory');
-  console.log(art.length + ' hits');
-  console.log(art.map(titlesMap));
+/*
+Reset = "\x1b[0m"
+Bright = "\x1b[1m"
+Dim = "\x1b[2m"
+Underscore = "\x1b[4m"
+Blink = "\x1b[5m"
+Reverse = "\x1b[7m"
+Hidden = "\x1b[8m"
 
-  const chil = await getChildrenArticles(art[0]);
-  console.log(chil.map(titlesMap));
+FgBlack = "\x1b[30m"
+FgRed = "\x1b[31m"
+FgGreen = "\x1b[32m"
+FgYellow = "\x1b[33m"
+FgBlue = "\x1b[34m"
+FgMagenta = "\x1b[35m"
+FgCyan = "\x1b[36m"
+FgWhite = "\x1b[37m"
+
+BgBlack = "\x1b[40m"
+BgRed = "\x1b[41m"
+BgGreen = "\x1b[42m"
+BgYellow = "\x1b[43m"
+BgBlue = "\x1b[44m"
+BgMagenta = "\x1b[45m"
+BgCyan = "\x1b[46m"
+BgWhite = "\x1b[47m"
+*/
+function prettyMap(article) {
+  return `\x1b[33m${(''+article.numCitations).padStart(7,' ')}\x1b[36m - ${article.year}\x1b[32m ${article.title}\x1b[0m`;
+}
+
+async function main() {
+  const art = await searchArticles('biology');
+  console.log(art.map(prettyMap).join('\n'));
+  //console.log(art[0]);
+
+  //const chil = await getChildrenArticles(art[0]);
+  //console.log(chil.map(titlesMap));
 }
 
 main();
