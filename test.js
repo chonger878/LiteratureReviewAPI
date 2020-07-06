@@ -1,5 +1,4 @@
-var scholarly = require("scholarly");
-
+const scholarly = require("scholarly");
 /*
 // To search for a specific topic
 scholarly.search("machine learning").then((data) => {
@@ -85,7 +84,7 @@ function getArticles(searchTerm, names, year) {
         done = Infinity;
       } catch (e) {
         done++;
-        console.log(`error: ${e.code}\ntrying again . . . ` + done);
+        console.log(`error: ${e}\ntrying again . . . ` + done);
       }
     }
     reject('Errored persistently'); //throw an error if it doesn't work 5 times in a row
@@ -117,7 +116,7 @@ async function getChildrenArticles(article, citationMinimum = 10, maximumArticle
   let lowest = Infinity;
   let children = [];
   let page = 0;
-  while(lowest > min && children.length < max) {
+  while(lowest > citationMinimum && children.length < maximumArticles) {
     //offset Bell curve of delay to maybe look more human
     let ms = Math.random() * 10000 + Math.random() * 4000 + Math.random() * 4000 + 10000;
     console.log('sleep for ' + (ms / 10 >> 0) / 100 + ' seconds');
@@ -145,7 +144,7 @@ async function getChildrenArticles(article, citationMinimum = 10, maximumArticle
     if(newChildren.length <= 0) {
       lowest = 0;
     }
-    console.log(children.length + '/' + max); //progress over maximum articles
+    console.log(children.length + '/' + maximumArticles); //progress over maximum articles
   }
   console.log(children.length + ' hits'); //total articles returned
   return children;
@@ -162,7 +161,7 @@ function titlesMap(article) {
 }
 
 async function main() {
-  const art = await getArticles('astrobiology');
+  const art = await getArticles('information theory');
   console.log(art.length + ' hits');
   console.log(art.map(titlesMap));
 
