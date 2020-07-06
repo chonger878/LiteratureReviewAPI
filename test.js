@@ -44,10 +44,10 @@ author: <name>
 
 /**
  * Takes in search terms and returns an Article array promise
- * @param {string} searchTerm - main search term within blurb/title
- * @param {[string]} [authors] - author(s) name(s)
- * @param {number} [year] - publication year
- * @return {[Article Array]} - Array of articles found with the given search terms
+ * @param {string} searchTerm main search term within blurb/title
+ * @param {[string]} [authors] author(s) name(s)
+ * @param {number} [year] publication year
+ * @return {[Article Array Promise]} Array of articles found with the given search terms
  */
 function getArticles(searchTerm, names, year) {
   console.log('Searching ' + searchTerm +
@@ -76,16 +76,29 @@ function getArticles(searchTerm, names, year) {
   });
 }
 
+/**
+ * sleep - wait a sepcified time before continuing execution
+ *
+ * @param  {number} ms milliseconds
+ * @return {Promise} promise that resolves in ms milliseconds
+ */
 function sleep(ms){
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
   });
 }
 
-async function getChildrenArticles(article,min){
+/**
+ * getChildrenArticles - Retrieves the most relevent articles that cite a given article
+ *
+ * @param  {Article} article original article
+ * @param  {number} [citationMinimum = 10] minimum citations
+ * @param  {number} [maximumArticles = 20] maximum number of articles to return
+ * @return {[Article Array Promise]} resolves with a list of children articles
+ */
+async function getChildrenArticles(article,citationMinimum = 10,maximumArticles = 20){
   let url=article.citationUrl.replace('http://scholar.google.com/scholar?','&');
   let lowest=Infinity;
-  let max=20;
   let children=[];
   let page=0;
   while(lowest>min&&children.length<max){
@@ -117,6 +130,12 @@ async function getChildrenArticles(article,min){
   return children;
 }
 
+/**
+ * titlesMap - function used to map articles to article titles
+ *
+ * @param  {Article} article source article
+ * @return {string} title
+ */
 function titlesMap(article) {
   return article.title;
 }
@@ -126,7 +145,7 @@ async function main() {
   console.log(art.length+' hits');
   console.log(art.map(titlesMap));
 
-  const chil = await getChildrenArticles(art[0],10);
+  const chil = await getChildrenArticles(art[0]);
   console.log(chil.map(titlesMap));
 }
 
