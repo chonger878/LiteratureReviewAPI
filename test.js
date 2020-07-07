@@ -1,6 +1,6 @@
 const CitationMinimum = 100;
 const MaximumArticles = 5;
-const MinimumRelevence = 0.8;
+const MinimumRelevance = 0.8;
 const Sleep = false;
 
 const scholarly = require("scholarly");
@@ -93,11 +93,9 @@ async function getArticles(url, citationMinimum = CitationMinimum, maximumArticl
       let ms = Math.random() * 10000 + Math.random() * 4000 + Math.random() * 4000 + 10000;
       console.log('sleep for ' + (ms / 10 >> 0) / 100 + ' seconds');
       await sleep(ms);
+      console.clear();
     }
     started = true;
-    console.clear();
-    console.log(graphVis);
-    console.log(graphVisB);
 
     let currentURL = url + `&as_vis=1&as_sdt=1,5${page?`&start=${page}`:''}`;
     console.log('- query: ' + currentURL);
@@ -109,6 +107,9 @@ async function getArticles(url, citationMinimum = CitationMinimum, maximumArticl
       try {
         newChildren = await scholarly.search(currentURL);
         done = Infinity;
+        if(!Sleep){
+          console.clear();
+        }
       } catch (e) {
         done++;
         if(done < 5) {
@@ -194,9 +195,6 @@ function getArticleID(article) {
   return article && article.hasOwnProperty('citationUrl') ? article.citationUrl.match(/[0-9]+/)[0] : 'null';
 }
 
-let graphVis = [];
-let graphVisB = [];
-
 function branch(steps, article, parent, searched, searchedBranch, queued) {
   let parentID = parent ? getArticleID(parent) : false;
   let articleID = getArticleID(article);
@@ -205,40 +203,29 @@ function branch(steps, article, parent, searched, searchedBranch, queued) {
   }
   if(parent) {
     searched[parentID + '->' + articleID] = true;
-    parent.relevence += -1 / Math.pow(2, Math.log(article.numCitations / 1000 + 1) / Math.log(10)) + 1;
+    parent.relevance += -1 / Math.pow(2, Math.log(article.numCitations / 1000 + 1) / Math.log(10)) + 1;
   }
   if(searchedBranch.hasOwnProperty(articleID)) {
     searchedBranch[articleID].visits++;
     searchedBranch[articleID].steps = Math.min(steps, searchedBranch[articleID].steps);
-    searchedBranch[articleID].relevence += 1 / steps;
+    searchedBranch[articleID].relevance += 1 / steps;
     return;
   }
   searchedBranch[articleID] = article;
   article.visits = 1;
   article.steps = steps;
-  article.relevence = (-1 / Math.pow(2, Math.log(article.numCitations / 1000 + 1) / Math.log(10)) + 1 + Math.min(1, 1.4 / (Math.abs(article.year - 1900) / 50 + 1))) / steps;
+  article.relevance = (-1 / Math.pow(2, Math.log(article.numCitations / 1000 + 1) / Math.log(10)) + 1 + Math.min(1, 1.4 / (Math.abs(article.year - 1900) / 50 + 1))) / steps;
 
-  while(graphVis.length <= steps) {
-    graphVis.push(0);
-  }
-  graphVis[steps]++;
   if(article.numCitations < CitationMinimum) { return; }
 
   queued.push({ steps: steps, article: article, parent: parent });
 }
 
 async function searchBranch(steps, article, parent, searched, searchedBranch, queued) {
-  while(graphVisB.length <= steps) {
-    graphVisB.push(0);
-  }
-  graphVisB[steps]++;
-
   let children = await getChildrenArticles(article);
   for(let i = 0; i < children.length; i++) {
     await branch(steps + 1, children[i], article, searched, searchedBranch, queued);
   }
-
-  if(steps === 1) { return; }
 
   let neighbors = await getNeighborArticles(article);
   for(let i = 0; i < neighbors.length; i++) {
@@ -251,7 +238,7 @@ async function nextBranch(searched, searchedBranch, queued) {
   if(queued.length <= 0) { throw 'No queue'; }
   let bestCandidate = [0, 0];
   for(let i = 0; i < queued.length; i++) {
-    let score = queued[i].article.relevence;
+    let score = queued[i].article.relevance;
     //console.log('  - ' + score + ' - ' + prettyMap(queued[i].article));
     if(score > bestCandidate[0]) {
       bestCandidate = [score, i];
@@ -286,16 +273,16 @@ function printGraph(searched, searchedBranch) {
   let connected = {};
   for(var node in searched) {
     let nodes = node.split('->');
-    if(nodes.length === 2 && searchedBranch[nodes[0]].relevence >= MinimumRelevence && searchedBranch[nodes[1]].relevence >= MinimumRelevence) {
+    if(nodes.length === 2 && searchedBranch[nodes[0]].relevance >= MinimumRelevance && searchedBranch[nodes[1]].relevance >= MinimumRelevance) {
       connected[nodes[0]] = true;
       connected[nodes[1]] = true;
       graphTextCons += '\n'+node + ';';
     }
   }
   for(let node in searchedBranch) {
-    if(searchedBranch[node].relevence < MinimumRelevence || !connected.hasOwnProperty(node)) { continue; }
+    if(searchedBranch[node].relevance < MinimumRelevance || !connected.hasOwnProperty(node)) { continue; }
     let cites = -1 / Math.pow(2, Math.log(searchedBranch[node].numCitations / 1000 + 1) / Math.log(10)) + 1;
-    let rel = -1 / Math.pow(2, Math.log(searchedBranch[node].relevence + 1) / Math.log(10)) + 1;
+    let rel = -1 / Math.pow(2, Math.log(searchedBranch[node].relevance + 1) / Math.log(10)) + 1;
     graphTextVars += 'node [color="#' +
       ((255 - (cites * 255 >> 0)).toString(16).padStart(2, '0')) +
       ((rel * 255 >> 0).toString(16).padStart(2, '0')) +
@@ -310,8 +297,8 @@ function printGraph(searched, searchedBranch) {
   console.log('}\n\n');
 }
 
-function compareRelevence(a, b) {
-  return b.relevence - a.relevence;
+function compareRelevance(a, b) {
+  return b.relevance - a.relevance;
 }
 
 function compareCitations(a, b) {
@@ -329,7 +316,7 @@ function printRelevent(searchedBranch) {
     allArticles.push(searchedBranch[i]);
   }
 
-  allArticles.sort(compareRelevence);
+  allArticles.sort(compareRelevance);
 
   console.log('\nMost Relevent:');
   //console.log(allArticles.map(prettyMap).join('\n'));
@@ -349,9 +336,6 @@ function printRelevent(searchedBranch) {
  * @param  {[arguments]} args the same arguments as searchArticles in args
  */
 async function buildArticleGraph(searches, args) {
-  graphVis = [0];
-  graphVisB = [0];
-
   let root = await searchArticles(...args);
   let searched = {};
   let searchedBranch = {};
@@ -417,10 +401,10 @@ function prettyMap(article) {
 }
 
 async function main() {
-  await buildArticleGraph(12, ['information theory']);
+  await buildArticleGraph(8, ['astrobiology']);
   //const art = await searchArticles('astrobiology');
-  //console.log(art.map(prettyMap).join('\n'));
   //console.log(art);
+  //console.log(art.map(prettyMap).join('\n'));
 }
 
 main();
