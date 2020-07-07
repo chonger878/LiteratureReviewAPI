@@ -1,5 +1,7 @@
-const CitationMinimum = 2000;
+const CitationMinimum = 100;
 const MaximumArticles = 5;
+const MinimumRelevence = 0.8;
+const Sleep = false;
 
 const scholarly = require("scholarly");
 /*
@@ -71,6 +73,8 @@ function sleep(ms) {
   });
 }
 
+let started = false;
+
 /**
  * getChildrenArticles - Retrieves the most relevent articles that cite a given article
  *
@@ -84,13 +88,16 @@ async function getArticles(url, citationMinimum = CitationMinimum, maximumArticl
   let children = [];
   let page = 0;
   while(lowest > citationMinimum && children.length < maximumArticles) {
-    //offset Bell curve of delay to maybe look more human
-    let ms = Math.random() * 10000 + Math.random() * 4000 + Math.random() * 4000 + 10000;
-    console.log('sleep for ' + (ms / 10 >> 0) / 100 + ' seconds');
-    await sleep(ms);
+    if(started && Sleep) {
+      //offset Bell curve of delay to maybe look more human
+      let ms = Math.random() * 10000 + Math.random() * 4000 + Math.random() * 4000 + 10000;
+      console.log('sleep for ' + (ms / 10 >> 0) / 100 + ' seconds');
+      await sleep(ms);
+    }
+    started = true;
     console.clear();
-    console.log(treeVis);
-    console.log(treeVisB);
+    console.log(graphVis);
+    console.log(graphVisB);
 
     let currentURL = url + `&as_vis=1&as_sdt=1,5${page?`&start=${page}`:''}`;
     console.log('- query: ' + currentURL);
@@ -167,10 +174,10 @@ function getNeighborArticles(article, citationMinimum = CitationMinimum, maximum
  */
 function searchArticles(searchTerm, names, year, citationMinimum = CitationMinimum, maximumArticles = MaximumArticles) {
   console.log('Searching ' + searchTerm +
-    (names && names.length > 0 ? `${names.join(' ').replace('','')}` : '') +
+    (names && names.length > 0 ? `${names.join(' ').replace(/�/g,'')}` : '') +
     (year ? ` from ${year}` : ''));
   let url = searchTerm +
-    (names && names.length > 0 ? `author:${names.join(' ').replace('','').split(' ').join(' author:')}` : '') +
+    (names && names.length > 0 ? `author:${names.join(' ').replace(/�/g,'').split(' ').join(' author:')}` : '') +
     (year ? ` &as_ylo=${year}&as_yhi=${year}` : '') +
     '&as_vis=1&as_sdt=1,5';
   return getArticles(url);
@@ -187,10 +194,10 @@ function getArticleID(article) {
   return article && article.hasOwnProperty('citationUrl') ? article.citationUrl.match(/[0-9]+/)[0] : 'null';
 }
 
-let treeVis=[];
-let treeVisB=[];
+let graphVis = [];
+let graphVisB = [];
 
-async function branch(steps, article, parent, searched, searchedBranch) {
+function branch(steps, article, parent, searched, searchedBranch, queued) {
   let parentID = parent ? getArticleID(parent) : false;
   let articleID = getArticleID(article);
   if(parentID && searched.hasOwnProperty(parentID + '->' + articleID)) {
@@ -198,31 +205,63 @@ async function branch(steps, article, parent, searched, searchedBranch) {
   }
   if(parent) {
     searched[parentID + '->' + articleID] = true;
+    parent.relevence += -1 / Math.pow(2, Math.log(article.numCitations / 1000 + 1) / Math.log(10)) + 1;
   }
   if(searchedBranch.hasOwnProperty(articleID)) {
+    searchedBranch[articleID].visits++;
+    searchedBranch[articleID].steps = Math.min(steps, searchedBranch[articleID].steps);
+    searchedBranch[articleID].relevence += 1 / steps;
     return;
   }
   searchedBranch[articleID] = article;
+  article.visits = 1;
+  article.steps = steps;
+  article.relevence = (-1 / Math.pow(2, Math.log(article.numCitations / 1000 + 1) / Math.log(10)) + 1 + Math.min(1, 1.4 / (Math.abs(article.year - 1900) / 50 + 1))) / steps;
 
-  treeVis[steps]++;
+  while(graphVis.length <= steps) {
+    graphVis.push(0);
+  }
+  graphVis[steps]++;
   if(article.numCitations < CitationMinimum) { return; }
-  if(steps <= 0) { return; }
-  treeVisB[steps]++;
+
+  queued.push({ steps: steps, article: article, parent: parent });
+}
+
+async function searchBranch(steps, article, parent, searched, searchedBranch, queued) {
+  while(graphVisB.length <= steps) {
+    graphVisB.push(0);
+  }
+  graphVisB[steps]++;
 
   let children = await getChildrenArticles(article);
   for(let i = 0; i < children.length; i++) {
-    await branch(steps - 1, children[i], article, searched, searchedBranch);
+    await branch(steps + 1, children[i], article, searched, searchedBranch, queued);
   }
 
-  if(steps === 1){return;}
+  if(steps === 1) { return; }
 
   let neighbors = await getNeighborArticles(article);
   for(let i = 0; i < neighbors.length; i++) {
-    await branch(steps - 1, neighbors[i], false, searched, searchedBranch);
+    await branch(steps + 1, neighbors[i], false, searched, searchedBranch, queued);
   }
-  //printTree(searched,searchedBranch);
+  //printGraph(searched,searchedBranch);
 }
 
+async function nextBranch(searched, searchedBranch, queued) {
+  if(queued.length <= 0) { throw 'No queue'; }
+  let bestCandidate = [0, 0];
+  for(let i = 0; i < queued.length; i++) {
+    let score = queued[i].article.relevence;
+    //console.log('  - ' + score + ' - ' + prettyMap(queued[i].article));
+    if(score > bestCandidate[0]) {
+      bestCandidate = [score, i];
+      //console.log('    - ' + score);
+    }
+  }
+  let best = queued.splice(bestCandidate[1], 1)[0];
+  //console.log(best.article);
+  await searchBranch(best.article.steps, best.article, best.parent, searched, searchedBranch, queued);
+}
 
 /**
  * addSlashes - Escapes a string
@@ -230,56 +269,110 @@ async function branch(steps, article, parent, searched, searchedBranch) {
  * @param  {string} str original string
  * @return {string} escaped string
  */
-function addSlashes( str ) {
+function addSlashes(str) {
   //https://locutus.io/php/strings/addslashes/
   return (str + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
 }
 
 /**
- * printTree - Prints Graphviz code from a tree
+ * printGraph - Prints Graphviz code from a graph
  *
  * @param  {type} searched list of searched article pairs
  * @param  {type} searchedBranch list of searched articles
  */
-function printTree(searched, searchedBranch) {
-  let treeText = '';
-  for(let node in searchedBranch) {
-    let cites = searchedBranch[node].numCitations / 10 >> 0;
-    cites = -1 / Math.pow(2, Math.log(searchedBranch[node].numCitations / 1000) / Math.log(10)) + 1;
-    treeText += 'node [color="#' +
-      ((255 - (cites * 255 >> 0)).toString(16).padStart(2, '0')) +
-      '00' +
-      ((cites * 255 >> 0).toString(16).padStart(2, '0')) + '" label ="' + addSlashes(searchedBranch[node].title) + '" weight=' + (50 * cites >> 0) + ' tooltip="' + searchedBranch[node].numCitations + '"];\n' + node + ';\n';
-  }
+function printGraph(searched, searchedBranch) {
+  let graphTextVars = '';
+  let graphTextCons = '';
+  let connected = {};
   for(var node in searched) {
-    treeText += node + ';\n';
+    let nodes = node.split('->');
+    if(nodes.length === 2 && searchedBranch[nodes[0]].relevence >= MinimumRelevence && searchedBranch[nodes[1]].relevence >= MinimumRelevence) {
+      connected[nodes[0]] = true;
+      connected[nodes[1]] = true;
+      graphTextCons += '\n'+node + ';';
+    }
+  }
+  for(let node in searchedBranch) {
+    if(searchedBranch[node].relevence < MinimumRelevence || !connected.hasOwnProperty(node)) { continue; }
+    let cites = -1 / Math.pow(2, Math.log(searchedBranch[node].numCitations / 1000 + 1) / Math.log(10)) + 1;
+    let rel = -1 / Math.pow(2, Math.log(searchedBranch[node].relevence + 1) / Math.log(10)) + 1;
+    graphTextVars += 'node [color="#' +
+      ((255 - (cites * 255 >> 0)).toString(16).padStart(2, '0')) +
+      ((rel * 255 >> 0).toString(16).padStart(2, '0')) +
+      ((cites * 255 >> 0).toString(16).padStart(2, '0')) +
+      '" label ="' + addSlashes(searchedBranch[node].title) +
+      '" tooltip="' + searchedBranch[node].authors.join(', ').replace(/�/g, '') + ' - ' + searchedBranch[node].year + (searchedBranch[node].publication !== 'books.google.com' ? ', ' + searchedBranch[node].publication : '') + ' - citated by ' + searchedBranch[node].numCitations +
+      '" href="' + (searchedBranch[node].pdf ? searchedBranch[node].pdf : searchedBranch[node].url).replace(/&/g,'&amp;') + '"];\n' + node + ';\n';
   }
 
   console.log('\n\ndigraph G {\nnode [style=filled fontcolor=white];\n');
-  console.log(treeText);
+  console.log(graphTextVars + graphTextCons);
   console.log('}\n\n');
 }
 
-//takes the same arguments as searchArticles
-async function buildArticleTree(steps, args) {
-  treeVis=[];
-  treeVisB=[];
-  for(let i=0;i<steps;i++){
-    treeVis.push(0);
-    treeVisB.push(0);
+function compareRelevence(a, b) {
+  return b.relevence - a.relevence;
+}
+
+function compareCitations(a, b) {
+  return b.numCitations - a.numCitations;
+}
+
+/**
+ * printRelevent - prints the most relevent results from a traversal
+ *
+ * @param  {object} searchedBranch object of all searched articles
+ */
+function printRelevent(searchedBranch) {
+  let allArticles = [];
+  for(let i in searchedBranch) {
+    allArticles.push(searchedBranch[i]);
   }
+
+  allArticles.sort(compareRelevence);
+
+  console.log('\nMost Relevent:');
+  //console.log(allArticles.map(prettyMap).join('\n'));
+  console.log(allArticles.slice(0,10).map(prettyMap).join('\n'));
+
+  allArticles.sort(compareCitations);
+
+  console.log('\nMost cited:');
+  //console.log(allArticles.map(prettyMap).join('\n'));
+  console.log(allArticles.slice(0,10).map(prettyMap).join('\n'));
+}
+
+/**
+ * buildArticleGraph - Builds and prints the article graph
+ *
+ * @param  {number} searches number of queries to make
+ * @param  {[arguments]} args the same arguments as searchArticles in args
+ */
+async function buildArticleGraph(searches, args) {
+  graphVis = [0];
+  graphVisB = [0];
 
   let root = await searchArticles(...args);
   let searched = {};
   let searchedBranch = {};
+  let queued = [];
   try {
     for(let i = 0; i < root.length; i++) {
-      await branch(steps - 1, root[i], false, searched, searchedBranch);
+      branch(1, root[i], false, searched, searchedBranch, queued);
     }
+    for(let i = 0; i < searches; i++) {
+      console.log(i + '/' + searches + ' searched');
+      await nextBranch(searched, searchedBranch, queued);
+    }
+    console.clear();
   } catch (e) {
     console.log(e);
   }
-  printTree(searched, searchedBranch);
+  printGraph(searched, searchedBranch);
+
+  console.log('Finished searching: ' + args[0]);
+
+  printRelevent(searchedBranch);
 }
 
 /**
@@ -320,17 +413,14 @@ BgCyan = "\x1b[46m"
 BgWhite = "\x1b[47m"
 */
 function prettyMap(article) {
-  return `\x1b[33m${(''+article.numCitations).padStart(7,' ')}\x1b[36m - ${article.year}\x1b[32m ${article.title}\x1b[0m ${getArticleID(article)}`;
+  return `\x1b[33m${(''+article.numCitations).padStart(7,' ')}\x1b[36m - ${article.year}\x1b[32m ${article.title}\x1b[0m`; // ${getArticleID(article)}
 }
 
 async function main() {
-  await buildArticleTree(3, ['information theory']);
-  //const art = await searchArticles('astrology', undefined, undefined, 10, 10);
+  await buildArticleGraph(12, ['information theory']);
+  //const art = await searchArticles('astrobiology');
   //console.log(art.map(prettyMap).join('\n'));
-  //console.log(art[0]);
-
-  //const chil = await getChildrenArticles(art[0]);
-  //console.log(chil.map(titlesMap));
+  //console.log(art);
 }
 
 main();
