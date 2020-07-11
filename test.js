@@ -186,7 +186,7 @@ function searchArticles(searchTerm, names, year, citationMinimum = CitationMinim
 
 
 /**
- * articleID - Get an article's unique ID
+ * getArticleID - Get an article's unique ID
  *
  * @param  {Article} article article object
  * @return {string} article ID
