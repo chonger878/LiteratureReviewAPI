@@ -1,7 +1,12 @@
-const CitationMinimum = 100;
-const MaximumArticles = 5;
-const MinimumRelevance = 0.8;
-const Sleep = false;
+/*
+This file does a stand-alone search when run via node.js
+The constants at the top control the less-finely tuned variables
+*/
+
+const CitationMinimum = 100; // How many citations needed to search
+const MaximumArticles = 5; // Most articles searched (rounded up to the nearest page) (each page has ~10 articles)
+const MinimumRelevance = 0.8; // How relevent an article has to be to be drawn
+const Sleep = false; // how many minutes maximum to wait between calls (minimum is 1/3)
 
 const scholarly = require("scholarly");
 /*
@@ -90,7 +95,7 @@ async function getArticles(url, citationMinimum = CitationMinimum, maximumArticl
   while(lowest > citationMinimum && children.length < maximumArticles) {
     if(started && Sleep) {
       //offset Bell curve of delay to maybe look more human
-      let ms = Math.random() * 10000 + Math.random() * 4000 + Math.random() * 4000 + 10000;
+      let ms = (Math.random() * 20000 + Math.random() * 10000 + Math.random() * 10000 + 20000) * Sleep;
       console.log('sleep for ' + (ms / 10 >> 0) / 100 + ' seconds');
       await sleep(ms);
       console.clear();
@@ -107,7 +112,7 @@ async function getArticles(url, citationMinimum = CitationMinimum, maximumArticl
       try {
         newChildren = await scholarly.search(currentURL);
         done = Infinity;
-        if(!Sleep){
+        if(!Sleep) {
           console.clear();
         }
       } catch (e) {
@@ -276,7 +281,7 @@ function printGraph(searched, searchedBranch) {
     if(nodes.length === 2 && searchedBranch[nodes[0]].relevance >= MinimumRelevance && searchedBranch[nodes[1]].relevance >= MinimumRelevance) {
       connected[nodes[0]] = true;
       connected[nodes[1]] = true;
-      graphTextCons += '\n'+node + ';';
+      graphTextCons += '\n' + node + ';';
     }
   }
   for(let node in searchedBranch) {
@@ -289,7 +294,7 @@ function printGraph(searched, searchedBranch) {
       ((cites * 255 >> 0).toString(16).padStart(2, '0')) +
       '" label ="' + addSlashes(searchedBranch[node].title) +
       '" tooltip="' + searchedBranch[node].authors.join(', ').replace(/�/g, '') + ' - ' + searchedBranch[node].year + (searchedBranch[node].publication !== 'books.google.com' ? ', ' + searchedBranch[node].publication : '') + ' - citated by ' + searchedBranch[node].numCitations +
-      '" href="' + (searchedBranch[node].pdf ? searchedBranch[node].pdf : searchedBranch[node].url).replace(/&/g,'&amp;') + '"];\n' + node + ';\n';
+      '" href="' + (searchedBranch[node].pdf ? searchedBranch[node].pdf : searchedBranch[node].url).replace(/&/g, '&amp;') + '"];\n' + node + ';\n';
   }
 
   console.log('\n\ndigraph G {\nnode [style=filled fontcolor=white];\n');
@@ -320,13 +325,13 @@ function printRelevent(searchedBranch) {
 
   console.log('\nMost Relevent:');
   //console.log(allArticles.map(prettyMap).join('\n'));
-  console.log(allArticles.slice(0,10).map(prettyMap).join('\n'));
+  console.log(allArticles.slice(0, 10).map(prettyMap).join('\n'));
 
   allArticles.sort(compareCitations);
 
   console.log('\nMost cited:');
   //console.log(allArticles.map(prettyMap).join('\n'));
-  console.log(allArticles.slice(0,10).map(prettyMap).join('\n'));
+  console.log(allArticles.slice(0, 10).map(prettyMap).join('\n'));
 }
 
 /**
