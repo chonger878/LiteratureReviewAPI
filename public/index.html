@@ -30,10 +30,10 @@
     }
 
     #key {
-      position:fixed;
-      left:0;
-      bottom:0;
-      width:20%;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 20%;
     }
   </style>
 </head>
@@ -48,16 +48,15 @@
       <input type="range" min="0" max="200" value="80" class="slider" id="minRel" name="minRel">
       <label for="singles">Allow Unconnected Nodes:</label>
       <input type="checkbox" name="singles" id="singles" value="yes">
-      <input type="search" id="q" name="q" autocomplete="research-field" required placeholder="query" value="information theory"><input type="submit" value="Search"
-        >
+      <input type="search" id="q" name="q" autocomplete="research-field" required placeholder="query" value="information theory"><input type="submit" value="Search">
     </form>
   </div>
   <div id="graph">
   </div>
   <img src='key.png' id='key'>
   <script>
-  (new URL(window.location.href)).searchParams.forEach((x, y) =>
-    y==='singles'?document.getElementById(y).checked=true:document.getElementById(y).value = x)
+    (new URL(window.location.href)).searchParams.forEach((x, y) =>
+      y === 'singles' ? document.getElementById(y).checked = true : document.getElementById(y).value = x)
   </script>
   <script src="viz.js"></script>
   <script src="full.render.js"></script>

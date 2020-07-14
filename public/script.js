@@ -72,13 +72,13 @@ var depthSlider = document.getElementById("depth");
 depthSlider.oninput = function() {
   Searches = this.value;
 }
-Searches=depthSlider.value;
+Searches = depthSlider.value;
 
 var uncCheck = document.getElementById("singles");
 uncCheck.oninput = function() {
   AllowUnconnected = this.checked;
 }
-  AllowUnconnected = uncCheck.checked;
+AllowUnconnected = uncCheck.checked;
 
 async function queryDatabase(search) {
   if(Data.hasOwnProperty(search)) {
@@ -288,7 +288,7 @@ function renderGraph(searched, searchedBranch) {
     }
   }
   for(let node in searchedBranch) {
-    if(searchedBranch[node].relevance < MinimumRelevance || (!AllowUnconnected&&!connected.hasOwnProperty(node))) { continue; }
+    if(searchedBranch[node].relevance < MinimumRelevance || (!AllowUnconnected && !connected.hasOwnProperty(node))) { continue; }
     let cites = -1 / Math.pow(2, Math.log(searchedBranch[node].numCitations / 1000 + 1) / Math.log(10)) + 1;
     let rel = -1 / Math.pow(2, Math.log(searchedBranch[node].relevance + 1) / Math.log(3)) + 1;
     graphTextVars += 'node [color="#' +
@@ -308,7 +308,7 @@ function renderGraph(searched, searchedBranch) {
       graphTextVars + graphTextCons +
       '\n}')
     .then(function(element) {
-      document.getElementById('graph').innerHTML = '<a href="data:image/svg+xml;charset=utf-8,'+encodeURIComponent(element.outerHTML)+'">'+element.outerHTML+'</a>';
+      document.getElementById('graph').innerHTML = '<a href="data:image/svg+xml;charset=utf-8,' + encodeURIComponent(element.outerHTML) + '">' + element.outerHTML + '</a>';
     })
     .catch(error => {
       // Create a new Viz instance (@see Caveats page for more info)
