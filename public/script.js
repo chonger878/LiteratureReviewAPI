@@ -438,7 +438,7 @@ function prettyMap(article) {
 }
 
 async function main() {
-  await buildArticleGraph(8, [document.getElementById('q').value]);
+  await buildArticleGraph(8, [document.getElementById('q').value.replace(/  +/g,' ').toLowerCase().trim()]);
   //const art = await searchArticles('astrobiology');
   //console.log(art);
   //console.log(art.map(prettyMap).join('\n'));
