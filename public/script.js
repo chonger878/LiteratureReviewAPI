@@ -1,6 +1,3 @@
-(new URL(window.location.href)).searchParams.forEach((x, y) =>
-    document.getElementById(y).value = x)
-
 /*
 TODO:
 - set up basic code to tree traverse search articles
@@ -11,10 +8,11 @@ TODO:
   - set background svg
 */
 
-const CitationMinimum = 100; // How many citations needed to search
-const MaximumArticles = 5; // Most articles searched (rounded up to the nearest page) (each page has ~10 articles)
-const MinimumRelevance = 0.8; // How relevent an article has to be to be drawn
-const Sleep = false; // how many minutes maximum to wait between calls (minimum is 1/3)
+var CitationMinimum = 100; // How many citations needed to search
+var MinimumRelevance = 0.8; // How relevent an article has to be to be drawn
+var Searches = 8;
+
+var AllowUnconnected = false;
 
 /*
 // To search for a specific topic
@@ -63,28 +61,47 @@ author: <name>
   sort by date
 */
 
-async function queryDatabase(search){
-  if(Data.hasOwnProperty(search)){
+//html interaction stuff
+var relSlider = document.getElementById("minRel");
+relSlider.oninput = function() {
+  MinimumRelevance = this.value / 100;
+}
+MinimumRelevance = relSlider.value / 100;
+
+var depthSlider = document.getElementById("depth");
+depthSlider.oninput = function() {
+  Searches = this.value;
+}
+Searches=depthSlider.value;
+
+var uncCheck = document.getElementById("singles");
+uncCheck.oninput = function() {
+  AllowUnconnected = this.checked;
+}
+  AllowUnconnected = uncCheck.checked;
+
+async function queryDatabase(search) {
+  if(Data.hasOwnProperty(search)) {
     return Data[search];
-  }
-  else{
+  } else {
     throw 'data not available';
-  }/*
-  return [
-    {
-      title:"something",
-      url:"idk.com",
-      authors:["mr. something"],
-      year:1999,
-      numCitations:314,
-      description:"An article",
-      pdf:"n/a",
-      citationUrl:"cite.com?cite=12345&stuff",
-      relatedUrl:"related.com",
-      urlVersionsList:"vers123",
-      publication:"GitHub"
-    },
-  ];*/
+  }
+  /*
+    return [
+      {
+        title:"something",
+        url:"idk.com",
+        authors:["mr. something"],
+        year:1999,
+        numCitations:314,
+        description:"An article",
+        pdf:"n/a",
+        citationUrl:"cite.com?cite=12345&stuff",
+        relatedUrl:"related.com",
+        urlVersionsList:"vers123",
+        publication:"GitHub"
+      },
+    ];*/
   /*
   //put api call ajax here
   return new Promise((resolve, reject) => {
@@ -110,49 +127,19 @@ async function queryDatabase(search){
  *
  * @param  {string} url search url
  * @param  {number} [citationMinimum] minimum citations
- * @param  {number} [maximumArticles] maximum number of articles to return
  * @return {[Article Array Promise]} resolves with a list of found articles
  */
-async function getArticles(url, citationMinimum = CitationMinimum, maximumArticles = MaximumArticles) {
-  let lowest = Infinity;
+async function getArticles(url, citationMinimum = CitationMinimum) {
   let children = [];
-  let page = 0;
-  while(lowest > citationMinimum && children.length < maximumArticles) {
 
-    let currentURL = url + `&as_vis=1&as_sdt=1,5${page?`&start=${page}`:''}`;
-    console.log('- query: ' + currentURL);
-
-    //try multiple times in the event of an error, like ECONNREFUSED or ETIMEDOUT
-    let done = 0,
-      newChildren;
-    while(done < 5) {
-      try {
-        newChildren = await queryDatabase(url);
-        console.clear();
-        done = Infinity;
-      } catch (e) {
-        done++;
-        if(done < 5) {
-          console.log(`error: ${e}\ntrying again . . . ` + done);
-        }
-      }
-    }
-    if(done !== Infinity) {
-      throw 'Too many errors';
-    }
-
-    page += 10;
-    children = children.concat(newChildren); //concat children to output array
-
-    for(let i = 0; i < newChildren.length; i++) {
-      lowest = Math.min(lowest, newChildren[i].numCitations);
-    }
-    if(newChildren.length <= 0) {
-      lowest = 0;
-    }
-    //console.log(children.length + '/' + maximumArticles); //progress over maximum articles
+  try {
+    children = await queryDatabase(url);
+    //console.clear();
+  } catch (e) {
+    //console.log(url);
+    //console.error(e);
+    throw e;
   }
-  //console.log(children.length + ' hits'); //total articles returned
 
   //console.log(children.map(prettyMap).join('\n'));
   return children;
@@ -163,12 +150,11 @@ async function getArticles(url, citationMinimum = CitationMinimum, maximumArticl
  *
  * @param  {Article} article original article
  * @param  {number} [citationMinimum] minimum citations
- * @param  {number} [maximumArticles] maximum number of articles to return
  * @return {[Article Array Promise]} resolves with a list of children articles
  */
-function getChildrenArticles(article, citationMinimum = CitationMinimum, maximumArticles = MaximumArticles) {
+function getChildrenArticles(article, citationMinimum = CitationMinimum) {
   let url = article.citationUrl.replace('http://scholar.google.com/scholar?', '&');
-  return getArticles(url, citationMinimum, maximumArticles);
+  return getArticles(url, citationMinimum);
 }
 
 /**
@@ -176,12 +162,11 @@ function getChildrenArticles(article, citationMinimum = CitationMinimum, maximum
  *
  * @param  {Article} article original article
  * @param  {number} [citationMinimum] minimum citations
- * @param  {number} [maximumArticles] maximum number of articles to return
  * @return {[Article Array Promise]} resolves with a list of children articles
  */
-function getNeighborArticles(article, citationMinimum = CitationMinimum, maximumArticles = MaximumArticles) {
+function getNeighborArticles(article, citationMinimum = CitationMinimum) {
   let url = article.relatedUrl.replace('http://scholar.google.com/scholar?q=', '');
-  return getArticles(url, citationMinimum, maximumArticles);
+  return getArticles(url, citationMinimum);
 }
 
 /**
@@ -190,17 +175,15 @@ function getNeighborArticles(article, citationMinimum = CitationMinimum, maximum
  * @param {[string]} [authors] author(s) name(s)
  * @param {number} [year] publication year
  * @param  {number} [citationMinimum] minimum citations
- * @param  {number} [maximumArticles] maximum number of articles to return
  * @return {[Article Array Promise]} Array of articles found with the given search terms
  */
-function searchArticles(searchTerm, names, year, citationMinimum = CitationMinimum, maximumArticles = MaximumArticles) {
+function searchArticles(searchTerm, names, year, citationMinimum = CitationMinimum) {
   /*console.log('Searching ' + searchTerm +
     (names && names.length > 0 ? `${names.join(' ').replace(/�/g,'')}` : '') +
     (year ? ` from ${year}` : ''));*/
   let url = searchTerm +
     (names && names.length > 0 ? `author:${names.join(' ').replace(/�/g,'').split(' ').join(' author:')}` : '') +
-    (year ? ` &as_ylo=${year}&as_yhi=${year}` : '') +
-    '&as_vis=1&as_sdt=1,5';
+    (year ? ` &as_ylo=${year}&as_yhi=${year}` : '');
   return getArticles(url);
 }
 
@@ -251,7 +234,7 @@ async function searchBranch(steps, article, parent, searched, searchedBranch, qu
   for(let i = 0; i < neighbors.length; i++) {
     await branch(steps + 1, neighbors[i], false, searched, searchedBranch, queued);
   }
-  //printGraph(searched,searchedBranch);
+  //renderGraph(searched,searchedBranch);
 }
 
 async function nextBranch(searched, searchedBranch, queued) {
@@ -287,12 +270,12 @@ function addSlashes(str) {
 var viz = new Viz();
 
 /**
- * printGraph - Prints Graphviz code from a graph
+ * renderGraph - Prints Graphviz code from a graph
  *
  * @param  {type} searched list of searched article pairs
  * @param  {type} searchedBranch list of searched articles
  */
-function printGraph(searched, searchedBranch) {
+function renderGraph(searched, searchedBranch) {
   let graphTextVars = '';
   let graphTextCons = '';
   let connected = {};
@@ -305,35 +288,35 @@ function printGraph(searched, searchedBranch) {
     }
   }
   for(let node in searchedBranch) {
-    if(searchedBranch[node].relevance < MinimumRelevance || !connected.hasOwnProperty(node)) { continue; }
+    if(searchedBranch[node].relevance < MinimumRelevance || (!AllowUnconnected&&!connected.hasOwnProperty(node))) { continue; }
     let cites = -1 / Math.pow(2, Math.log(searchedBranch[node].numCitations / 1000 + 1) / Math.log(10)) + 1;
-    let rel = -1 / Math.pow(2, Math.log(searchedBranch[node].relevance + 1) / Math.log(10)) + 1;
+    let rel = -1 / Math.pow(2, Math.log(searchedBranch[node].relevance + 1) / Math.log(3)) + 1;
     graphTextVars += 'node [color="#' +
-      ((255 - (cites * 255 >> 0)).toString(16).padStart(2, '0')) +
-      ((rel * 255 >> 0).toString(16).padStart(2, '0')) +
+      ((255 - (rel * 255 >> 0)).toString(16).padStart(2, '0')) +
       ((cites * 255 >> 0).toString(16).padStart(2, '0')) +
+      ((rel * 255 >> 0).toString(16).padStart(2, '0')) +
       '" label ="' + addSlashes(searchedBranch[node].title) +
       '" tooltip="' + searchedBranch[node].authors.join(', ').replace(/�/g, '') + ' - ' + searchedBranch[node].year + (searchedBranch[node].publication !== 'books.google.com' ? ', ' + searchedBranch[node].publication : '') + ' - citated by ' + searchedBranch[node].numCitations +
       '" href="' + (searchedBranch[node].pdf ? searchedBranch[node].pdf : searchedBranch[node].url).replace(/&/g, '&amp;') + '"];\n' + node + ';\n';
   }
 
-  console.log('digraph G {\nnode [style=filled fontcolor=white];\n' +
+  /*console.log('digraph G {\nnode [style=filled fontcolor=white];\n' +
     graphTextVars + graphTextCons +
-    '\n}');
+    '\n}');*/
 
   viz.renderSVGElement('digraph G {\nnode [style=filled fontcolor=white];\n' +
-    graphTextVars + graphTextCons +
-    '\n}')
-  .then(function(element) {
-    document.getElementById('graph').innerHTML=element.outerHTML;
-  })
-  .catch(error => {
-    // Create a new Viz instance (@see Caveats page for more info)
-    viz = new Viz();
+      graphTextVars + graphTextCons +
+      '\n}')
+    .then(function(element) {
+      document.getElementById('graph').innerHTML = element.outerHTML;
+    })
+    .catch(error => {
+      // Create a new Viz instance (@see Caveats page for more info)
+      viz = new Viz();
 
-    // Possibly display the error
-    console.error(error);
-  });
+      // Possibly display the error
+      console.error(error);
+    });
 }
 
 function compareRelevance(a, b) {
@@ -387,11 +370,11 @@ async function buildArticleGraph(searches, args) {
       console.log(i + '/' + searches + ' searched');
       await nextBranch(searched, searchedBranch, queued);
     }
-    console.clear();
+    //console.clear();
   } catch (e) {
     console.error(e);
   }
-  printGraph(searched, searchedBranch);
+  renderGraph(searched, searchedBranch);
 
   console.log('Finished searching: ' + args[0]);
 
@@ -438,7 +421,7 @@ function prettyMap(article) {
 }
 
 async function main() {
-  await buildArticleGraph(8, [document.getElementById('q').value.replace(/  +/g,' ').toLowerCase().trim()]);
+  await buildArticleGraph(Searches, [document.getElementById('q').value.replace(/  +/g, ' ').toLowerCase().trim()]);
   //const art = await searchArticles('astrobiology');
   //console.log(art);
   //console.log(art.map(prettyMap).join('\n'));
