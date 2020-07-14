@@ -1,109 +1,30 @@
 /*
 TODO:
-- set up basic code to tree traverse search articles
 - query database for articles
   - alert user of queue length on error
-- render result into a graph
-  - ideally using GraphViz for minimal effort
-  - set background svg
 */
 
-var CitationMinimum = 100; // How many citations needed to search
-var MinimumRelevance = 0.8; // How relevent an article has to be to be drawn
-var Searches = 8;
+const CitationMinimum = 100; // How many citations needed to search
 
-var AllowUnconnected = false;
+const MinimumRelevance = document.getElementById("minRel").value / 100;
+const Searches = document.getElementById("depth").value;
+const AllowUnconnected = document.getElementById("singles").checked;
 
-/*
-// To search for a specific topic
-scholarly.search("machine learning").then((data) => {
-  console.log(data);
-});
-// To list articles a user co-authored
-scholarly.user("H18-9fkAAAAJ").then((data) => {
-  console.log(data);
-});
-return format:
-[
-Article {
-  title:
-  url:
-  authors:[]
-  year:
-  numCitations:
-  description:
-  pdf:
-  citationUrl:
-  relatedUrl:
-  urlVersionsList:
-  publication:
-},
-. . .
-]
-*/
-
-/*
-Google Scholar URL tricks:
-author: <name>
-  searches for articles co-authored by someone with this term in their name (multiple names supported)
-  example: author: Claude author:Shannon
-    searches for works by Claude Shannon (and maybe unexpected combinations??)
-&as_ylo=<year>
-&as_yhi=<year>
-  specifies a lower/upper bound for year of publication
-  example: &as_ylo=1948&as_yhi=1948
-    searches for articles published in 1948
-&as_vis=1
-  exclude citations
-&as_sdt=1,5
-  exclude pattents
-&scisbd=1
-  sort by date
-*/
-
-//html interaction stuff
-var relSlider = document.getElementById("minRel");
-relSlider.oninput = function() {
-  MinimumRelevance = this.value / 100;
-}
-MinimumRelevance = relSlider.value / 100;
-
-var depthSlider = document.getElementById("depth");
-depthSlider.oninput = function() {
-  Searches = this.value;
-}
-Searches = depthSlider.value;
-
-var uncCheck = document.getElementById("singles");
-uncCheck.oninput = function() {
-  AllowUnconnected = this.checked;
-}
-AllowUnconnected = uncCheck.checked;
-
+/**
+ * queryDatabase - queries the database for results from a specific search url
+ *
+ * @param  {string} search search url querying
+ * @return {[Article Object]} Article object Array
+ */
 async function queryDatabase(search) {
+  //search pre-computed data for now
   if(Data.hasOwnProperty(search)) {
     return Data[search];
   } else {
     throw 'data not available';
   }
   /*
-    return [
-      {
-        title:"something",
-        url:"idk.com",
-        authors:["mr. something"],
-        year:1999,
-        numCitations:314,
-        description:"An article",
-        pdf:"n/a",
-        citationUrl:"cite.com?cite=12345&stuff",
-        relatedUrl:"related.com",
-        urlVersionsList:"vers123",
-        publication:"GitHub"
-      },
-    ];*/
-  /*
-  //put api call ajax here
+  //put ajax api call here
   return new Promise((resolve, reject) => {
     $.ajax({
       url: 'api?url='+search,
@@ -134,14 +55,10 @@ async function getArticles(url, citationMinimum = CitationMinimum) {
 
   try {
     children = await queryDatabase(url);
-    //console.clear();
   } catch (e) {
-    //console.log(url);
-    //console.error(e);
     throw e;
   }
 
-  //console.log(children.map(prettyMap).join('\n'));
   return children;
 }
 
@@ -227,16 +144,22 @@ function branch(steps, article, parent, searched, searchedBranch, queued) {
 async function searchBranch(steps, article, parent, searched, searchedBranch, queued) {
   let children = await getChildrenArticles(article);
   for(let i = 0; i < children.length; i++) {
-    await branch(steps + 1, children[i], article, searched, searchedBranch, queued);
+    branch(steps + 1, children[i], article, searched, searchedBranch, queued);
   }
 
   let neighbors = await getNeighborArticles(article);
   for(let i = 0; i < neighbors.length; i++) {
-    await branch(steps + 1, neighbors[i], false, searched, searchedBranch, queued);
+    branch(steps + 1, neighbors[i], false, searched, searchedBranch, queued);
   }
-  //renderGraph(searched,searchedBranch);
 }
 
+/**
+ * nextBranch - Searches the next most relevent query
+ *
+ * @param  {Object} searched Connections already searched
+ * @param  {Object} searchedBranch Branches already searched
+ * @param  {Array} queued Array of queued urls to search
+ */
 async function nextBranch(searched, searchedBranch, queued) {
   if(queued.length <= 0) {
     console.log('No queue');
@@ -245,15 +168,17 @@ async function nextBranch(searched, searchedBranch, queued) {
   let bestCandidate = [0, 0];
   for(let i = 0; i < queued.length; i++) {
     let score = queued[i].article.relevance;
-    //console.log('  - ' + score + ' - ' + prettyMap(queued[i].article));
     if(score > bestCandidate[0]) {
       bestCandidate = [score, i];
-      //console.log('    - ' + score);
     }
   }
   let best = queued.splice(bestCandidate[1], 1)[0];
-  //console.log(best.article);
-  await searchBranch(best.article.steps, best.article, best.parent, searched, searchedBranch, queued);
+  try{
+    await searchBranch(best.article.steps, best.article, best.parent, searched, searchedBranch, queued);
+  }
+  catch(e){
+    console.error(e);
+  }
 }
 
 /**
@@ -300,21 +225,14 @@ function renderGraph(searched, searchedBranch) {
       '" href="' + (searchedBranch[node].pdf ? searchedBranch[node].pdf : searchedBranch[node].url).replace(/&/g, '&amp;') + '"];\n' + node + ';\n';
   }
 
-  /*console.log('digraph G {\nnode [style=filled fontcolor=white];\n' +
-    graphTextVars + graphTextCons +
-    '\n}');*/
-
-  viz.renderSVGElement('digraph G {\nnode [style=filled fontcolor=white];\n' +
+  viz.renderSVGElement('digraph Enlarge{\nnode [style=filled fontcolor=white];\n' +
       graphTextVars + graphTextCons +
       '\n}')
     .then(function(element) {
       document.getElementById('graph').innerHTML = '<a href="data:image/svg+xml;charset=utf-8,' + encodeURIComponent(element.outerHTML) + '">' + element.outerHTML + '</a>';
     })
     .catch(error => {
-      // Create a new Viz instance (@see Caveats page for more info)
       viz = new Viz();
-
-      // Possibly display the error
       console.error(error);
     });
 }
@@ -341,13 +259,11 @@ function printRelevent(searchedBranch) {
   allArticles.sort(compareRelevance);
 
   console.log('\nMost Relevent:');
-  //console.log(allArticles.map(prettyMap).join('\n'));
   console.log(allArticles.slice(0, 10).map(prettyMap).join('\n'));
 
   allArticles.sort(compareCitations);
 
   console.log('\nMost cited:');
-  //console.log(allArticles.map(prettyMap).join('\n'));
   console.log(allArticles.slice(0, 10).map(prettyMap).join('\n'));
 }
 
@@ -370,7 +286,6 @@ async function buildArticleGraph(searches, args) {
       console.log(i + '/' + searches + ' searched');
       await nextBranch(searched, searchedBranch, queued);
     }
-    //console.clear();
   } catch (e) {
     console.error(e);
   }
@@ -417,14 +332,11 @@ BgCyan = "\x1b[46m"
 BgWhite = "\x1b[47m"
 */
 function prettyMap(article) {
-  return `\x1b[34m${(''+article.numCitations).padStart(7,' ')}\x1b[35m - ${article.year}\x1b[32m ${article.title}\x1b[0m`; // ${getArticleID(article)}
+  return `\x1b[34m${(''+article.numCitations).padStart(7,' ')}\x1b[35m - ${article.year}\x1b[32m ${article.title}\x1b[0m`;
 }
 
 async function main() {
   await buildArticleGraph(Searches, [document.getElementById('q').value.replace(/  +/g, ' ').toLowerCase().trim()]);
-  //const art = await searchArticles('astrobiology');
-  //console.log(art);
-  //console.log(art.map(prettyMap).join('\n'));
 }
 
 main();

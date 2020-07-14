@@ -55,6 +55,7 @@
   </div>
   <img src='key.png' id='key'>
   <script>
+    // run this ASAP to improve user experience (sets form fields based on URL parameters)
     (new URL(window.location.href)).searchParams.forEach((x, y) =>
       y === 'singles' ? document.getElementById(y).checked = true : document.getElementById(y).value = x)
   </script>
