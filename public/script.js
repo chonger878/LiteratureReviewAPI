@@ -4,8 +4,6 @@ TODO:
   - alert user of queue length on error
 */
 
-const CitationMinimum = 100; // How many citations needed to search
-
 const MinimumRelevance = document.getElementById("minRel").value / 100;
 const Searches = document.getElementById("depth").value;
 const AllowUnconnected = document.getElementById("singles").checked;
@@ -46,32 +44,13 @@ async function queryDatabase(search) {
 /**
  * getChildrenArticles - Retrieves the most relevent articles that cite a given article
  *
- * @param  {string} url search url
- * @param  {number} [citationMinimum] minimum citations
- * @return {[Article Array Promise]} resolves with a list of found articles
- */
-async function getArticles(url, citationMinimum = CitationMinimum) {
-  let children = [];
-
-  try {
-    children = await queryDatabase(url);
-  } catch (e) {
-    throw e;
-  }
-
-  return children;
-}
-
-/**
- * getChildrenArticles - Retrieves the most relevent articles that cite a given article
- *
  * @param  {Article} article original article
  * @param  {number} [citationMinimum] minimum citations
  * @return {[Article Array Promise]} resolves with a list of children articles
  */
-function getChildrenArticles(article, citationMinimum = CitationMinimum) {
+function getChildrenArticles(article) {
   let url = article.citationUrl.replace('http://scholar.google.com/scholar?', '&');
-  return getArticles(url, citationMinimum);
+  return queryDatabase(url);
 }
 
 /**
@@ -81,9 +60,9 @@ function getChildrenArticles(article, citationMinimum = CitationMinimum) {
  * @param  {number} [citationMinimum] minimum citations
  * @return {[Article Array Promise]} resolves with a list of children articles
  */
-function getNeighborArticles(article, citationMinimum = CitationMinimum) {
+function getNeighborArticles(article) {
   let url = article.relatedUrl.replace('http://scholar.google.com/scholar?q=', '');
-  return getArticles(url, citationMinimum);
+  return queryDatabase(url);
 }
 
 /**
@@ -94,16 +73,12 @@ function getNeighborArticles(article, citationMinimum = CitationMinimum) {
  * @param  {number} [citationMinimum] minimum citations
  * @return {[Article Array Promise]} Array of articles found with the given search terms
  */
-function searchArticles(searchTerm, names, year, citationMinimum = CitationMinimum) {
-  /*console.log('Searching ' + searchTerm +
-    (names && names.length > 0 ? `${names.join(' ').replace(/�/g,'')}` : '') +
-    (year ? ` from ${year}` : ''));*/
+function searchArticles(searchTerm, names, year) {
   let url = searchTerm +
     (names && names.length > 0 ? `author:${names.join(' ').replace(/�/g,'').split(' ').join(' author:')}` : '') +
     (year ? ` &as_ylo=${year}&as_yhi=${year}` : '');
-  return getArticles(url);
+  return queryDatabase(url);
 }
-
 
 /**
  * getArticleID - Get an article's unique ID
@@ -135,8 +110,6 @@ function branch(steps, article, parent, searched, searchedBranch, queued) {
   article.visits = 1;
   article.steps = steps;
   article.relevance = (-1 / Math.pow(2, Math.log(article.numCitations / 1000 + 1) / Math.log(10)) + 1 + Math.min(1, 1.4 / (Math.abs(article.year - 1900) / 50 + 1))) / steps;
-
-  if(article.numCitations < CitationMinimum) { return; }
 
   queued.push({ steps: steps, article: article, parent: parent });
 }
