@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>New webpage</title>
+  <title>Scholarly Graphs</title>
   <style>
     html,
     body {
@@ -13,17 +13,14 @@
       padding: 0;
     }
 
-    #graph {
+    #graph svg {
       width: 100%;
-      background: url(https://upload.wikimedia.org/wikipedia/commons/e/ed/Octicons-git-branch.svg) no-repeat center;
-      background-size: contain;
-      /*full height minus search bar*/
-      height: calc(100% - 2em);
+      height: calc(100% - 4em);
     }
 
     #search {
       /* sums to 2em */
-      height: 1.5em;
+      height: 3.5em;
       padding: 0.25em;
       text-align: center;
     }
@@ -31,17 +28,40 @@
     input {
       font-size: 120%;
     }
+
+    #key {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 20%;
+    }
   </style>
 </head>
 
 <body>
   <div id="search">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <form action="">
-      <input type="search" autocomplete="research-field" required><input type="submit" value="Search">
+    <form target="" action="">
+      <label for="depth">Search Depth:</label>
+      <input type="range" min="0" max="20" value="8" class="slider" id="depth" name="depth">
+      <label for="minRel">Minimum Relevance:</label>
+      <input type="range" min="0" max="200" value="80" class="slider" id="minRel" name="minRel">
+      <label for="singles">Allow Unconnected Nodes:</label>
+      <input type="checkbox" name="singles" id="singles" value="yes">
+      <input type="search" id="q" name="q" autocomplete="research-field" required placeholder="query" value="information theory"><input type="submit" value="Search">
     </form>
   </div>
-  <div id="graph"></div>
+  <div id="graph">
+  </div>
+  <img src='key.png' id='key'>
+  <script>
+    // run this ASAP to improve user experience (sets form fields based on URL parameters)
+    (new URL(window.location.href)).searchParams.forEach((x, y) =>
+      y === 'singles' ? document.getElementById(y).checked = true : document.getElementById(y).value = x)
+  </script>
+  <script src="viz.js"></script>
+  <script src="full.render.js"></script>
+  <script src="data.js" type="text/javascript"></script>
   <script src="script.js" type="text/javascript"></script>
 </body>
 
