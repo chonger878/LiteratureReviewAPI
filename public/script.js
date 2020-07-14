@@ -296,7 +296,7 @@ function renderGraph(searched, searchedBranch) {
       ((cites * 255 >> 0).toString(16).padStart(2, '0')) +
       ((rel * 255 >> 0).toString(16).padStart(2, '0')) +
       '" label ="' + addSlashes(searchedBranch[node].title) +
-      '" tooltip="' + searchedBranch[node].authors.join(', ').replace(/�/g, '') + ' - ' + searchedBranch[node].year + (searchedBranch[node].publication !== 'books.google.com' ? ', ' + searchedBranch[node].publication : '') + ' - citated by ' + searchedBranch[node].numCitations +
+      '" tooltip="' + searchedBranch[node].authors[0].replace(/�/g, '') + ' - ' + searchedBranch[node].year + (searchedBranch[node].publication !== 'books.google.com' ? ', ' + searchedBranch[node].publication : '') + ' - citated by ' + searchedBranch[node].numCitations +
       '" href="' + (searchedBranch[node].pdf ? searchedBranch[node].pdf : searchedBranch[node].url).replace(/&/g, '&amp;') + '"];\n' + node + ';\n';
   }
 
@@ -308,7 +308,7 @@ function renderGraph(searched, searchedBranch) {
       graphTextVars + graphTextCons +
       '\n}')
     .then(function(element) {
-      document.getElementById('graph').innerHTML = element.outerHTML;
+      document.getElementById('graph').innerHTML = '<a href="data:image/svg+xml;charset=utf-8,'+encodeURIComponent(element.outerHTML)+'">'+element.outerHTML+'</a>';
     })
     .catch(error => {
       // Create a new Viz instance (@see Caveats page for more info)
