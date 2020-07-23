@@ -1,8 +1,8 @@
 
 import ReqRateLimiter, { RequestsRequestHandler } from 'request-rate-limiter';
 
-const reqLimiter = new ReqRateLimiter();
+const rLimiter = new ReqRateLimiter();
 
-reqLimiter.setRequestHandler(new RequestsRequestHandler({
+rLimiter.setRequestHandler(new RequestsRequestHandler({
     backOffHTTPCode: 429,
 }));
