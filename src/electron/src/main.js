@@ -1,0 +1,560 @@
+/*
+TODO:
+- pre-search first x results
+- seperate default data
+*/
+
+const fs = require('fs');
+
+const { ipcRenderer } = require('electron');
+
+var htmlMinimumRelevance = document.getElementById("minRel");
+var htmlSearches = document.getElementById("depth");
+var htmlAllowUnconnected = document.getElementById("singles");
+
+var MinimumRelevance;
+var Searches = htmlSearches.value;
+var AllowUnconnected = htmlAllowUnconnected.checked;
+
+const CitationMinimum = 1; // How many citations needed to search
+var MaximumArticles = 1; // Most articles searched (rounded up to the nearest page) (each page has ~10 articles)
+
+var Sleep = 0.3; // how many minutes maximum to wait between calls (minimum is 1/3)
+var forceQuery = false;
+var abortSearch = false;
+var abortSearchBtn = document.getElementById('abortSearch');
+
+function abortSearchF() {
+  abortSearch = true;
+  abortSearchBtn.style.display = 'none';
+  submitModal();
+}
+
+const scholarly = require("scholarly");
+
+var progressBar = document.getElementById('progress');
+
+function tanh(x) {
+  return Math.tanh((x - 0.5) * 5) * 0.50675 + 0.5
+}
+
+var IndexWeight = tanh(0.3);
+var StepWeight = tanh(0.4);
+
+/**
+ * sleep - wait a sepcified time before continuing execution
+ *
+ * @param  {number} ms milliseconds
+ * @return {Promise} promise that resolves in ms milliseconds
+ */
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+let started = false;
+
+async function getArticles(url, searched, searchedBranch) {
+  let lowest = Infinity;
+  let children = [];
+  let page = 0;
+  while(lowest > CitationMinimum && children.length < MaximumArticles) {
+    if(abortSearch) { throw 'aborting'; }
+    if(started && Sleep) {
+      //offset Bell curve of delay to maybe look more human
+      let ms = (Math.random() * 20000 + Math.random() * 10000 + Math.random() * 10000 + 20000) * Sleep;
+      console.log('sleep for ' + (ms / 10 >> 0) / 100 + ' seconds');
+      if(ms > 1000) {
+        renderGraph(searched, searchedBranch);
+      }
+      await sleep(ms);
+      if(abortSearch) { throw 'aborting'; }
+    }
+    started = true;
+
+    let currentURL = url + `${page?`&start=${page}`:''}`;
+    console.log('- query: ' + currentURL);
+
+    //try multiple times in the event of an error, like ECONNREFUSED or ETIMEDOUT
+    let done = 0,
+      newChildren;
+    while(done < 5) {
+      if(abortSearch) { throw 'aborting'; }
+      try {
+        newChildren = await scholarly.search(currentURL);
+        if(newChildren.length === 0) {
+          throw ('null results');
+        }
+        done = Infinity;
+      } catch (e) {
+        done++;
+        if(done < 5) {
+          console.error(e);
+          console.log(`error: ${e}\nprompting . . . ` + done);
+          ipcRenderer.sendSync('synchronous-message', JSON.stringify(await promptCookie()));
+        } else {
+          console.error(e);
+        }
+      }
+    }
+    if(done !== Infinity) {
+      throw 'Too many errors';
+    }
+
+    page += 10;
+    children = children.concat(newChildren); //concat children to output array
+
+    for(let i = 0; i < newChildren.length; i++) {
+      lowest = Math.min(lowest, newChildren[i].numCitations);
+    }
+    if(newChildren.length <= 0) {
+      lowest = 0;
+    }
+    //console.log(children.length + '/' + MaximumArticles); //progress over maximum articles
+  }
+
+  return children;
+}
+
+let allData = JSON.parse(JSON.stringify(Data));
+
+/**
+ * queryDatabase - queries the database for results from a specific search url
+ *
+ * @param  {string} search search url querying
+ * @return {[Article Object]} Article object Array
+ */
+async function queryDatabase(search, searched, searchedBranch) {
+  if(forceQuery || !Data.hasOwnProperty(search) || Data[search].length <= 0) {
+    //find and save to file if not available
+    Data[search] = await getArticles(search, searched, searchedBranch);
+    allData[search] = JSON.parse(JSON.stringify(Data[search]));
+    fs.writeFileSync('src/data.js', "var Data=" + JSON.stringify(allData));
+  }
+  return Data[search];
+}
+
+/**
+ * getChildrenArticles - Retrieves the most relevent articles that cite a given article
+ *
+ * @param  {Article} article original article
+ * @return {[Article Array Promise]} resolves with a list of children articles
+ */
+function getChildrenArticles(article, searched, searchedBranch) {
+  if(article.hasOwnProperty('citationUrl')) {
+    let url = article.citationUrl.replace('http://scholar.google.com/scholar?', '&');
+    return queryDatabase(url, searched, searchedBranch);
+  }
+  return [];
+}
+
+/**
+ * getNeighborArticles - Retrieves the most relevent articles to a given article
+ *
+ * @param  {Article} article original article
+ * @return {[Article Array Promise]} resolves with a list of children articles
+ */
+function getNeighborArticles(article, searched, searchedBranch) {
+  let url = article.relatedUrl.replace('http://scholar.google.com/scholar?q=', '');
+  return queryDatabase(url, searched, searchedBranch);
+}
+
+/**
+ * Takes in search terms and returns an Article array promise
+ * @param {string} searchTerm main search term within blurb/title
+ * @param {[string]} [authors] author(s) name(s)
+ * @param {number} [year] publication year
+ * @return {[Article Array Promise]} Array of articles found with the given search terms
+ */
+function searchArticles(searchTerm, names, year) {
+  let url = searchTerm +
+    (names && names.length > 0 ? `author:${names.join(' ').replace(/�/g,'').split(' ').join(' author:')}` : '') +
+    (year ? ` &as_ylo=${year}&as_yhi=${year}` : '');
+  return queryDatabase(url, {}, {});
+}
+
+/**
+ * getArticleID - Get an article's unique ID
+ *
+ * @param  {Article} article article object
+ * @return {string} article ID
+ */
+function getArticleID(article) {
+  return article && article.hasOwnProperty('citationUrl') ? article.citationUrl.match(/[0-9]+/)[0] : 'null';
+}
+var parentWeight = 1;
+
+function branch(steps, article, parent, searched, searchedBranch, queued, index) {
+  let parentID = parent ? getArticleID(parent) : false;
+  let articleID = getArticleID(article);
+  if(parentID && searched.hasOwnProperty(parentID + '->' + articleID)) {
+    return;
+  }
+  if(parent) {
+    searched[parentID + '->' + articleID] = true;
+    //parent.relevance += (-1 / Math.pow(2, Math.log(article.numCitations / 1000 + 1) / Math.log(10)) + 1) * Math.pow(1 - IndexWeight, index + 5)/100*parentWeight;
+  }
+  if(searchedBranch.hasOwnProperty(articleID)) {
+    //searchedBranch[articleID].visits++;
+    searchedBranch[articleID].steps = Math.min(steps, searchedBranch[articleID].steps);
+    searchedBranch[articleID].relevance += searchedBranch[articleID].base;
+    return;
+  }
+  searchedBranch[articleID] = article;
+  article.visits = 1;
+  article.steps = steps;
+  article.relevance = (-1 / Math.pow(2, Math.log(article.numCitations / 1000 + 1) / Math.log(10)) + 1 + Math.min(1, 1.4 / (Math.abs(article.year - 1900) / 50 + 1))) * Math.pow(1 - StepWeight, steps) * Math.pow(1 - IndexWeight, index);
+  article.base = article.relevance;
+
+  queued.push({ steps: steps, article: article, parent: parent });
+}
+
+async function searchBranch(steps, article, parent, searched, searchedBranch, queued) {
+  if(abortSearch) { throw 'aborting'; }
+  progressBar.value++;
+  let children = await getChildrenArticles(article, searched, searchedBranch);
+  for(let i = 0; i < children.length; i++) {
+    branch(steps + 1, children[i], article, searched, searchedBranch, queued, i);
+  }
+
+  if(abortSearch) { throw 'aborting'; }
+  progressBar.value++;
+  let neighbors = await getNeighborArticles(article, searched, searchedBranch);
+  for(let i = 0; i < neighbors.length; i++) {
+    branch(steps + 1, neighbors[i], false, searched, searchedBranch, queued, i);
+  }
+}
+
+/**
+ * nextBranch - Searches the next most relevent query
+ *
+ * @param  {Object} searched Connections already searched
+ * @param  {Object} searchedBranch Branches already searched
+ * @param  {Array} queued Array of queued urls to search
+ */
+async function nextBranch(searched, searchedBranch, queued) {
+  if(queued.length <= 0) {
+    console.log('No queue');
+    return;
+  }
+  let bestCandidate = [0, 0];
+  for(let i = 0; i < queued.length; i++) {
+    let score = queued[i].article.relevance;
+    if(score > bestCandidate[0]) {
+      bestCandidate = [score, i];
+    }
+  }
+  let best = queued.splice(bestCandidate[1], 1)[0];
+  try {
+    await searchBranch(best.article.steps, best.article, best.parent, searched, searchedBranch, queued);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+/**
+ * addSlashes - Escapes a string
+ *
+ * @param  {string} str original string
+ * @return {string} escaped string
+ */
+function addSlashes(str) {
+  //https://locutus.io/php/strings/addslashes/
+  return (str + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+}
+
+var viz = new Viz();
+
+/**
+ * renderGraph - Prints Graphviz code from a graph
+ *
+ * @param  {type} searched list of searched article pairs
+ * @param  {type} searchedBranch list of searched articles
+ */
+function renderGraph(searched, searchedBranch) {
+  let graphTextVars = '';
+  let graphTextCons = '';
+  let connected = {};
+  let anyConnected = false;
+  for(var node in searched) {
+    let nodes = node.split('->');
+    if(nodes.length === 2 && searchedBranch[nodes[0]].relevance >= MinimumRelevance && searchedBranch[nodes[1]].relevance >= MinimumRelevance) {
+      anyConnected = true;
+      connected[nodes[0]] = true;
+      connected[nodes[1]] = true;
+      graphTextCons += '\n' + node + ';';
+    }
+  }
+  for(let node in searchedBranch) {
+    if(searchedBranch[node].relevance < MinimumRelevance || (anyConnected && !AllowUnconnected && !connected.hasOwnProperty(node))) { continue; }
+    let cites = -1 / Math.pow(2, Math.log(searchedBranch[node].numCitations / 1000 + 1) / Math.log(10)) + 1;
+    let rel = -1 / Math.pow(2, Math.log(searchedBranch[node].relevance + 1) / Math.log(3)) + 1;
+    graphTextVars += 'node [color="#' +
+      ((255 - (rel * 255 >> 0)).toString(16).padStart(2, '0')) +
+      ((cites * 255 >> 0).toString(16).padStart(2, '0')) +
+      ((rel * 255 >> 0).toString(16).padStart(2, '0')) +
+      '" label ="' + addSlashes(searchedBranch[node].title) +
+      '" tooltip="' + searchedBranch[node].authors[0].replace(/�/g, '') + ' - ' + searchedBranch[node].year + (searchedBranch[node].publication !== 'books.google.com' ? ', ' + searchedBranch[node].publication : '') + ' - citated by ' + searchedBranch[node].numCitations +
+      '" href="' + (searchedBranch[node].hasOwnProperty('urlVersionsList') ? searchedBranch[node].urlVersionsList : (searchedBranch[node].hasOwnProperty('searchedBranch[node].pdf') ? searchedBranch[node].pdf : searchedBranch[node].url)).replace(/&/g, '&amp;') + '"];\n' + node + ';\n';
+  }
+
+  viz.renderSVGElement('digraph Enlarge{\nnode [style=filled fontcolor=white];\n' +
+      graphTextVars + graphTextCons +
+      '\n}')
+    .then(function(element) {
+      document.getElementById('graph').innerHTML = '<a onclick="openSVG(this)" data-href="' + encodeURIComponent(element.outerHTML) + '">' + element.outerHTML + '</a>';
+      fixExternalLinks();
+    })
+    .catch(error => {
+      viz = new Viz();
+      console.error(error);
+    });
+}
+
+function compareRelevance(a, b) {
+  return b.relevance - a.relevance;
+}
+
+function compareCitations(a, b) {
+  return b.numCitations - a.numCitations;
+}
+
+/**
+ * printRelevent - prints the most relevent results from a traversal
+ *
+ * @param  {object} searchedBranch object of all searched articles
+ */
+function printRelevent(searchedBranch) {
+  let allArticles = [];
+  for(let i in searchedBranch) {
+    allArticles.push(searchedBranch[i]);
+  }
+
+  allArticles.sort(compareRelevance);
+
+  console.log('\nMost Relevent:');
+  console.log(allArticles.slice(0, 10).map(prettyMap).join('\n'));
+
+  allArticles.sort(compareCitations);
+
+  console.log('\nMost cited:');
+  console.log(allArticles.slice(0, 10).map(prettyMap).join('\n'));
+}
+
+/**
+ * buildArticleGraph - Builds and prints the article graph
+ *
+ * @param  {number} searches number of queries to make
+ * @param  {[arguments]} args the same arguments as searchArticles in args
+ */
+async function buildArticleGraph(searches, args) {
+  progressBar.max = searches * 2 + 2;
+  let root = await searchArticles(...args);
+  progressBar.max = searches * 2 + 2 + root.length;
+  progressBar.value++;
+  let searched = {};
+  let searchedBranch = {};
+  let queued = [];
+  try {
+    for(let i = 0; i < root.length; i++) {
+      branch(1, root[i], false, searched, searchedBranch, queued, i);
+    }
+    for(let i = 0; i < searches; i++) {
+      //console.log(i + '/' + searches + ' searched');
+      await nextBranch(searched, searchedBranch, queued);
+      if(abortSearch) { throw 'aborting'; }
+    }
+  } catch (e) {
+    if(!abortSearch) {
+      console.error(e);
+    }
+  }
+
+  progressBar.style.display = "none";
+  renderGraph(searched, searchedBranch);
+
+  console.log('Finished searching: ' + args[0]);
+
+  //printRelevent(searchedBranch);
+}
+
+/**
+ * titlesMap - function used to map articles to article titles
+ *
+ * @param  {Article} article source article
+ * @return {string} title
+ */
+function titlesMap(article) {
+  return article.title;
+}
+
+/*
+Reset = "\x1b[0m"
+Bright = "\x1b[1m"
+Dim = "\x1b[2m"
+Underscore = "\x1b[4m"
+Blink = "\x1b[5m"
+Reverse = "\x1b[7m"
+Hidden = "\x1b[8m"
+FgBlack = "\x1b[30m"
+FgRed = "\x1b[31m"
+FgGreen = "\x1b[32m"
+FgYellow = "\x1b[33m"
+FgBlue = "\x1b[34m"
+FgMagenta = "\x1b[35m"
+FgCyan = "\x1b[36m"
+FgWhite = "\x1b[37m"
+BgBlack = "\x1b[40m"
+BgRed = "\x1b[41m"
+BgGreen = "\x1b[42m"
+BgYellow = "\x1b[43m"
+BgBlue = "\x1b[44m"
+BgMagenta = "\x1b[45m"
+BgCyan = "\x1b[46m"
+BgWhite = "\x1b[47m"
+*/
+function prettyMap(article) {
+  return `\x1b[34m${(''+article.numCitations).padStart(7,' ')}\x1b[35m - ${article.year}\x1b[32m ${article.title}\x1b[0m`;
+}
+
+var searching = true;
+async function main() {
+  abortSearch = false;
+  abortSearchBtn.style.display = "inline";
+  await buildArticleGraph(Searches, [document.getElementById('q').value.replace(/  +/g, ' ').toLowerCase().trim()]);
+  if(started) {
+    setAutoComplete();
+  }
+  searching = false;
+  abortSearchBtn.style.display = "none";
+}
+
+function openSVG(a) {
+  fs.writeFileSync('src/graph.svg', decodeURIComponent(a.dataset["href"]));
+  window.open('graph.svg', '_blank', 'nodeIntegration=no');
+}
+
+function fixExternalLinks() {
+  document.querySelectorAll('a').forEach(function(link) {
+    if(link.hasAttribute('target') == false) {
+      link.setAttribute('target', '_blank');
+    }
+  })
+}
+document.addEventListener("DOMContentLoaded", fixExternalLinks);
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+var cookie = document.getElementById("cookie");
+var userAgent = document.getElementById("userAgent");
+
+var awaitingCookie = false;
+async function promptCookie() {
+  cookie.value = '';
+  userAgent.value = document.getElementById('userAgentSetting').value;
+  awaitingCookie = true;
+  modal.style.display = "block";
+  cookie.focus();
+  while(awaitingCookie) {
+    await sleep(50);
+  }
+  if(cookie.value) {
+    document.getElementById('cookieSetting').value = cookie.value;
+  }
+  if(userAgent.value) {
+    document.getElementById('userAgentSetting').value = userAgent.value;
+  }
+  return { cookie: cookie.value, userAgent: userAgent.value };
+}
+
+// When the user clicks on <span> (x), close the modal
+function submitModal() {
+  modal.style.display = "none";
+  awaitingCookie = false;
+  return false;
+}
+
+var settingsModal = document.getElementById("settingsModal");
+
+// When the user clicks on <span> (x), close the modal
+function closeModal() {
+  settingsModal.style.display = "none";
+}
+
+function openModal() {
+  settingsModal.style.display = "block";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if(event.target == settingsModal) {
+    settingsModal.style.display = "none";
+  }
+}
+
+htmlIndexWeight = document.getElementById('indexSetting');
+htmlStepWeight = document.getElementById('stepSetting');
+
+htmlIndexWeight.onchange = function() {
+  IndexWeight = tanh(this.value / 1000);
+}
+
+htmlStepWeight.onchange = function() {
+  StepWeight = tanh(this.value / 1000);
+}
+
+document.getElementById('sleepSetting').onchange = function() {
+  Sleep = this.value / 60;
+  if(!(this.value * 1)) {
+    this.value = 18;
+    Sleep = 0.3;
+  }
+}
+
+document.getElementById('pagesSetting').onchange = function() {
+  MaximumArticles = (this.value - 1) * 10 + 1;
+  if(!(this.value * 1)) {
+    MaximumArticles = 1;
+    this.value = 1;
+  }
+}
+
+document.getElementById('cookieSetting').onchange = function() {
+  ipcRenderer.sendSync('synchronous-message', JSON.stringify({ cookie: this.value, userAgent: '' }));
+}
+
+document.getElementById('userAgentSetting').onchange = function() {
+  ipcRenderer.sendSync('synchronous-message', JSON.stringify({ cookie: '', userAgent: this.value }));
+}
+
+var mlt = 0.2;
+
+function getM() {
+  return 2 - (2 - htmlMinimumRelevance.value / 100) * (1 + Math.pow(htmlIndexWeight.value / 1000 + htmlStepWeight.value / 1000 - 1, 3) * mlt);
+}
+MinimumRelevance = Math.pow(getM() * 3, 3) / 3;
+
+function submitSearch() {
+  if(searching) { return; }
+  searching = true;
+  MinimumRelevance = Math.pow(getM() * 3, 3) / 3;
+  Searches = htmlSearches.value;
+  AllowUnconnected = htmlAllowUnconnected.checked;
+
+  progressBar.style.display = "inline";
+  progressBar.value = 0;
+
+  document.getElementById('graph').innerHTML = '';
+
+  main();
+}
+
+function forceSearch() {
+  forceQuery = true;
+  submitSearch();
+  forceQuery = false;
+}
+
+main();
