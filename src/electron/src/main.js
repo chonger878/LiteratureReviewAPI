@@ -16,7 +16,7 @@ var MinimumRelevance;
 var Searches = htmlSearches.value;
 var AllowUnconnected = htmlAllowUnconnected.checked;
 
-const CitationMinimum = 1; // How many citations needed to search
+const CitationMinimum = 5; // How many citations needed to search
 var MaximumArticles = 1; // Most articles searched (rounded up to the nearest page) (each page has ~10 articles)
 
 var Sleep = 0.3; // how many minutes maximum to wait between calls (minimum is 1/3)
@@ -38,8 +38,9 @@ function tanh(x) {
   return Math.tanh((x - 0.5) * 5) * 0.50675 + 0.5
 }
 
-var IndexWeight = tanh(0.3);
-var StepWeight = tanh(0.4);
+var IndexWeight = tanh(0.5);
+var StepWeight = tanh(0.5);
+var Presearch = 5;
 
 /**
  * sleep - wait a sepcified time before continuing execution
@@ -53,6 +54,11 @@ function sleep(ms) {
   });
 }
 
+function sleepDuration() {
+  //offset Bell curve of delay to maybe look more human
+  return (Math.random() * 20000 + Math.random() * 10000 + Math.random() * 10000 + 20000) * Sleep;
+}
+
 let started = false;
 
 async function getArticles(url, searched, searchedBranch) {
@@ -63,7 +69,7 @@ async function getArticles(url, searched, searchedBranch) {
     if(abortSearch) { throw 'aborting'; }
     if(started && Sleep) {
       //offset Bell curve of delay to maybe look more human
-      let ms = (Math.random() * 20000 + Math.random() * 10000 + Math.random() * 10000 + 20000) * Sleep;
+      let ms = sleepDuration();
       console.log('sleep for ' + (ms / 10 >> 0) / 100 + ' seconds');
       if(ms > 1000) {
         renderGraph(searched, searchedBranch);
@@ -126,13 +132,15 @@ let allData = JSON.parse(JSON.stringify(Data));
  * @return {[Article Object]} Article object Array
  */
 async function queryDatabase(search, searched, searchedBranch) {
-  if(forceQuery || !Data.hasOwnProperty(search) || Data[search].length <= 0) {
+  if(forceQuery || !Data.hasOwnProperty(search) || allData[search][0].p < (MaximumArticles + 9) / 10) {
     //find and save to file if not available
     Data[search] = await getArticles(search, searched, searchedBranch);
+    Data[search][0].p = (MaximumArticles + 9) / 10;
+    console.log(Data[search].map(prettyMap).join('\n'));
     allData[search] = JSON.parse(JSON.stringify(Data[search]));
-    fs.writeFileSync('src/data.js', "var Data=" + JSON.stringify(allData));
+    fs.writeFileSync('data.js', "var Data=" + JSON.stringify(allData));
   }
-  return Data[search];
+  return JSON.parse(JSON.stringify(allData[search]));
 }
 
 /**
@@ -185,6 +193,46 @@ function getArticleID(article) {
 }
 var parentWeight = 1;
 
+function stepValue(steps) {
+  var val = steps.length * 2;
+  for(var i = 0; i < steps.length; i++) {
+    val += (1 + steps[i]) * Math.pow(StepWeight * 4, 1 + i);
+  }
+  return val;
+}
+
+function counterWeight(v, x) {
+  return -Math.log(v) * Math.pow(v, x);
+}
+
+/**
+ * articleRelevance - dtermines the initial relevance value of an article
+ *
+ * @param  {Article Object} article article object
+ * @param  {array} steps the steps away from the original search
+ * @param  {number} index the index on the page
+ * @return {number} initial relevancy value of the article
+ */
+function articleRelevance(article, steps, index) {
+  return (
+      -1 / Math.pow(2,
+        Math.log(article.numCitations / 1000 + 1) / Math.log(10)) +
+      1 +
+      Math.min(1, 1.4 / (Math.abs(article.year - 1900) / 50 + 1))
+    ) *
+    //Math.pow(1 - IndexWeight, stepValue(steps))
+    (2 * counterWeight(1 - IndexWeight, stepValue(steps) / 10));
+}
+
+function formatArticle(article, steps, index, searchedBranch) {
+  let articleID = getArticleID(article);
+  searchedBranch[articleID] = article;
+  article.visits = 1;
+  article.steps = steps.concat(index);
+  article.relevance = articleRelevance(article, article.steps, index);
+  article.base = article.relevance;
+}
+
 function branch(steps, article, parent, searched, searchedBranch, queued, index) {
   let parentID = parent ? getArticleID(parent) : false;
   let articleID = getArticleID(article);
@@ -193,36 +241,37 @@ function branch(steps, article, parent, searched, searchedBranch, queued, index)
   }
   if(parent) {
     searched[parentID + '->' + articleID] = true;
-    //parent.relevance += (-1 / Math.pow(2, Math.log(article.numCitations / 1000 + 1) / Math.log(10)) + 1) * Math.pow(1 - IndexWeight, index + 5)/100*parentWeight;
   }
   if(searchedBranch.hasOwnProperty(articleID)) {
-    //searchedBranch[articleID].visits++;
-    searchedBranch[articleID].steps = Math.min(steps, searchedBranch[articleID].steps);
-    searchedBranch[articleID].relevance += searchedBranch[articleID].base;
+    if(stepValue(steps.concat(index)) < stepValue(searchedBranch[articleID].steps)) {
+      searchedBranch[articleID].steps = steps.concat(index);
+    }
+    searchedBranch[articleID].relevance += searchedBranch[articleID].base / (1 + searchedBranch[articleID].visits / 4);
+    searchedBranch[articleID].visits++;
     return;
   }
-  searchedBranch[articleID] = article;
-  article.visits = 1;
-  article.steps = steps;
-  article.relevance = (-1 / Math.pow(2, Math.log(article.numCitations / 1000 + 1) / Math.log(10)) + 1 + Math.min(1, 1.4 / (Math.abs(article.year - 1900) / 50 + 1))) * Math.pow(1 - StepWeight, steps) * Math.pow(1 - IndexWeight, index);
-  article.base = article.relevance;
 
-  queued.push({ steps: steps, article: article, parent: parent });
+  formatArticle(article, steps, index, searchedBranch);
+
+  if(article.numCitations > CitationMinimum){
+    queued.push({ steps: steps, article: article, parent: parent });
+  }
 }
 
-async function searchBranch(steps, article, parent, searched, searchedBranch, queued) {
+async function searchBranch(steps, article, searched, searchedBranch, queued) {
+  console.log(article.steps + '\n' + article.relevance + ' --> ' + article.title);
   if(abortSearch) { throw 'aborting'; }
-  progressBar.value++;
   let children = await getChildrenArticles(article, searched, searchedBranch);
+  progressBar.value++;
   for(let i = 0; i < children.length; i++) {
-    branch(steps + 1, children[i], article, searched, searchedBranch, queued, i);
+    branch(steps, children[i], article, searched, searchedBranch, queued, i);
   }
 
   if(abortSearch) { throw 'aborting'; }
-  progressBar.value++;
   let neighbors = await getNeighborArticles(article, searched, searchedBranch);
+  progressBar.value++;
   for(let i = 0; i < neighbors.length; i++) {
-    branch(steps + 1, neighbors[i], false, searched, searchedBranch, queued, i);
+    branch(steps, neighbors[i], false, searched, searchedBranch, queued, i);
   }
 }
 
@@ -247,7 +296,7 @@ async function nextBranch(searched, searchedBranch, queued) {
   }
   let best = queued.splice(bestCandidate[1], 1)[0];
   try {
-    await searchBranch(best.article.steps, best.article, best.parent, searched, searchedBranch, queued);
+    await searchBranch(best.article.steps, best.article, searched, searchedBranch, queued);
   } catch (e) {
     console.error(e);
   }
@@ -299,7 +348,7 @@ function renderGraph(searched, searchedBranch) {
       '" href="' + (searchedBranch[node].hasOwnProperty('urlVersionsList') ? searchedBranch[node].urlVersionsList : (searchedBranch[node].hasOwnProperty('searchedBranch[node].pdf') ? searchedBranch[node].pdf : searchedBranch[node].url)).replace(/&/g, '&amp;') + '"];\n' + node + ';\n';
   }
 
-  viz.renderSVGElement('digraph Enlarge{\nnode [style=filled fontcolor=white];\n' +
+  viz.renderSVGElement('digraph Enlarge{\nnode [style=filled fontcolor=white shape=rectangle];\n' +
       graphTextVars + graphTextCons +
       '\n}')
     .then(function(element) {
@@ -349,16 +398,28 @@ function printRelevent(searchedBranch) {
  * @param  {[arguments]} args the same arguments as searchArticles in args
  */
 async function buildArticleGraph(searches, args) {
-  progressBar.max = searches * 2 + 2;
+  progressBar.max = (searches * 1 + Presearch) * 2 + 2;
   let root = await searchArticles(...args);
-  progressBar.max = searches * 2 + 2 + root.length;
+  progressBar.max = (searches * 1 + Math.min(Presearch, root.length)) * 2 + 2;
   progressBar.value++;
   let searched = {};
   let searchedBranch = {};
   let queued = [];
   try {
     for(let i = 0; i < root.length; i++) {
-      branch(1, root[i], false, searched, searchedBranch, queued, i);
+      branch([], root[i], false, searched, searchedBranch, queued, i);
+    }
+    for(let i = 0; i < Presearch && root.length > 0; i++) {
+      //let article = root.shift();
+      //formatArticle(article, [], i, searchedBranch);
+      let articleID = getArticleID(root[i]);
+      for(let j = 0; j < queued.length; j++) {
+        if(getArticleID(queued[j].article) === articleID) {
+          await searchBranch([j], queued.splice(j, 1)[0].article, searched, searchedBranch, queued);
+          j = Infinity;
+        }
+      }
+      if(abortSearch) { throw 'aborting'; }
     }
     for(let i = 0; i < searches; i++) {
       //console.log(i + '/' + searches + ' searched');
@@ -496,6 +557,8 @@ window.onclick = function(event) {
 
 htmlIndexWeight = document.getElementById('indexSetting');
 htmlStepWeight = document.getElementById('stepSetting');
+htmlPresearch = document.getElementById('presearchSetting');
+htmlMaxDepth = document.getElementById('maxDepthSetting');
 
 htmlIndexWeight.onchange = function() {
   IndexWeight = tanh(this.value / 1000);
@@ -503,6 +566,15 @@ htmlIndexWeight.onchange = function() {
 
 htmlStepWeight.onchange = function() {
   StepWeight = tanh(this.value / 1000);
+}
+
+htmlPresearch.onchange = function() {
+  Presearch = this.value;
+}
+
+htmlMaxDepth.onchange = function() {
+  htmlSearches.max = Math.abs(this.value);
+  htmlSearches.value = Math.min(Math.abs(this.value), htmlSearches.value);
 }
 
 document.getElementById('sleepSetting').onchange = function() {
@@ -532,11 +604,12 @@ document.getElementById('userAgentSetting').onchange = function() {
 var mlt = 0.2;
 
 function getM() {
-  return 2 - (2 - htmlMinimumRelevance.value / 100) * (1 + Math.pow(htmlIndexWeight.value / 1000 + htmlStepWeight.value / 1000 - 1, 3) * mlt);
+  return 2 - (2 - htmlMinimumRelevance.value / 100);
+  //return 2 - (2 - htmlMinimumRelevance.value / 100) * (1 + //Math.pow(htmlIndexWeight.value / 1000 + htmlStepWeight.value / 1000 - 1, 3) * mlt);
 }
 MinimumRelevance = Math.pow(getM() * 3, 3) / 3;
 
-function submitSearch() {
+async function submitSearch() {
   if(searching) { return; }
   searching = true;
   MinimumRelevance = Math.pow(getM() * 3, 3) / 3;
@@ -548,12 +621,12 @@ function submitSearch() {
 
   document.getElementById('graph').innerHTML = '';
 
-  main();
+  await main();
 }
 
-function forceSearch() {
+async function forceSearch() {
   forceQuery = true;
-  submitSearch();
+  await submitSearch();
   forceQuery = false;
 }
 

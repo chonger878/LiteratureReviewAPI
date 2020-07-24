@@ -1,393 +1,303 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="3134pt" height="476pt" viewBox="0.00 0.00 3133.93 476.00">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 472)">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2935pt" height="332pt" viewBox="0.00 0.00 2934.85 332.00">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 328)">
 <title>Enlarge</title>
-<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-472 3129.9302,-472 3129.9302,4 -4,4"/>
-<!-- 12504914539551188033 -->
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-328 2930.8505,-328 2930.8505,4 -4,4"/>
+<!-- 11271715224505907933 -->
 <g id="node1" class="node">
-<title>12504914539551188033</title>
-<g id="a_node1"><a xlink:href="http://scholar.google.com/scholar?cluster=12504914539551188033&amp;hl=en&amp;as_sdt=0,5" xlink:title="JS Mbiti - 1990 - citated by 8203">
-<ellipse fill="#917c6e" stroke="#917c6e" cx="1882.5517" cy="-450" rx="131.9872" ry="18"/>
-<text text-anchor="middle" x="1882.5517" y="-445.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">African religions &amp; philosophy</text>
+<title>11271715224505907933</title>
+<g id="a_node1"><a xlink:href="http://scholar.google.com/scholar?cluster=11271715224505907933&amp;hl=en&amp;as_sdt=0,5" xlink:title="L Prandtl - 1921, ntrs.nasa.gov - citated by 358">
+<polygon fill="#961669" stroke="#961669" points="497.165,-324 176.324,-324 176.324,-288 497.165,-288 497.165,-324"/>
+<text text-anchor="middle" x="336.7445" y="-301.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Applications of modern hydrodynamics to aeronautics</text>
 </a>
 </g>
 </g>
-<!-- 2516435261102596325 -->
-<g id="node2" class="node">
-<title>2516435261102596325</title>
-<g id="a_node2"><a xlink:href="http://scholar.google.com/scholar?cluster=2516435261102596325&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="P Gilroy - 2013 - citated by 6738">
-<ellipse fill="#92756d" stroke="#92756d" cx="1882.5517" cy="-378" rx="159.1592" ry="18"/>
-<text text-anchor="middle" x="1882.5517" y="-373.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">There ain't no black in the Union Jack</text>
-</a>
-</g>
-</g>
-<!-- 12504914539551188033&#45;&gt;2516435261102596325 -->
-<g id="edge1" class="edge">
-<title>12504914539551188033-&gt;2516435261102596325</title>
-<path fill="none" stroke="#000000" d="M1882.5517,-431.8314C1882.5517,-424.131 1882.5517,-414.9743 1882.5517,-406.4166"/>
-<polygon fill="#000000" stroke="#000000" points="1886.0518,-406.4132 1882.5517,-396.4133 1879.0518,-406.4133 1886.0518,-406.4132"/>
-</g>
-<!-- 17634302101398410853 -->
+<!-- 16169130590293237044 -->
 <g id="node3" class="node">
-<title>17634302101398410853</title>
-<g id="a_node3"><a xlink:href="http://scholar.google.com/scholar?cluster=17634302101398410853&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="D Held - 2000, Springer - citated by 11364">
-<ellipse fill="#9c8763" stroke="#9c8763" cx="2608.5517" cy="-90" rx="226.2417" ry="18"/>
-<text text-anchor="middle" x="2608.5517" y="-85.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Global transformations: Politics, economics and culture</text>
+<title>16169130590293237044</title>
+<g id="a_node3"><a xlink:href="http://scholar.google.com/scholar?cluster=16169130590293237044&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="RT Jones - 1950 - citated by 108">
+<polygon fill="#a0075f" stroke="#a0075f" points="673.7337,-252 -.2447,-252 -.2447,-216 673.7337,-216 673.7337,-252"/>
+<text text-anchor="middle" x="336.7445" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">The spanwise distribution of lift for minimum induced drag of wings having a given lift and a given bending moment</text>
 </a>
 </g>
 </g>
-<!-- 2516435261102596325&#45;&gt;17634302101398410853 -->
-<g id="edge2" class="edge">
-<title>2516435261102596325-&gt;17634302101398410853</title>
-<path fill="none" stroke="#000000" d="M1926.3313,-360.6329C2052.3708,-310.6337 2415.8875,-166.4288 2554.2258,-111.5508"/>
-<polygon fill="#000000" stroke="#000000" points="2555.786,-114.6973 2563.7907,-107.7565 2553.2047,-108.1906 2555.786,-114.6973"/>
+<!-- 11271715224505907933&#45;&gt;16169130590293237044 -->
+<g id="edge1" class="edge">
+<title>11271715224505907933-&gt;16169130590293237044</title>
+<path fill="none" stroke="#000000" d="M336.7445,-287.8314C336.7445,-280.131 336.7445,-270.9743 336.7445,-262.4166"/>
+<polygon fill="#000000" stroke="#000000" points="340.2446,-262.4132 336.7445,-252.4133 333.2446,-262.4133 340.2446,-262.4132"/>
 </g>
-<!-- 8895020789468159235 -->
-<g id="node4" class="node">
-<title>8895020789468159235</title>
-<g id="a_node4"><a xlink:href="http://scholar.google.com/scholar?cluster=8895020789468159235&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="HK Bhabha - 2012 - citated by 51316">
-<ellipse fill="#5db1a2" stroke="#5db1a2" cx="1364.5517" cy="-306" rx="99.0195" ry="18"/>
-<text text-anchor="middle" x="1364.5517" y="-301.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">The location of culture</text>
+<!-- 14508574582001423339 -->
+<g id="node2" class="node">
+<title>14508574582001423339</title>
+<g id="a_node2"><a xlink:href="http://scholar.google.com/scholar?cluster=14508574582001423339&amp;hl=en&amp;as_sdt=0,5" xlink:title="R Langtry - 2005, arc.aiaa.org - citated by 416">
+<polygon fill="#971968" stroke="#971968" points="2665.7033,-252 2287.7857,-252 2287.7857,-216 2665.7033,-216 2665.7033,-252"/>
+<text text-anchor="middle" x="2476.7445" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Transition modeling for general CFD applications in aeronautics</text>
 </a>
 </g>
 </g>
-<!-- 2516435261102596325&#45;&gt;8895020789468159235 -->
-<g id="edge3" class="edge">
-<title>2516435261102596325-&gt;8895020789468159235</title>
-<path fill="none" stroke="#000000" d="M1781.7544,-363.9896C1686.4356,-350.7406 1544.7778,-331.0507 1453.5408,-318.3691"/>
-<polygon fill="#000000" stroke="#000000" points="1453.8844,-314.8833 1443.4977,-316.9732 1452.9206,-321.8167 1453.8844,-314.8833"/>
-</g>
-<!-- 4751244568289669032 -->
+<!-- 7865638114333325652 -->
 <g id="node5" class="node">
-<title>4751244568289669032</title>
-<g id="a_node5"><a xlink:href="http://scholar.google.com/scholar?cluster=4751244568289669032&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="S Castles - 1998 - citated by 12903">
-<ellipse fill="#bc8b43" stroke="#bc8b43" cx="2807.5517" cy="-18" rx="318.2569" ry="18"/>
-<text text-anchor="middle" x="2807.5517" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">The age of migration: International population movements in the modern world</text>
+<title>7865638114333325652</title>
+<g id="a_node5"><a xlink:href="http://scholar.google.com/scholar?cluster=7865638114333325652&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="FR Menter - 2006, Springer - citated by 544">
+<polygon fill="#911f6e" stroke="#911f6e" points="2693.0014,-180 2380.4876,-180 2380.4876,-144 2693.0014,-144 2693.0014,-180"/>
+<text text-anchor="middle" x="2536.7445" y="-157.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Transition modelling for general purpose CFD codes</text>
 </a>
 </g>
 </g>
-<!-- 2516435261102596325&#45;&gt;4751244568289669032 -->
-<g id="edge4" class="edge">
-<title>2516435261102596325-&gt;4751244568289669032</title>
-<path fill="none" stroke="#000000" d="M2030.3287,-371.261C2304.1006,-356.7873 2862.5517,-317.081 2862.5517,-234 2862.5517,-234 2862.5517,-234 2862.5517,-162 2862.5517,-121.1184 2859.3976,-109.6858 2843.5517,-72 2839.5325,-62.4411 2833.7505,-52.7762 2827.9926,-44.3168"/>
-<polygon fill="#000000" stroke="#000000" points="2830.7222,-42.1157 2822.0759,-35.9926 2825.0166,-46.1711 2830.7222,-42.1157"/>
+<!-- 14508574582001423339&#45;&gt;7865638114333325652 -->
+<g id="edge2" class="edge">
+<title>14508574582001423339-&gt;7865638114333325652</title>
+<path fill="none" stroke="#000000" d="M2491.885,-215.8314C2498.8662,-207.454 2507.2836,-197.3531 2514.9321,-188.1749"/>
+<polygon fill="#000000" stroke="#000000" points="2517.687,-190.3362 2521.4001,-180.4133 2512.3094,-185.8548 2517.687,-190.3362"/>
 </g>
-<!-- 15978994271464047581 -->
-<g id="node6" class="node">
-<title>15978994271464047581</title>
-<g id="a_node6"><a xlink:href="http://scholar.google.com/scholar?cluster=15978994271464047581&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="A Brah - 1996 - citated by 7018">
-<ellipse fill="#bb7644" stroke="#bb7644" cx="195.5517" cy="-18" rx="195.6035" ry="18"/>
-<text text-anchor="middle" x="195.5517" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Cartographies of diaspora: Contesting identities</text>
-</a>
-</g>
-</g>
-<!-- 2516435261102596325&#45;&gt;15978994271464047581 -->
-<g id="edge5" class="edge">
-<title>2516435261102596325-&gt;15978994271464047581</title>
-<path fill="none" stroke="#000000" d="M1730.0207,-372.7735C1317.3143,-357.6295 209.5517,-309.9105 209.5517,-234 209.5517,-234 209.5517,-234 209.5517,-162 209.5517,-121.6868 204.049,-75.322 199.9433,-46.3387"/>
-<polygon fill="#000000" stroke="#000000" points="203.3609,-45.5197 198.4526,-36.1304 196.4344,-46.5313 203.3609,-45.5197"/>
-</g>
-<!-- 12499822361791312923 -->
-<g id="node7" class="node">
-<title>12499822361791312923</title>
-<g id="a_node7"><a xlink:href="http://scholar.google.com/scholar?cluster=12499822361791312923&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="R Cohen - 2008 - citated by 6949">
-<ellipse fill="#c2763d" stroke="#c2763d" cx="1882.5517" cy="-18" rx="142.9414" ry="18"/>
-<text text-anchor="middle" x="1882.5517" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Global diasporas: An introduction</text>
-</a>
-</g>
-</g>
-<!-- 2516435261102596325&#45;&gt;12499822361791312923 -->
-<g id="edge6" class="edge">
-<title>2516435261102596325-&gt;12499822361791312923</title>
-<path fill="none" stroke="#000000" d="M1882.5517,-359.8146C1882.5517,-332.4983 1882.5517,-279.25 1882.5517,-234 1882.5517,-234 1882.5517,-234 1882.5517,-162 1882.5517,-121.876 1882.5517,-75.4631 1882.5517,-46.4177"/>
-<polygon fill="#000000" stroke="#000000" points="1886.0518,-46.1853 1882.5517,-36.1854 1879.0518,-46.1854 1886.0518,-46.1853"/>
-</g>
-<!-- 17634302101398410853&#45;&gt;4751244568289669032 -->
-<g id="edge32" class="edge">
-<title>17634302101398410853-&gt;4751244568289669032</title>
-<path fill="none" stroke="#000000" d="M2657.2326,-72.3868C2684.8349,-62.4001 2719.5696,-49.8328 2748.6942,-39.2952"/>
-<polygon fill="#000000" stroke="#000000" points="2750.1251,-42.4996 2758.3378,-35.8061 2747.7435,-35.9172 2750.1251,-42.4996"/>
-</g>
-<!-- 17726099032858617564 -->
-<g id="node21" class="node">
-<title>17726099032858617564</title>
-<g id="a_node21"><a xlink:href="http://scholar.google.com/scholar?cluster=17726099032858617564&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="M Castells - 2011 - citated by 43475">
-<ellipse fill="#9ead61" stroke="#9ead61" cx="2230.5517" cy="-18" rx="130.8009" ry="18"/>
-<text text-anchor="middle" x="2230.5517" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">The rise of the network society</text>
-</a>
-</g>
-</g>
-<!-- 17634302101398410853&#45;&gt;17726099032858617564 -->
-<g id="edge31" class="edge">
-<title>17634302101398410853-&gt;17726099032858617564</title>
-<path fill="none" stroke="#000000" d="M2521.3563,-73.3913C2460.1188,-61.7271 2378.5573,-46.1915 2317.3974,-34.542"/>
-<polygon fill="#000000" stroke="#000000" points="2317.8581,-31.0669 2307.3797,-32.6339 2316.5482,-37.9433 2317.8581,-31.0669"/>
-</g>
-<!-- 14934251741208384689 -->
-<g id="node10" class="node">
-<title>14934251741208384689</title>
-<g id="a_node10"><a xlink:href="http://scholar.google.com/scholar?cluster=14934251741208384689&amp;hl=en&amp;as_sdt=0,5" xlink:title="EW Said - 1979 - citated by 64632">
-<ellipse fill="#6ab695" stroke="#6ab695" cx="865.5517" cy="-234" rx="56.7542" ry="18"/>
-<text text-anchor="middle" x="865.5517" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Orientalism</text>
-</a>
-</g>
-</g>
-<!-- 8895020789468159235&#45;&gt;14934251741208384689 -->
-<g id="edge8" class="edge">
-<title>8895020789468159235-&gt;14934251741208384689</title>
-<path fill="none" stroke="#000000" d="M1286.8569,-294.7895C1187.6815,-280.4796 1018.1023,-256.0113 927.2776,-242.9063"/>
-<polygon fill="#000000" stroke="#000000" points="927.5334,-239.4071 917.136,-241.443 926.5337,-246.3353 927.5334,-239.4071"/>
-</g>
-<!-- 565973843446095528 -->
-<g id="node13" class="node">
-<title>565973843446095528</title>
-<g id="a_node13"><a xlink:href="http://scholar.google.com/scholar?cluster=565973843446095528&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="D Massey - 2005 - citated by 10949">
-<ellipse fill="#c0863f" stroke="#c0863f" cx="1483.5517" cy="-18" rx="48.1138" ry="18"/>
-<text text-anchor="middle" x="1483.5517" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">For space</text>
-</a>
-</g>
-</g>
-<!-- 8895020789468159235&#45;&gt;565973843446095528 -->
-<g id="edge7" class="edge">
-<title>8895020789468159235-&gt;565973843446095528</title>
-<path fill="none" stroke="#000000" d="M1363.5203,-287.6952C1362.4606,-256.8014 1363.233,-192.9009 1383.5517,-144 1400.3763,-103.5085 1434.1786,-65.2898 1457.8048,-41.7869"/>
-<polygon fill="#000000" stroke="#000000" points="1460.3676,-44.1764 1465.0836,-34.689 1455.4805,-39.1647 1460.3676,-44.1764"/>
-</g>
-<!-- 13512913374545888922 -->
-<g id="node8" class="node">
-<title>13512913374545888922</title>
-<g id="a_node8"><a xlink:href="http://scholar.google.com/scholar?cluster=13512913374545888922&amp;hl=en&amp;as_sdt=0,5" xlink:title="B Anderson - 2006 - citated by 108516">
-<ellipse fill="#56c0a9" stroke="#56c0a9" cx="700.5517" cy="-162" rx="302.6169" ry="18"/>
-<text text-anchor="middle" x="700.5517" y="-157.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Imagined communities: Reflections on the origin and spread of nationalism</text>
-</a>
-</g>
-</g>
-<!-- 1770780549409130706 -->
-<g id="node11" class="node">
-<title>1770780549409130706</title>
-<g id="a_node11"><a xlink:href="http://scholar.google.com/scholar?cluster=1770780549409130706&amp;hl=en&amp;as_sdt=0,5" xlink:title="S Hall - 1990, warwick.ac.uk - citated by 12835">
-<ellipse fill="#9b8b64" stroke="#9b8b64" cx="1044.5517" cy="-90" rx="126.1846" ry="18"/>
-<text text-anchor="middle" x="1044.5517" y="-85.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Cultural identity and diaspora</text>
-</a>
-</g>
-</g>
-<!-- 13512913374545888922&#45;&gt;1770780549409130706 -->
-<g id="edge14" class="edge">
-<title>13512913374545888922-&gt;1770780549409130706</title>
-<path fill="none" stroke="#000000" d="M783.3861,-144.6626C838.0363,-133.2242 909.2864,-118.3113 963.5583,-106.9521"/>
-<polygon fill="#000000" stroke="#000000" points="964.4158,-110.3486 973.4866,-104.8741 962.9817,-103.497 964.4158,-110.3486"/>
-</g>
-<!-- 8359082072951310061 -->
-<g id="node14" class="node">
-<title>8359082072951310061</title>
-<g id="a_node14"><a xlink:href="http://scholar.google.com/scholar?cluster=8359082072951310061&amp;hl=en&amp;as_sdt=0,5" xlink:title="EW Said - 2012 - citated by 28214">
-<ellipse fill="#97a268" stroke="#97a268" cx="577.5517" cy="-90" rx="104.8118" ry="18"/>
-<text text-anchor="middle" x="577.5517" y="-85.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Culture and imperialism</text>
-</a>
-</g>
-</g>
-<!-- 13512913374545888922&#45;&gt;8359082072951310061 -->
-<g id="edge15" class="edge">
-<title>13512913374545888922-&gt;8359082072951310061</title>
-<path fill="none" stroke="#000000" d="M669.8309,-144.0171C653.5919,-134.5113 633.4952,-122.7474 616.2064,-112.6271"/>
-<polygon fill="#000000" stroke="#000000" points="617.8549,-109.5366 607.4566,-107.5053 614.3187,-115.5777 617.8549,-109.5366"/>
-</g>
-<!-- 881176282422406888 -->
-<g id="node16" class="node">
-<title>881176282422406888</title>
-<g id="a_node16"><a xlink:href="http://scholar.google.com/scholar?cluster=881176282422406888&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="M Castells - 2011 - citated by 12395">
-<ellipse fill="#c18a3e" stroke="#c18a3e" cx="359.5517" cy="-90" rx="94.9474" ry="18"/>
-<text text-anchor="middle" x="359.5517" y="-85.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">The power of identity</text>
-</a>
-</g>
-</g>
-<!-- 13512913374545888922&#45;&gt;881176282422406888 -->
-<g id="edge12" class="edge">
-<title>13512913374545888922-&gt;881176282422406888</title>
-<path fill="none" stroke="#000000" d="M618.4398,-144.6626C561.9471,-132.7345 487.5603,-117.0282 433.0249,-105.5134"/>
-<polygon fill="#000000" stroke="#000000" points="433.5892,-102.0554 423.0818,-103.414 432.143,-108.9044 433.5892,-102.0554"/>
-</g>
-<!-- 3767129554966147446 -->
-<g id="node17" class="node">
-<title>3767129554966147446</title>
-<g id="a_node17"><a xlink:href="http://scholar.google.com/scholar?cluster=3767129554966147446&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="M Omi - 2014 - citated by 13931">
-<ellipse fill="#b38d4c" stroke="#b38d4c" cx="563.5517" cy="-18" rx="154.5291" ry="18"/>
-<text text-anchor="middle" x="563.5517" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Racial formation in the United States</text>
-</a>
-</g>
-</g>
-<!-- 13512913374545888922&#45;&gt;3767129554966147446 -->
-<g id="edge13" class="edge">
-<title>13512913374545888922-&gt;3767129554966147446</title>
-<path fill="none" stroke="#000000" d="M703.7795,-143.8719C706.2262,-124.2107 706.9339,-92.8497 691.5517,-72 680.3159,-56.7704 663.942,-45.8036 646.6355,-37.9173"/>
-<polygon fill="#000000" stroke="#000000" points="647.5265,-34.4951 636.9516,-33.8454 644.8132,-40.9479 647.5265,-34.4951"/>
-</g>
-<!-- 10247440047903882619 -->
+<!-- 13565008151859002965 -->
 <g id="node9" class="node">
-<title>10247440047903882619</title>
-<g id="a_node9"><a xlink:href="http://scholar.google.com/scholar?cluster=10247440047903882619&amp;hl=en&amp;as_sdt=0,5" xlink:title="P Gilroy - 1993 - citated by 17508">
-<ellipse fill="#8a9575" stroke="#8a9575" cx="1623.5517" cy="-162" rx="230.8908" ry="18"/>
-<text text-anchor="middle" x="1623.5517" y="-157.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">The black Atlantic: Modernity and double consciousness</text>
+<title>13565008151859002965</title>
+<g id="a_node9"><a xlink:href="http://scholar.google.com/scholar?cluster=13565008151859002965&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="I Kroo - 2001, annualreviews.org - citated by 211">
+<polygon fill="#aa0e55" stroke="#aa0e55" points="891.993,-180 523.496,-180 523.496,-144 891.993,-144 891.993,-180"/>
+<text text-anchor="middle" x="707.7445" y="-157.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">DRAG DUE TO LIFT: Concepts for Prediction and Reduction</text>
 </a>
 </g>
 </g>
-<!-- 10247440047903882619&#45;&gt;17634302101398410853 -->
-<g id="edge16" class="edge">
-<title>10247440047903882619-&gt;17634302101398410853</title>
-<path fill="none" stroke="#000000" d="M1794.8456,-149.8905C1946.8713,-139.0898 2175.0172,-122.7506 2373.5517,-108 2393.8071,-106.4951 2415.0429,-104.897 2436.1172,-103.2985"/>
-<polygon fill="#000000" stroke="#000000" points="2436.407,-106.7867 2446.1133,-102.5394 2435.8769,-99.8068 2436.407,-106.7867"/>
+<!-- 16169130590293237044&#45;&gt;13565008151859002965 -->
+<g id="edge3" class="edge">
+<title>16169130590293237044-&gt;13565008151859002965</title>
+<path fill="none" stroke="#000000" d="M429.8846,-215.9243C483.1291,-205.5911 550.0035,-192.6128 604.8023,-181.978"/>
+<polygon fill="#000000" stroke="#000000" points="605.7379,-185.3618 614.8879,-180.0207 604.4043,-178.49 605.7379,-185.3618"/>
 </g>
-<!-- 10247440047903882619&#45;&gt;12499822361791312923 -->
-<g id="edge20" class="edge">
-<title>10247440047903882619-&gt;12499822361791312923</title>
-<path fill="none" stroke="#000000" d="M1655.8306,-144.0535C1702.9066,-117.88 1790.376,-69.2483 1841.8196,-40.6464"/>
-<polygon fill="#000000" stroke="#000000" points="1843.6405,-43.6387 1850.6797,-35.7204 1840.239,-37.5207 1843.6405,-43.6387"/>
-</g>
-<!-- 15066938082645101981 -->
-<g id="node18" class="node">
-<title>15066938082645101981</title>
-<g id="a_node18"><a xlink:href="http://scholar.google.com/scholar?cluster=15066938082645101981&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="PH Collins - 2002 - citated by 30435">
-<ellipse fill="#c0a43f" stroke="#c0a43f" cx="1076.5517" cy="-18" rx="340.7851" ry="18"/>
-<text text-anchor="middle" x="1076.5517" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Black feminist thought: Knowledge, consciousness, and the politics of empowerment</text>
+<!-- 8539065900730336738 -->
+<g id="node10" class="node">
+<title>8539065900730336738</title>
+<g id="a_node10"><a xlink:href="http://scholar.google.com/scholar?cluster=8539065900730336738&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="I Kroo - 2005, Citeseer - citated by 183">
+<polygon fill="#a50c5a" stroke="#a50c5a" points="505.8509,-180 167.6381,-180 167.6381,-144 505.8509,-144 505.8509,-180"/>
+<text text-anchor="middle" x="336.7445" y="-157.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Nonplanar wing concepts for increased aircraft efficiency</text>
 </a>
 </g>
 </g>
-<!-- 10247440047903882619&#45;&gt;15066938082645101981 -->
-<g id="edge17" class="edge">
-<title>10247440047903882619-&gt;15066938082645101981</title>
-<path fill="none" stroke="#000000" d="M1574.8421,-144.3448C1519.7306,-124.8127 1427.0278,-93.2911 1345.5517,-72 1293.7057,-58.4517 1235.4787,-46.3827 1186.4914,-37.1093"/>
-<polygon fill="#000000" stroke="#000000" points="1186.9776,-33.6395 1176.5033,-35.2329 1185.6851,-40.5191 1186.9776,-33.6395"/>
+<!-- 16169130590293237044&#45;&gt;8539065900730336738 -->
+<g id="edge4" class="edge">
+<title>16169130590293237044-&gt;8539065900730336738</title>
+<path fill="none" stroke="#000000" d="M336.7445,-215.8314C336.7445,-208.131 336.7445,-198.9743 336.7445,-190.4166"/>
+<polygon fill="#000000" stroke="#000000" points="340.2446,-190.4132 336.7445,-180.4133 333.2446,-190.4133 340.2446,-190.4132"/>
 </g>
-<!-- 9843314062265294473 -->
-<g id="node19" class="node">
-<title>9843314062265294473</title>
-<g id="a_node19"><a xlink:href="http://scholar.google.com/scholar?cluster=9843314062265294473&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="J Butler - 2004 - citated by 10501">
-<ellipse fill="#cb8434" stroke="#cb8434" cx="1262.5517" cy="-90" rx="73.5435" ry="18"/>
-<text text-anchor="middle" x="1262.5517" y="-85.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Undoing gender</text>
+<!-- 13145203195990876527 -->
+<g id="node4" class="node">
+<title>13145203195990876527</title>
+<g id="a_node4"><a xlink:href="http://scholar.google.com/scholar?cluster=13145203195990876527&amp;hl=en&amp;as_sdt=0,5&amp;scioq=aeronautics" xlink:title="MM Munk - 1923, ntrs.nasa.gov - citated by 263">
+<polygon fill="#85117a" stroke="#85117a" points="931.2969,-252 692.1921,-252 692.1921,-216 931.2969,-216 931.2969,-252"/>
+<text text-anchor="middle" x="811.7445" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">The minimum induced drag of aerofoils</text>
 </a>
 </g>
 </g>
-<!-- 10247440047903882619&#45;&gt;9843314062265294473 -->
-<g id="edge18" class="edge">
-<title>10247440047903882619-&gt;9843314062265294473</title>
-<path fill="none" stroke="#000000" d="M1539.3689,-145.2101C1475.5567,-132.483 1389.0312,-115.2258 1329.8019,-103.4128"/>
-<polygon fill="#000000" stroke="#000000" points="1330.2977,-99.9428 1319.8062,-101.4192 1328.9285,-106.8076 1330.2977,-99.9428"/>
+<!-- 13145203195990876527&#45;&gt;13565008151859002965 -->
+<g id="edge5" class="edge">
+<title>13145203195990876527-&gt;13565008151859002965</title>
+<path fill="none" stroke="#000000" d="M785.5009,-215.8314C772.445,-206.7927 756.491,-195.7476 742.4398,-186.0198"/>
+<polygon fill="#000000" stroke="#000000" points="744.1939,-182.9773 733.9797,-180.1628 740.2094,-188.7326 744.1939,-182.9773"/>
 </g>
-<!-- 5899184071223871743 -->
-<g id="node20" class="node">
-<title>5899184071223871743</title>
-<g id="a_node20"><a xlink:href="http://scholar.google.com/scholar?cluster=5899184071223871743&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="S Hall - 1996, academia.edu - citated by 9800">
-<ellipse fill="#be8241" stroke="#be8241" cx="1635.5517" cy="-18" rx="86.2599" ry="18"/>
-<text text-anchor="middle" x="1635.5517" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Who needs identity</text>
+<!-- 13145203195990876527&#45;&gt;8539065900730336738 -->
+<g id="edge6" class="edge">
+<title>13145203195990876527-&gt;8539065900730336738</title>
+<path fill="none" stroke="#000000" d="M692.8013,-215.9707C623.7854,-205.5094 536.8052,-192.325 466.0907,-181.6062"/>
+<polygon fill="#000000" stroke="#000000" points="466.1911,-178.0815 455.7795,-180.0432 465.142,-185.0024 466.1911,-178.0815"/>
+</g>
+<!-- 8940405028388865712 -->
+<g id="node11" class="node">
+<title>8940405028388865712</title>
+<g id="a_node11"><a xlink:href="http://scholar.google.com/scholar?cluster=8940405028388865712&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5&amp;scioq=aeronautics" xlink:title="CD Cone - 1962 - citated by 146">
+<polygon fill="#a50a5a" stroke="#a50a5a" points="1387.6465,-180 909.8425,-180 909.8425,-144 1387.6465,-144 1387.6465,-180"/>
+<text text-anchor="middle" x="1148.7445" y="-157.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">The theory of induced lift and minimum induced drag of nonplanar lifting systems</text>
 </a>
 </g>
 </g>
-<!-- 10247440047903882619&#45;&gt;5899184071223871743 -->
-<g id="edge19" class="edge">
-<title>10247440047903882619-&gt;5899184071223871743</title>
-<path fill="none" stroke="#000000" d="M1625.0716,-143.7623C1627.1183,-119.201 1630.7811,-75.2474 1633.1889,-46.3541"/>
-<polygon fill="#000000" stroke="#000000" points="1636.7016,-46.3458 1634.0443,-36.0896 1629.7258,-45.7644 1636.7016,-46.3458"/>
+<!-- 13145203195990876527&#45;&gt;8940405028388865712 -->
+<g id="edge7" class="edge">
+<title>13145203195990876527-&gt;8940405028388865712</title>
+<path fill="none" stroke="#000000" d="M896.3488,-215.9243C944.5131,-205.634 1004.9557,-192.7205 1054.6162,-182.1105"/>
+<polygon fill="#000000" stroke="#000000" points="1055.3497,-185.5329 1064.3977,-180.0207 1053.8871,-178.6874 1055.3497,-185.5329"/>
 </g>
-<!-- 14934251741208384689&#45;&gt;13512913374545888922 -->
-<g id="edge11" class="edge">
-<title>14934251741208384689-&gt;13512913374545888922</title>
-<path fill="none" stroke="#000000" d="M832.1615,-219.4297C808.8464,-209.2558 777.3037,-195.4918 750.9431,-183.989"/>
-<polygon fill="#000000" stroke="#000000" points="752.0558,-180.6558 741.4906,-179.8642 749.2562,-187.0716 752.0558,-180.6558"/>
+<!-- 642710335645396180 -->
+<g id="node7" class="node">
+<title>642710335645396180</title>
+<g id="a_node7"><a xlink:href="http://scholar.google.com/scholar?cluster=642710335645396180&amp;hl=en&amp;as_sdt=0,5&amp;scioq=aeronautics" xlink:title="RB Langtry - 2009, arc.aiaa.org - citated by 948">
+<polygon fill="#7e2e81" stroke="#7e2e81" points="2769.4671,-108 2172.0219,-108 2172.0219,-72 2769.4671,-72 2769.4671,-108"/>
+<text text-anchor="middle" x="2470.7445" y="-85.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Correlation-based transition modeling for unstructured parallelized computational fluid dynamics codes</text>
+</a>
 </g>
-<!-- 14934251741208384689&#45;&gt;1770780549409130706 -->
-<g id="edge10" class="edge">
-<title>14934251741208384689-&gt;1770780549409130706</title>
-<path fill="none" stroke="#000000" d="M917.1318,-226.3814C948.4325,-219.2736 987.1161,-205.7023 1012.5517,-180 1028.9655,-163.4142 1037.0033,-137.8707 1040.914,-118.2276"/>
-<polygon fill="#000000" stroke="#000000" points="1044.3761,-118.7474 1042.6472,-108.2946 1037.4803,-117.544 1044.3761,-118.7474"/>
 </g>
-<!-- 14934251741208384689&#45;&gt;881176282422406888 -->
-<g id="edge9" class="edge">
-<title>14934251741208384689-&gt;881176282422406888</title>
-<path fill="none" stroke="#000000" d="M809.4628,-231.0411C690.3943,-224.2792 420.597,-206.2281 388.5517,-180 370.2695,-165.0365 363.3777,-138.4543 360.8474,-118.0456"/>
-<polygon fill="#000000" stroke="#000000" points="364.3255,-117.6492 359.8846,-108.03 357.3577,-118.3191 364.3255,-117.6492"/>
+<!-- 7865638114333325652&#45;&gt;642710335645396180 -->
+<g id="edge8" class="edge">
+<title>7865638114333325652-&gt;642710335645396180</title>
+<path fill="none" stroke="#000000" d="M2520.0899,-143.8314C2512.3331,-135.3694 2502.9643,-125.1489 2494.4835,-115.8971"/>
+<polygon fill="#000000" stroke="#000000" points="2496.9607,-113.4198 2487.6233,-108.4133 2491.8006,-118.1499 2496.9607,-113.4198"/>
 </g>
-<!-- 1770780549409130706&#45;&gt;15978994271464047581 -->
-<g id="edge29" class="edge">
-<title>1770780549409130706-&gt;15978994271464047581</title>
-<path fill="none" stroke="#000000" d="M935.2651,-81.0006C806.9673,-70.4008 587.7809,-52.1835 399.5517,-36 382.4509,-34.5297 364.5452,-32.9738 346.7464,-31.417"/>
-<polygon fill="#000000" stroke="#000000" points="346.5533,-27.8867 336.286,-30.5008 345.9425,-34.86 346.5533,-27.8867"/>
-</g>
-<!-- 1770780549409130706&#45;&gt;12499822361791312923 -->
-<g id="edge30" class="edge">
-<title>1770780549409130706-&gt;12499822361791312923</title>
-<path fill="none" stroke="#000000" d="M1133.7722,-77.2417C1149.0248,-75.3078 1164.7282,-73.4708 1179.5517,-72 1423.7636,-47.7691 1486.1686,-58.4379 1730.5517,-36 1743.7538,-34.7879 1757.5831,-33.3645 1771.2937,-31.8584"/>
-<polygon fill="#000000" stroke="#000000" points="1771.6949,-35.3354 1781.2455,-30.7488 1770.9192,-28.3785 1771.6949,-35.3354"/>
-</g>
-<!-- 1770780549409130706&#45;&gt;565973843446095528 -->
-<g id="edge27" class="edge">
-<title>1770780549409130706-&gt;565973843446095528</title>
-<path fill="none" stroke="#000000" d="M1135.9378,-77.468C1244.4073,-62.5356 1412.488,-39.1916 1426.5517,-36 1430.3705,-35.1334 1434.302,-34.1312 1438.2299,-33.0521"/>
-<polygon fill="#000000" stroke="#000000" points="1439.2888,-36.3894 1447.9202,-30.2453 1437.3412,-29.6658 1439.2888,-36.3894"/>
-</g>
-<!-- 1770780549409130706&#45;&gt;5899184071223871743 -->
-<g id="edge28" class="edge">
-<title>1770780549409130706-&gt;5899184071223871743</title>
-<path fill="none" stroke="#000000" d="M1135.2721,-77.4841C1150.0612,-75.5646 1165.2252,-73.669 1179.5517,-72 1339.7089,-53.3424 1380.9647,-59.0306 1540.5517,-36 1548.0866,-34.9126 1555.9333,-33.6456 1563.7448,-32.2967"/>
-<polygon fill="#000000" stroke="#000000" points="1564.3584,-35.7426 1573.5944,-30.5517 1563.1372,-28.8499 1564.3584,-35.7426"/>
-</g>
-<!-- 7804872867139915337 -->
+<!-- 15508603189300997586 -->
 <g id="node12" class="node">
-<title>7804872867139915337</title>
-<g id="a_node12"><a xlink:href="http://scholar.google.com/scholar?cluster=7804872867139915337&amp;hl=en&amp;as_sdt=0,5" xlink:title="F Fanon - 2008 - citated by 21906">
-<ellipse fill="#a29b5d" stroke="#a29b5d" cx="1164.5517" cy="-162" rx="104.8157" ry="18"/>
-<text text-anchor="middle" x="1164.5517" y="-157.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Black skin, white masks</text>
+<title>15508603189300997586</title>
+<g id="a_node12"><a xlink:href="http://scholar.google.com/scholar?cluster=15508603189300997586&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="FR Menter - 2009, iahr.tandfonline.com - citated by 595">
+<polygon fill="#a5215a" stroke="#a5215a" points="1903.0885,-36 1350.4005,-36 1350.4005,0 1903.0885,0 1903.0885,-36"/>
+<text text-anchor="middle" x="1626.7445" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Review of the shear-stress transport turbulence model experience from an industrial perspective</text>
 </a>
 </g>
 </g>
-<!-- 7804872867139915337&#45;&gt;1770780549409130706 -->
-<g id="edge25" class="edge">
-<title>7804872867139915337-&gt;1770780549409130706</title>
-<path fill="none" stroke="#000000" d="M1135.5031,-144.5708C1119.5548,-135.0018 1099.5889,-123.0223 1082.4299,-112.7269"/>
-<polygon fill="#000000" stroke="#000000" points="1084.1245,-109.662 1073.7488,-107.5182 1080.523,-115.6645 1084.1245,-109.662"/>
+<!-- 7865638114333325652&#45;&gt;15508603189300997586 -->
+<g id="edge9" class="edge">
+<title>7865638114333325652-&gt;15508603189300997586</title>
+<path fill="none" stroke="#000000" d="M2380.547,-148.9823C2295.8664,-140.0594 2200.904,-126.4748 2162.7445,-108 2141.8051,-97.8622 2145.86,-81.7658 2124.7445,-72 2085.4605,-53.8314 2001.436,-41.6276 1913.4026,-33.497"/>
+<polygon fill="#000000" stroke="#000000" points="1913.4834,-29.9901 1903.2087,-32.5749 1912.8528,-36.9616 1913.4834,-29.9901"/>
 </g>
-<!-- 7804872867139915337&#45;&gt;3767129554966147446 -->
-<g id="edge24" class="edge">
-<title>7804872867139915337-&gt;3767129554966147446</title>
-<path fill="none" stroke="#000000" d="M1095.9064,-148.3509C1044.4691,-137.9083 972.4254,-122.8262 909.5517,-108 813.6816,-85.3929 703.7109,-56.229 633.9627,-37.3249"/>
-<polygon fill="#000000" stroke="#000000" points="634.538,-33.8545 623.9703,-34.6123 632.704,-40.61 634.538,-33.8545"/>
+<!-- 8771315013867850515 -->
+<g id="node13" class="node">
+<title>8771315013867850515</title>
+<g id="a_node13"><a xlink:href="http://scholar.google.com/scholar?cluster=8771315013867850515&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="DK Walters - 2008, asmedigitalcollection.asme.org - citated by 521">
+<polygon fill="#961e69" stroke="#961e69" points="2115.5183,-108 1481.9707,-108 1481.9707,-72 2115.5183,-72 2115.5183,-108"/>
+<text text-anchor="middle" x="1798.7445" y="-85.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">A three-equation eddy-viscosity model for Reynolds-averaged Navier–Stokes simulations of transitional flow</text>
+</a>
 </g>
-<!-- 7804872867139915337&#45;&gt;9843314062265294473 -->
-<g id="edge26" class="edge">
-<title>7804872867139915337-&gt;9843314062265294473</title>
-<path fill="none" stroke="#000000" d="M1188.5252,-144.3868C1201.2892,-135.0092 1217.15,-123.3564 1230.9125,-113.2452"/>
-<polygon fill="#000000" stroke="#000000" points="1233.1774,-115.9243 1239.1639,-107.1829 1229.0328,-110.2831 1233.1774,-115.9243"/>
 </g>
-<!-- 8359082072951310061&#45;&gt;15978994271464047581 -->
-<g id="edge23" class="edge">
-<title>8359082072951310061-&gt;15978994271464047581</title>
-<path fill="none" stroke="#000000" d="M506.5957,-76.6261C446.0531,-65.2149 358.449,-48.7031 291.6286,-36.1087"/>
-<polygon fill="#000000" stroke="#000000" points="291.984,-32.6142 281.5088,-34.2013 290.6874,-39.493 291.984,-32.6142"/>
+<!-- 7865638114333325652&#45;&gt;8771315013867850515 -->
+<g id="edge10" class="edge">
+<title>7865638114333325652-&gt;8771315013867850515</title>
+<path fill="none" stroke="#000000" d="M2380.2337,-146.7307C2267.3682,-135.7194 2114.2693,-120.7829 1993.4961,-109.0002"/>
+<polygon fill="#000000" stroke="#000000" points="1993.6813,-105.5017 1983.3887,-108.0141 1993.0016,-112.4686 1993.6813,-105.5017"/>
 </g>
-<!-- 8359082072951310061&#45;&gt;3767129554966147446 -->
+<!-- 17122260673017766250 -->
+<g id="node14" class="node">
+<title>17122260673017766250</title>
+<g id="a_node14"><a xlink:href="http://scholar.google.com/scholar?cluster=17122260673017766250&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="FR Menter - 2015, Springer - citated by 187">
+<polygon fill="#a80c57" stroke="#a80c57" points="2798.1963,-36 2469.2927,-36 2469.2927,0 2798.1963,0 2798.1963,-36"/>
+<text text-anchor="middle" x="2633.7445" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">A one-equation local correlation-based transition model</text>
+</a>
+</g>
+</g>
+<!-- 7865638114333325652&#45;&gt;17122260673017766250 -->
+<g id="edge11" class="edge">
+<title>7865638114333325652-&gt;17122260673017766250</title>
+<path fill="none" stroke="#000000" d="M2687.0311,-143.9805C2728.5606,-135.748 2765.8224,-124.1234 2778.7445,-108 2803.3006,-77.3605 2763.5735,-54.3246 2719.5386,-39.231"/>
+<polygon fill="#000000" stroke="#000000" points="2720.3922,-35.8276 2709.7995,-36.0369 2718.2108,-42.479 2720.3922,-35.8276"/>
+</g>
+<!-- 7761921964178916315 -->
+<g id="node6" class="node">
+<title>7761921964178916315</title>
+<g id="a_node6"><a xlink:href="http://scholar.google.com/scholar?cluster=7761921964178916315&amp;hl=en&amp;as_sdt=0,5&amp;scioq=aeronautics" xlink:title="FR Menter - 2006, asmedigitalcollection.asme.org - citated by 1120">
+<polygon fill="#8a3375" stroke="#8a3375" points="2269.8872,-252 1777.6018,-252 1777.6018,-216 2269.8872,-216 2269.8872,-252"/>
+<text text-anchor="middle" x="2023.7445" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">A correlation-based transition model using local variables—part I: model formulation</text>
+</a>
+</g>
+</g>
+<!-- 7761921964178916315&#45;&gt;7865638114333325652 -->
+<g id="edge15" class="edge">
+<title>7761921964178916315-&gt;7865638114333325652</title>
+<path fill="none" stroke="#000000" d="M2152.2032,-215.9707C2227.0458,-205.4665 2321.4493,-192.2169 2397.9887,-181.4745"/>
+<polygon fill="#000000" stroke="#000000" points="2398.7702,-184.8992 2408.1867,-180.0432 2397.7973,-177.9671 2398.7702,-184.8992"/>
+</g>
+<!-- 7761921964178916315&#45;&gt;642710335645396180 -->
+<g id="edge13" class="edge">
+<title>7761921964178916315-&gt;642710335645396180</title>
+<path fill="none" stroke="#000000" d="M2175.0728,-215.973C2239.125,-206.6409 2305.4294,-194.2203 2333.7445,-180 2354.5344,-169.5589 2352.9306,-157.6847 2371.7445,-144 2387.6416,-132.4369 2406.2978,-121.6373 2423.1033,-112.7811"/>
+<polygon fill="#000000" stroke="#000000" points="2424.944,-115.7697 2432.2201,-108.0685 2421.7295,-109.5514 2424.944,-115.7697"/>
+</g>
+<!-- 15582226238244830039 -->
+<g id="node8" class="node">
+<title>15582226238244830039</title>
+<g id="a_node8"><a xlink:href="http://scholar.google.com/scholar?cluster=15582226238244830039&amp;hl=en&amp;as_sdt=0,5&amp;scioq=aeronautics" xlink:title="RB Langtry - 2006, asmedigitalcollection.asme.org - citated by 312">
+<polygon fill="#a3145c" stroke="#a3145c" points="2324.6193,-180 1722.8697,-180 1722.8697,-144 2324.6193,-144 2324.6193,-180"/>
+<text text-anchor="middle" x="2023.7445" y="-157.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">A correlation-based transition model using local variables—Part II: Test cases and industrial applications</text>
+</a>
+</g>
+</g>
+<!-- 7761921964178916315&#45;&gt;15582226238244830039 -->
+<g id="edge17" class="edge">
+<title>7761921964178916315-&gt;15582226238244830039</title>
+<path fill="none" stroke="#000000" d="M2017.7921,-215.8314C2017.0417,-208.131 2016.8208,-198.9743 2017.1294,-190.4166"/>
+<polygon fill="#000000" stroke="#000000" points="2020.6237,-190.6161 2017.7685,-180.4133 2013.638,-190.1697 2020.6237,-190.6161"/>
+</g>
+<!-- 7761921964178916315&#45;&gt;15508603189300997586 -->
+<g id="edge14" class="edge">
+<title>7761921964178916315-&gt;15508603189300997586</title>
+<path fill="none" stroke="#000000" d="M1819.8984,-215.9776C1676.9344,-198.4855 1503.9285,-165.8349 1460.7445,-108 1436.2479,-75.1925 1475.1651,-52.975 1521.451,-38.8232"/>
+<polygon fill="#000000" stroke="#000000" points="1522.4814,-42.1686 1531.104,-36.0123 1520.5243,-35.4477 1522.4814,-42.1686"/>
+</g>
+<!-- 7761921964178916315&#45;&gt;8771315013867850515 -->
+<g id="edge16" class="edge">
+<title>7761921964178916315-&gt;8771315013867850515</title>
+<path fill="none" stroke="#000000" d="M1804.005,-215.9394C1762.4699,-207.9809 1727.6322,-196.516 1713.7445,-180 1703.4472,-167.7539 1706.0398,-158.0228 1713.7445,-144 1720.6545,-131.4235 1731.8712,-121.3606 1743.9227,-113.4922"/>
+<polygon fill="#000000" stroke="#000000" points="1746.0367,-116.3047 1752.7959,-108.1461 1742.4242,-110.3089 1746.0367,-116.3047"/>
+</g>
+<!-- 642710335645396180&#45;&gt;17122260673017766250 -->
+<g id="edge12" class="edge">
+<title>642710335645396180-&gt;17122260673017766250</title>
+<path fill="none" stroke="#000000" d="M2511.8763,-71.8314C2533.6766,-62.2018 2560.6323,-50.295 2583.6449,-40.1299"/>
+<polygon fill="#000000" stroke="#000000" points="2585.1753,-43.2802 2592.9085,-36.038 2582.3469,-36.877 2585.1753,-43.2802"/>
+</g>
+<!-- 15582226238244830039&#45;&gt;7761921964178916315 -->
+<g id="edge20" class="edge">
+<title>15582226238244830039-&gt;7761921964178916315</title>
+<path fill="none" stroke="#000000" d="M2029.7205,-180.4133C2030.4516,-188.0593 2030.6648,-197.1084 2030.36,-205.5726"/>
+<polygon fill="#000000" stroke="#000000" points="2026.8493,-205.6264 2029.6969,-215.8314 2033.8347,-206.078 2026.8493,-205.6264"/>
+</g>
+<!-- 15582226238244830039&#45;&gt;642710335645396180 -->
 <g id="edge21" class="edge">
-<title>8359082072951310061-&gt;3767129554966147446</title>
-<path fill="none" stroke="#000000" d="M574.019,-71.8314C572.5217,-64.131 570.7412,-54.9743 569.0772,-46.4166"/>
-<polygon fill="#000000" stroke="#000000" points="572.4765,-45.5614 567.1321,-36.4133 565.6052,-46.8975 572.4765,-45.5614"/>
+<title>15582226238244830039-&gt;642710335645396180</title>
+<path fill="none" stroke="#000000" d="M2135.6763,-143.9707C2200.4908,-133.5308 2282.1415,-120.379 2348.6136,-109.6721"/>
+<polygon fill="#000000" stroke="#000000" points="2349.4102,-113.089 2358.7263,-108.0432 2348.2969,-106.1781 2349.4102,-113.089"/>
 </g>
-<!-- 8359082072951310061&#45;&gt;15066938082645101981 -->
+<!-- 15582226238244830039&#45;&gt;15508603189300997586 -->
 <g id="edge22" class="edge">
-<title>8359082072951310061-&gt;15066938082645101981</title>
-<path fill="none" stroke="#000000" d="M658.0018,-78.392C736.5979,-67.0515 857.4488,-49.614 949.1227,-36.3866"/>
-<polygon fill="#000000" stroke="#000000" points="949.6264,-39.8502 959.0241,-34.9579 948.6267,-32.922 949.6264,-39.8502"/>
+<title>15582226238244830039-&gt;15508603189300997586</title>
+<path fill="none" stroke="#000000" d="M1722.5362,-149.4782C1603.8918,-141.3906 1491.2669,-128.4264 1472.7445,-108 1444.9059,-77.2997 1488.2592,-54.102 1535.9789,-38.9525"/>
+<polygon fill="#000000" stroke="#000000" points="1537.0172,-42.2951 1545.5613,-36.0301 1534.9752,-35.5996 1537.0172,-42.2951"/>
 </g>
-<!-- 1285209366342978324 -->
+<!-- 8771315013867850515&#45;&gt;15508603189300997586 -->
+<g id="edge18" class="edge">
+<title>8771315013867850515-&gt;15508603189300997586</title>
+<path fill="none" stroke="#000000" d="M1755.3416,-71.8314C1732.2354,-62.159 1703.6407,-50.1891 1679.2868,-39.9944"/>
+<polygon fill="#000000" stroke="#000000" points="1680.4112,-36.6709 1669.8353,-36.038 1677.7082,-43.128 1680.4112,-36.6709"/>
+</g>
+<!-- 8771315013867850515&#45;&gt;17122260673017766250 -->
+<g id="edge19" class="edge">
+<title>8771315013867850515-&gt;17122260673017766250</title>
+<path fill="none" stroke="#000000" d="M2007.5652,-71.9939C2146.6852,-59.9979 2327.4198,-44.4136 2458.9355,-33.0733"/>
+<polygon fill="#000000" stroke="#000000" points="2459.4502,-36.5421 2469.1125,-32.1958 2458.8487,-29.5679 2459.4502,-36.5421"/>
+</g>
+<!-- 2173003231037307028 -->
 <g id="node15" class="node">
-<title>1285209366342978324</title>
-<g id="a_node15"><a xlink:href="https://books.google.com/books?hl=en&amp;lr=&amp;id=4LVeJT7gghMC&amp;oi=fnd&amp;pg=PP11&amp;dq=related:A932uUd2cXsJ:scholar.google.com/&amp;ots=6OYJpAX9Di&amp;sig=5uz66BtH4aBBcIcdes960bS4wxg" xlink:title="A Appadurai - 1996 - citated by 34929">
-<ellipse fill="#a7a858" stroke="#a7a858" cx="2137.5517" cy="-90" rx="227.3895" ry="18"/>
-<text text-anchor="middle" x="2137.5517" y="-85.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Modernity al large: cultural dimensions of globalization</text>
+<title>2173003231037307028</title>
+<g id="a_node15"><a xlink:href="http://scholar.google.com/scholar?cluster=2173003231037307028&amp;hl=en&amp;as_sdt=0,5" xlink:title="DK Walters - 2002, asmedigitalcollection.asme.org - citated by 287">
+<polygon fill="#a2125d" stroke="#a2125d" points="2926.9565,-324 2460.5325,-324 2460.5325,-288 2926.9565,-288 2926.9565,-324"/>
+<text text-anchor="middle" x="2693.7445" y="-301.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">A new model for boundary-layer transition using a single-point RANS approach</text>
 </a>
 </g>
 </g>
-<!-- 1285209366342978324&#45;&gt;17726099032858617564 -->
-<g id="edge33" class="edge">
-<title>1285209366342978324-&gt;17726099032858617564</title>
-<path fill="none" stroke="#000000" d="M2161.0196,-71.8314C2172.6727,-62.8096 2186.9077,-51.789 2199.4556,-42.0745"/>
-<polygon fill="#000000" stroke="#000000" points="2201.649,-44.8027 2207.4136,-35.9134 2197.3637,-39.2676 2201.649,-44.8027"/>
+<!-- 2173003231037307028&#45;&gt;14508574582001423339 -->
+<g id="edge26" class="edge">
+<title>2173003231037307028-&gt;14508574582001423339</title>
+<path fill="none" stroke="#000000" d="M2639.2663,-287.9243C2609.3432,-277.9959 2572.0602,-265.6255 2540.7541,-255.2382"/>
+<polygon fill="#000000" stroke="#000000" points="2541.8385,-251.9104 2531.2451,-252.0831 2539.6341,-258.5543 2541.8385,-251.9104"/>
+</g>
+<!-- 2173003231037307028&#45;&gt;7865638114333325652 -->
+<g id="edge24" class="edge">
+<title>2173003231037307028-&gt;7865638114333325652</title>
+<path fill="none" stroke="#000000" d="M2694.7049,-287.9496C2694.783,-268.0632 2691.8816,-236.2252 2674.7445,-216 2662.9569,-202.0882 2647.1186,-191.7405 2630.3761,-184.0497"/>
+<polygon fill="#000000" stroke="#000000" points="2631.5727,-180.7549 2621.0017,-180.0446 2628.8225,-187.1921 2631.5727,-180.7549"/>
+</g>
+<!-- 2173003231037307028&#45;&gt;642710335645396180 -->
+<g id="edge23" class="edge">
+<title>2173003231037307028-&gt;642710335645396180</title>
+<path fill="none" stroke="#000000" d="M2701.5946,-287.8652C2714.3732,-255.2131 2735.0806,-186.0276 2701.7445,-144 2690.144,-129.375 2657.7948,-118.3365 2620.8455,-110.1784"/>
+<polygon fill="#000000" stroke="#000000" points="2621.3495,-106.7076 2610.8413,-108.0598 2619.8992,-113.5557 2621.3495,-106.7076"/>
+</g>
+<!-- 2173003231037307028&#45;&gt;8771315013867850515 -->
+<g id="edge25" class="edge">
+<title>2173003231037307028-&gt;8771315013867850515</title>
+<path fill="none" stroke="#000000" d="M2460.5938,-301.5563C2207.0132,-295.2765 1829.4993,-281.1519 1768.7445,-252 1718.2352,-227.7642 1675.5701,-192.4228 1703.7445,-144 1711.2639,-131.0766 1723.1574,-120.9924 1736.0191,-113.224"/>
+<polygon fill="#000000" stroke="#000000" points="1737.9977,-116.1286 1745.0361,-108.2095 1734.5955,-110.0109 1737.9977,-116.1286"/>
+</g>
+<!-- 2173003231037307028&#45;&gt;17122260673017766250 -->
+<g id="edge27" class="edge">
+<title>2173003231037307028-&gt;17122260673017766250</title>
+<path fill="none" stroke="#000000" d="M2713.5153,-287.9472C2756.1549,-246.8204 2848.8471,-144.1484 2796.7445,-72 2787.5312,-59.242 2758.1933,-47.8225 2726.8972,-38.8075"/>
+<polygon fill="#000000" stroke="#000000" points="2727.7145,-35.4019 2717.1419,-36.0881 2725.8348,-42.1448 2727.7145,-35.4019"/>
 </g>
 </g>
 </svg>

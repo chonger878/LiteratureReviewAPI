@@ -28,7 +28,7 @@ const createWindow = () => {
     fullscreenable: false,
     //fullscreen:true,
     //fullscreenWindowTitle:true,
-    icon: "src/icons/icon.ico",
+    //icon: "src/icons/icon.ico",
     webPreferences: {
       nodeIntegration: true,
     }
