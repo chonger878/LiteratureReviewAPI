@@ -1,4 +1,5 @@
 let mongoose = require('mongoose');
+const { Db } = require('mongodb');
 
 var Schema = mongoose.Schema;
  
@@ -8,7 +9,7 @@ const ScholarlyArticlesSchema =  new Schema({
     _id: String,
 
     //Saves information about child paper into an array
-    childPaper: [{articleName:String, articleAuthor:String, articleUrl:String}]   
+    childPaper: [{articleName:String, articleAuthor:String, articleUrl:string}]   
 })
 
 const articlesModel = mongoose.model('Scholarly Articles', ScholarlyArticlesSchema);
@@ -22,3 +23,19 @@ articleListing._id = articleName + "_" + articleAuthor;
 
 
 await articleListing.save();
+Db.createCollection("Child Articles", {
+    validator: {
+        $and: [
+                {
+                    "articleName" : {$type:String, $exists:true}
+                },
+                {
+                    "articleAuthor" : {$type:String, $exists:true}
+                },
+                {
+                    "articleUrl" : {$type:String, $regex: "/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/"}
+                }
+            
+            ]
+    }
+})

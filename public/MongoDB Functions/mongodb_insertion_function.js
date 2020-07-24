@@ -6,7 +6,7 @@ var url=
 
 MongoClient.connect(url, function(err,db) {
     if(err) throw err;
-    var treesdb = db.db.("scholarlytrees");
+    //var treesdb = db.("scholarlytrees");
     var dbObj = [];
 
     treesdb.collection("articles-listings").insertMany(dbObj, function(error,response) {
