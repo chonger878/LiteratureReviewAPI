@@ -23,7 +23,7 @@ articleListing._id = articleName + "_" + articleAuthor;
 
 
 await articleListing.save();
-Db.createCollection("Child Articles", {
+Db.createCollection("Child_Articles", {
     validator: {
         $and: [
                 {
@@ -39,3 +39,5 @@ Db.createCollection("Child Articles", {
             ]
     }
 })
+
+Db.Child_Articles.createIndex({"Article_id": articleName + "_" + articleAuthor}, {unique:true});
