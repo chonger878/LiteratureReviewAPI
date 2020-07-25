@@ -18,6 +18,9 @@ const articleListing = new articlesModel();
 
 await articleListing.save();
 
+//Exports the articleListing model to be used by app
+module.exports = articleListing;
+
 //Article id becomes a concatenated string of the article name and author
 articleListing._id = articleName + "_" + articleAuthor;
 
