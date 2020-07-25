@@ -412,13 +412,13 @@ function printRelevent(searchedBranch) {
  */
 async function buildArticleGraph(searches, args) {
   progressBar.max = (searches * 1 + Presearch) * 2 + 2;
-  let root = await searchArticles(...args);
-  progressBar.max = (searches * 1 + Math.min(Presearch, root.length)) * 2 + 2;
-  progressBar.value++;
-  let searched = {};
-  let searchedBranch = {};
-  let queued = [];
   try {
+    let root = await searchArticles(...args);
+    progressBar.max = (searches * 1 + Math.min(Presearch, root.length)) * 2 + 2;
+    progressBar.value++;
+    let searched = {};
+    let searchedBranch = {};
+    let queued = [];
     for(let i = 0; i < root.length; i++) {
       branch([], root[i], false, searched, searchedBranch, queued, i);
     }
