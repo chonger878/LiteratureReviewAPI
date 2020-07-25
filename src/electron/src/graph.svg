@@ -1,303 +1,165 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2935pt" height="332pt" viewBox="0.00 0.00 2934.85 332.00">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="998pt" height="332pt" viewBox="0.00 0.00 998.02 332.00">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 328)">
 <title>Enlarge</title>
-<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-328 2930.8505,-328 2930.8505,4 -4,4"/>
-<!-- 11271715224505907933 -->
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-328 994.0159,-328 994.0159,4 -4,4"/>
+<!-- 2370457352906405039 -->
 <g id="node1" class="node">
-<title>11271715224505907933</title>
-<g id="a_node1"><a xlink:href="http://scholar.google.com/scholar?cluster=11271715224505907933&amp;hl=en&amp;as_sdt=0,5" xlink:title="L Prandtl - 1921, ntrs.nasa.gov - citated by 358">
-<polygon fill="#961669" stroke="#961669" points="497.165,-324 176.324,-324 176.324,-288 497.165,-288 497.165,-324"/>
-<text text-anchor="middle" x="336.7445" y="-301.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Applications of modern hydrodynamics to aeronautics</text>
+<title>2370457352906405039</title>
+<g id="a_node1"><a xlink:href="http://scholar.google.com/scholar?cluster=2370457352906405039&amp;hl=en&amp;as_sdt=0,5" xlink:title="L Brillouin - 2013 - citated by 4239">
+<polygon fill="#7d6482" stroke="#7d6482" points="192.1653,-252 -.0551,-252 -.0551,-216 192.1653,-216 192.1653,-252"/>
+<text text-anchor="middle" x="96.0551" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Science and information theory</text>
 </a>
 </g>
 </g>
-<!-- 16169130590293237044 -->
+<!-- 8002773586739194411 -->
 <g id="node3" class="node">
-<title>16169130590293237044</title>
-<g id="a_node3"><a xlink:href="http://scholar.google.com/scholar?cluster=16169130590293237044&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="RT Jones - 1950 - citated by 108">
-<polygon fill="#a0075f" stroke="#a0075f" points="673.7337,-252 -.2447,-252 -.2447,-216 673.7337,-216 673.7337,-252"/>
-<text text-anchor="middle" x="336.7445" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">The spanwise distribution of lift for minimum induced drag of wings having a given lift and a given bending moment</text>
+<title>8002773586739194411</title>
+<g id="a_node3"><a xlink:href="http://scholar.google.com/scholar?cluster=8002773586739194411&amp;hl=en&amp;as_sdt=0,5" xlink:title="S Kullback - 1997 - citated by 11092">
+<polygon fill="#788687" stroke="#788687" points="318.6202,-180 121.49,-180 121.49,-144 318.6202,-144 318.6202,-180"/>
+<text text-anchor="middle" x="220.0551" y="-157.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Information theory and statistics</text>
 </a>
 </g>
 </g>
-<!-- 11271715224505907933&#45;&gt;16169130590293237044 -->
+<!-- 2370457352906405039&#45;&gt;8002773586739194411 -->
 <g id="edge1" class="edge">
-<title>11271715224505907933-&gt;16169130590293237044</title>
-<path fill="none" stroke="#000000" d="M336.7445,-287.8314C336.7445,-280.131 336.7445,-270.9743 336.7445,-262.4166"/>
-<polygon fill="#000000" stroke="#000000" points="340.2446,-262.4132 336.7445,-252.4133 333.2446,-262.4133 340.2446,-262.4132"/>
+<title>2370457352906405039-&gt;8002773586739194411</title>
+<path fill="none" stroke="#000000" d="M127.3455,-215.8314C143.3528,-206.5368 163.0137,-195.1208 180.1045,-185.1971"/>
+<polygon fill="#000000" stroke="#000000" points="181.8843,-188.211 188.7747,-180.1628 178.3693,-182.1575 181.8843,-188.211"/>
 </g>
-<!-- 14508574582001423339 -->
+<!-- 11741766459931279286 -->
 <g id="node2" class="node">
-<title>14508574582001423339</title>
-<g id="a_node2"><a xlink:href="http://scholar.google.com/scholar?cluster=14508574582001423339&amp;hl=en&amp;as_sdt=0,5" xlink:title="R Langtry - 2005, arc.aiaa.org - citated by 416">
-<polygon fill="#971968" stroke="#971968" points="2665.7033,-252 2287.7857,-252 2287.7857,-216 2665.7033,-216 2665.7033,-252"/>
-<text text-anchor="middle" x="2476.7445" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Transition modeling for general CFD applications in aeronautics</text>
+<title>11741766459931279286</title>
+<g id="a_node2"><a xlink:href="http://scholar.google.com/scholar?cluster=11741766459931279286&amp;hl=en&amp;as_sdt=0,5" xlink:title="ET Jaynes - 1957, APS - citated by 13367">
+<polygon fill="#5d8ca2" stroke="#5d8ca2" points="512.3646,-252 247.7456,-252 247.7456,-216 512.3646,-216 512.3646,-252"/>
+<text text-anchor="middle" x="380.0551" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Information theory and statistical mechanics</text>
 </a>
 </g>
 </g>
-<!-- 7865638114333325652 -->
-<g id="node5" class="node">
-<title>7865638114333325652</title>
-<g id="a_node5"><a xlink:href="http://scholar.google.com/scholar?cluster=7865638114333325652&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="FR Menter - 2006, Springer - citated by 544">
-<polygon fill="#911f6e" stroke="#911f6e" points="2693.0014,-180 2380.4876,-180 2380.4876,-144 2693.0014,-144 2693.0014,-180"/>
-<text text-anchor="middle" x="2536.7445" y="-157.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Transition modelling for general purpose CFD codes</text>
-</a>
-</g>
-</g>
-<!-- 14508574582001423339&#45;&gt;7865638114333325652 -->
+<!-- 11741766459931279286&#45;&gt;8002773586739194411 -->
 <g id="edge2" class="edge">
-<title>14508574582001423339-&gt;7865638114333325652</title>
-<path fill="none" stroke="#000000" d="M2491.885,-215.8314C2498.8662,-207.454 2507.2836,-197.3531 2514.9321,-188.1749"/>
-<polygon fill="#000000" stroke="#000000" points="2517.687,-190.3362 2521.4001,-180.4133 2512.3094,-185.8548 2517.687,-190.3362"/>
+<title>11741766459931279286-&gt;8002773586739194411</title>
+<path fill="none" stroke="#000000" d="M339.6803,-215.8314C318.3764,-206.2446 292.0568,-194.4008 269.534,-184.2655"/>
+<polygon fill="#000000" stroke="#000000" points="270.695,-180.95 260.1395,-180.038 267.8225,-187.3334 270.695,-180.95"/>
 </g>
-<!-- 13565008151859002965 -->
-<g id="node9" class="node">
-<title>13565008151859002965</title>
-<g id="a_node9"><a xlink:href="http://scholar.google.com/scholar?cluster=13565008151859002965&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="I Kroo - 2001, annualreviews.org - citated by 211">
-<polygon fill="#aa0e55" stroke="#aa0e55" points="891.993,-180 523.496,-180 523.496,-144 891.993,-144 891.993,-180"/>
-<text text-anchor="middle" x="707.7445" y="-157.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">DRAG DUE TO LIFT: Concepts for Prediction and Reduction</text>
-</a>
-</g>
-</g>
-<!-- 16169130590293237044&#45;&gt;13565008151859002965 -->
-<g id="edge3" class="edge">
-<title>16169130590293237044-&gt;13565008151859002965</title>
-<path fill="none" stroke="#000000" d="M429.8846,-215.9243C483.1291,-205.5911 550.0035,-192.6128 604.8023,-181.978"/>
-<polygon fill="#000000" stroke="#000000" points="605.7379,-185.3618 614.8879,-180.0207 604.4043,-178.49 605.7379,-185.3618"/>
-</g>
-<!-- 8539065900730336738 -->
-<g id="node10" class="node">
-<title>8539065900730336738</title>
-<g id="a_node10"><a xlink:href="http://scholar.google.com/scholar?cluster=8539065900730336738&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="I Kroo - 2005, Citeseer - citated by 183">
-<polygon fill="#a50c5a" stroke="#a50c5a" points="505.8509,-180 167.6381,-180 167.6381,-144 505.8509,-144 505.8509,-180"/>
-<text text-anchor="middle" x="336.7445" y="-157.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Nonplanar wing concepts for increased aircraft efficiency</text>
-</a>
-</g>
-</g>
-<!-- 16169130590293237044&#45;&gt;8539065900730336738 -->
-<g id="edge4" class="edge">
-<title>16169130590293237044-&gt;8539065900730336738</title>
-<path fill="none" stroke="#000000" d="M336.7445,-215.8314C336.7445,-208.131 336.7445,-198.9743 336.7445,-190.4166"/>
-<polygon fill="#000000" stroke="#000000" points="340.2446,-190.4132 336.7445,-180.4133 333.2446,-190.4133 340.2446,-190.4132"/>
-</g>
-<!-- 13145203195990876527 -->
-<g id="node4" class="node">
-<title>13145203195990876527</title>
-<g id="a_node4"><a xlink:href="http://scholar.google.com/scholar?cluster=13145203195990876527&amp;hl=en&amp;as_sdt=0,5&amp;scioq=aeronautics" xlink:title="MM Munk - 1923, ntrs.nasa.gov - citated by 263">
-<polygon fill="#85117a" stroke="#85117a" points="931.2969,-252 692.1921,-252 692.1921,-216 931.2969,-216 931.2969,-252"/>
-<text text-anchor="middle" x="811.7445" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">The minimum induced drag of aerofoils</text>
-</a>
-</g>
-</g>
-<!-- 13145203195990876527&#45;&gt;13565008151859002965 -->
-<g id="edge5" class="edge">
-<title>13145203195990876527-&gt;13565008151859002965</title>
-<path fill="none" stroke="#000000" d="M785.5009,-215.8314C772.445,-206.7927 756.491,-195.7476 742.4398,-186.0198"/>
-<polygon fill="#000000" stroke="#000000" points="744.1939,-182.9773 733.9797,-180.1628 740.2094,-188.7326 744.1939,-182.9773"/>
-</g>
-<!-- 13145203195990876527&#45;&gt;8539065900730336738 -->
-<g id="edge6" class="edge">
-<title>13145203195990876527-&gt;8539065900730336738</title>
-<path fill="none" stroke="#000000" d="M692.8013,-215.9707C623.7854,-205.5094 536.8052,-192.325 466.0907,-181.6062"/>
-<polygon fill="#000000" stroke="#000000" points="466.1911,-178.0815 455.7795,-180.0432 465.142,-185.0024 466.1911,-178.0815"/>
-</g>
-<!-- 8940405028388865712 -->
-<g id="node11" class="node">
-<title>8940405028388865712</title>
-<g id="a_node11"><a xlink:href="http://scholar.google.com/scholar?cluster=8940405028388865712&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5&amp;scioq=aeronautics" xlink:title="CD Cone - 1962 - citated by 146">
-<polygon fill="#a50a5a" stroke="#a50a5a" points="1387.6465,-180 909.8425,-180 909.8425,-144 1387.6465,-144 1387.6465,-180"/>
-<text text-anchor="middle" x="1148.7445" y="-157.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">The theory of induced lift and minimum induced drag of nonplanar lifting systems</text>
-</a>
-</g>
-</g>
-<!-- 13145203195990876527&#45;&gt;8940405028388865712 -->
-<g id="edge7" class="edge">
-<title>13145203195990876527-&gt;8940405028388865712</title>
-<path fill="none" stroke="#000000" d="M896.3488,-215.9243C944.5131,-205.634 1004.9557,-192.7205 1054.6162,-182.1105"/>
-<polygon fill="#000000" stroke="#000000" points="1055.3497,-185.5329 1064.3977,-180.0207 1053.8871,-178.6874 1055.3497,-185.5329"/>
-</g>
-<!-- 642710335645396180 -->
-<g id="node7" class="node">
-<title>642710335645396180</title>
-<g id="a_node7"><a xlink:href="http://scholar.google.com/scholar?cluster=642710335645396180&amp;hl=en&amp;as_sdt=0,5&amp;scioq=aeronautics" xlink:title="RB Langtry - 2009, arc.aiaa.org - citated by 948">
-<polygon fill="#7e2e81" stroke="#7e2e81" points="2769.4671,-108 2172.0219,-108 2172.0219,-72 2769.4671,-72 2769.4671,-108"/>
-<text text-anchor="middle" x="2470.7445" y="-85.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Correlation-based transition modeling for unstructured parallelized computational fluid dynamics codes</text>
-</a>
-</g>
-</g>
-<!-- 7865638114333325652&#45;&gt;642710335645396180 -->
-<g id="edge8" class="edge">
-<title>7865638114333325652-&gt;642710335645396180</title>
-<path fill="none" stroke="#000000" d="M2520.0899,-143.8314C2512.3331,-135.3694 2502.9643,-125.1489 2494.4835,-115.8971"/>
-<polygon fill="#000000" stroke="#000000" points="2496.9607,-113.4198 2487.6233,-108.4133 2491.8006,-118.1499 2496.9607,-113.4198"/>
-</g>
-<!-- 15508603189300997586 -->
-<g id="node12" class="node">
-<title>15508603189300997586</title>
-<g id="a_node12"><a xlink:href="http://scholar.google.com/scholar?cluster=15508603189300997586&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="FR Menter - 2009, iahr.tandfonline.com - citated by 595">
-<polygon fill="#a5215a" stroke="#a5215a" points="1903.0885,-36 1350.4005,-36 1350.4005,0 1903.0885,0 1903.0885,-36"/>
-<text text-anchor="middle" x="1626.7445" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Review of the shear-stress transport turbulence model experience from an industrial perspective</text>
-</a>
-</g>
-</g>
-<!-- 7865638114333325652&#45;&gt;15508603189300997586 -->
-<g id="edge9" class="edge">
-<title>7865638114333325652-&gt;15508603189300997586</title>
-<path fill="none" stroke="#000000" d="M2380.547,-148.9823C2295.8664,-140.0594 2200.904,-126.4748 2162.7445,-108 2141.8051,-97.8622 2145.86,-81.7658 2124.7445,-72 2085.4605,-53.8314 2001.436,-41.6276 1913.4026,-33.497"/>
-<polygon fill="#000000" stroke="#000000" points="1913.4834,-29.9901 1903.2087,-32.5749 1912.8528,-36.9616 1913.4834,-29.9901"/>
-</g>
-<!-- 8771315013867850515 -->
-<g id="node13" class="node">
-<title>8771315013867850515</title>
-<g id="a_node13"><a xlink:href="http://scholar.google.com/scholar?cluster=8771315013867850515&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="DK Walters - 2008, asmedigitalcollection.asme.org - citated by 521">
-<polygon fill="#961e69" stroke="#961e69" points="2115.5183,-108 1481.9707,-108 1481.9707,-72 2115.5183,-72 2115.5183,-108"/>
-<text text-anchor="middle" x="1798.7445" y="-85.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">A three-equation eddy-viscosity model for Reynolds-averaged Navier–Stokes simulations of transitional flow</text>
-</a>
-</g>
-</g>
-<!-- 7865638114333325652&#45;&gt;8771315013867850515 -->
-<g id="edge10" class="edge">
-<title>7865638114333325652-&gt;8771315013867850515</title>
-<path fill="none" stroke="#000000" d="M2380.2337,-146.7307C2267.3682,-135.7194 2114.2693,-120.7829 1993.4961,-109.0002"/>
-<polygon fill="#000000" stroke="#000000" points="1993.6813,-105.5017 1983.3887,-108.0141 1993.0016,-112.4686 1993.6813,-105.5017"/>
-</g>
-<!-- 17122260673017766250 -->
-<g id="node14" class="node">
-<title>17122260673017766250</title>
-<g id="a_node14"><a xlink:href="http://scholar.google.com/scholar?cluster=17122260673017766250&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="FR Menter - 2015, Springer - citated by 187">
-<polygon fill="#a80c57" stroke="#a80c57" points="2798.1963,-36 2469.2927,-36 2469.2927,0 2798.1963,0 2798.1963,-36"/>
-<text text-anchor="middle" x="2633.7445" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">A one-equation local correlation-based transition model</text>
-</a>
-</g>
-</g>
-<!-- 7865638114333325652&#45;&gt;17122260673017766250 -->
-<g id="edge11" class="edge">
-<title>7865638114333325652-&gt;17122260673017766250</title>
-<path fill="none" stroke="#000000" d="M2687.0311,-143.9805C2728.5606,-135.748 2765.8224,-124.1234 2778.7445,-108 2803.3006,-77.3605 2763.5735,-54.3246 2719.5386,-39.231"/>
-<polygon fill="#000000" stroke="#000000" points="2720.3922,-35.8276 2709.7995,-36.0369 2718.2108,-42.479 2720.3922,-35.8276"/>
-</g>
-<!-- 7761921964178916315 -->
-<g id="node6" class="node">
-<title>7761921964178916315</title>
-<g id="a_node6"><a xlink:href="http://scholar.google.com/scholar?cluster=7761921964178916315&amp;hl=en&amp;as_sdt=0,5&amp;scioq=aeronautics" xlink:title="FR Menter - 2006, asmedigitalcollection.asme.org - citated by 1120">
-<polygon fill="#8a3375" stroke="#8a3375" points="2269.8872,-252 1777.6018,-252 1777.6018,-216 2269.8872,-216 2269.8872,-252"/>
-<text text-anchor="middle" x="2023.7445" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">A correlation-based transition model using local variables—part I: model formulation</text>
-</a>
-</g>
-</g>
-<!-- 7761921964178916315&#45;&gt;7865638114333325652 -->
-<g id="edge15" class="edge">
-<title>7761921964178916315-&gt;7865638114333325652</title>
-<path fill="none" stroke="#000000" d="M2152.2032,-215.9707C2227.0458,-205.4665 2321.4493,-192.2169 2397.9887,-181.4745"/>
-<polygon fill="#000000" stroke="#000000" points="2398.7702,-184.8992 2408.1867,-180.0432 2397.7973,-177.9671 2398.7702,-184.8992"/>
-</g>
-<!-- 7761921964178916315&#45;&gt;642710335645396180 -->
-<g id="edge13" class="edge">
-<title>7761921964178916315-&gt;642710335645396180</title>
-<path fill="none" stroke="#000000" d="M2175.0728,-215.973C2239.125,-206.6409 2305.4294,-194.2203 2333.7445,-180 2354.5344,-169.5589 2352.9306,-157.6847 2371.7445,-144 2387.6416,-132.4369 2406.2978,-121.6373 2423.1033,-112.7811"/>
-<polygon fill="#000000" stroke="#000000" points="2424.944,-115.7697 2432.2201,-108.0685 2421.7295,-109.5514 2424.944,-115.7697"/>
-</g>
-<!-- 15582226238244830039 -->
+<!-- 14459559319851391154 -->
 <g id="node8" class="node">
-<title>15582226238244830039</title>
-<g id="a_node8"><a xlink:href="http://scholar.google.com/scholar?cluster=15582226238244830039&amp;hl=en&amp;as_sdt=0,5&amp;scioq=aeronautics" xlink:title="RB Langtry - 2006, asmedigitalcollection.asme.org - citated by 312">
-<polygon fill="#a3145c" stroke="#a3145c" points="2324.6193,-180 1722.8697,-180 1722.8697,-144 2324.6193,-144 2324.6193,-180"/>
-<text text-anchor="middle" x="2023.7445" y="-157.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">A correlation-based transition model using local variables—Part II: Test cases and industrial applications</text>
+<title>14459559319851391154</title>
+<g id="a_node8"><a xlink:href="http://scholar.google.com/scholar?cluster=14459559319851391154&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="KP Burnham - 1998, Springer - citated by 49294">
+<polygon fill="#7cb083" stroke="#7cb083" points="497.4929,-36 196.6173,-36 196.6173,0 497.4929,0 497.4929,-36"/>
+<text text-anchor="middle" x="347.0551" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Practical use of the information-theoretic approach</text>
 </a>
 </g>
 </g>
-<!-- 7761921964178916315&#45;&gt;15582226238244830039 -->
-<g id="edge17" class="edge">
-<title>7761921964178916315-&gt;15582226238244830039</title>
-<path fill="none" stroke="#000000" d="M2017.7921,-215.8314C2017.0417,-208.131 2016.8208,-198.9743 2017.1294,-190.4166"/>
-<polygon fill="#000000" stroke="#000000" points="2020.6237,-190.6161 2017.7685,-180.4133 2013.638,-190.1697 2020.6237,-190.6161"/>
+<!-- 11741766459931279286&#45;&gt;14459559319851391154 -->
+<g id="edge3" class="edge">
+<title>11741766459931279286-&gt;14459559319851391154</title>
+<path fill="none" stroke="#000000" d="M377.2983,-215.9555C371.5476,-178.3144 358.2364,-91.1867 351.3519,-46.1246"/>
+<polygon fill="#000000" stroke="#000000" points="354.7975,-45.5017 349.8273,-36.1451 347.8777,-46.559 354.7975,-45.5017"/>
 </g>
-<!-- 7761921964178916315&#45;&gt;15508603189300997586 -->
-<g id="edge14" class="edge">
-<title>7761921964178916315-&gt;15508603189300997586</title>
-<path fill="none" stroke="#000000" d="M1819.8984,-215.9776C1676.9344,-198.4855 1503.9285,-165.8349 1460.7445,-108 1436.2479,-75.1925 1475.1651,-52.975 1521.451,-38.8232"/>
-<polygon fill="#000000" stroke="#000000" points="1522.4814,-42.1686 1531.104,-36.0123 1520.5243,-35.4477 1522.4814,-42.1686"/>
+<!-- 8002773586739194411&#45;&gt;14459559319851391154 -->
+<g id="edge8" class="edge">
+<title>8002773586739194411-&gt;14459559319851391154</title>
+<path fill="none" stroke="#000000" d="M236.1397,-143.7623C258.4694,-118.4436 298.9731,-72.5182 324.367,-43.7251"/>
+<polygon fill="#000000" stroke="#000000" points="327.1115,-45.9046 331.1011,-36.0896 321.8616,-41.2745 327.1115,-45.9046"/>
 </g>
-<!-- 7761921964178916315&#45;&gt;8771315013867850515 -->
-<g id="edge16" class="edge">
-<title>7761921964178916315-&gt;8771315013867850515</title>
-<path fill="none" stroke="#000000" d="M1804.005,-215.9394C1762.4699,-207.9809 1727.6322,-196.516 1713.7445,-180 1703.4472,-167.7539 1706.0398,-158.0228 1713.7445,-144 1720.6545,-131.4235 1731.8712,-121.3606 1743.9227,-113.4922"/>
-<polygon fill="#000000" stroke="#000000" points="1746.0367,-116.3047 1752.7959,-108.1461 1742.4242,-110.3089 1746.0367,-116.3047"/>
+<!-- 4947351087640734691 -->
+<g id="node9" class="node">
+<title>4947351087640734691</title>
+<g id="a_node9"><a xlink:href="http://scholar.google.com/scholar?cluster=4947351087640734691&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5" xlink:title="H Akaike - 1998, Springer - citated by 24974">
+<polygon fill="#959f6a" stroke="#959f6a" points="804.8548,-108 375.2554,-108 375.2554,-72 804.8548,-72 804.8548,-108"/>
+<text text-anchor="middle" x="590.0551" y="-85.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Information theory and an extension of the maximum likelihood principle</text>
+</a>
 </g>
-<!-- 642710335645396180&#45;&gt;17122260673017766250 -->
+</g>
+<!-- 8002773586739194411&#45;&gt;4947351087640734691 -->
+<g id="edge7" class="edge">
+<title>8002773586739194411-&gt;4947351087640734691</title>
+<path fill="none" stroke="#000000" d="M312.9441,-143.9243C366.0452,-133.5911 432.7393,-120.6128 487.3904,-109.978"/>
+<polygon fill="#000000" stroke="#000000" points="488.3015,-113.3664 497.4488,-108.0207 486.9644,-106.4953 488.3015,-113.3664"/>
+</g>
+<!-- 7979693317780361188 -->
+<g id="node4" class="node">
+<title>7979693317780361188</title>
+<g id="a_node4"><a xlink:href="http://scholar.google.com/scholar?cluster=7979693317780361188&amp;hl=en&amp;as_sdt=0,5" xlink:title="RG Gallager - 1968, Springer - citated by 8506">
+<polygon fill="#9a7d65" stroke="#9a7d65" points="989.9767,-324 708.1335,-324 708.1335,-288 989.9767,-288 989.9767,-324"/>
+<text text-anchor="middle" x="849.0551" y="-301.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Information theory and reliable communication</text>
+</a>
+</g>
+</g>
+<!-- 5322157415978095001 -->
+<g id="node5" class="node">
+<title>5322157415978095001</title>
+<g id="a_node5"><a xlink:href="http://scholar.google.com/scholar?cluster=5322157415978095001&amp;hl=en&amp;as_sdt=0,5" xlink:title="DJC MacKay - 2003 - citated by 10921">
+<polygon fill="#9c8663" stroke="#9c8663" points="910.7273,-252 593.3829,-252 593.3829,-216 910.7273,-216 910.7273,-252"/>
+<text text-anchor="middle" x="752.0551" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">Information theory, inference and learning algorithms</text>
+</a>
+</g>
+</g>
+<!-- 7979693317780361188&#45;&gt;5322157415978095001 -->
+<g id="edge13" class="edge">
+<title>7979693317780361188-&gt;5322157415978095001</title>
+<path fill="none" stroke="#000000" d="M824.5779,-287.8314C812.5156,-278.8779 797.8011,-267.9558 784.7865,-258.2955"/>
+<polygon fill="#000000" stroke="#000000" points="786.6403,-255.3127 776.5245,-252.1628 782.4681,-260.9335 786.6403,-255.3127"/>
+</g>
+<!-- 517179926353339293 -->
+<g id="node6" class="node">
+<title>517179926353339293</title>
+<g id="a_node6"><a xlink:href="http://scholar.google.com/scholar?cluster=517179926353339293&amp;hl=en&amp;as_sdt=0,5&amp;scioq=information+theory" xlink:title="CE Shannon - 2001, dl.acm.org - citated by 50954">
+<polygon fill="#7cb183" stroke="#7cb183" points="690.1015,-324 440.0087,-324 440.0087,-288 690.1015,-288 690.1015,-324"/>
+<text text-anchor="middle" x="565.0551" y="-301.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">A mathematical theory of communication</text>
+</a>
+</g>
+</g>
+<!-- 517179926353339293&#45;&gt;11741766459931279286 -->
+<g id="edge10" class="edge">
+<title>517179926353339293-&gt;11741766459931279286</title>
+<path fill="none" stroke="#000000" d="M518.3718,-287.8314C493.2992,-278.0734 462.2184,-265.977 435.8742,-255.7242"/>
+<polygon fill="#000000" stroke="#000000" points="436.9913,-252.4033 426.4027,-252.038 434.4524,-258.9266 436.9913,-252.4033"/>
+</g>
+<!-- 517179926353339293&#45;&gt;5322157415978095001 -->
+<g id="edge11" class="edge">
+<title>517179926353339293-&gt;5322157415978095001</title>
+<path fill="none" stroke="#000000" d="M612.2431,-287.8314C637.5867,-278.0734 669.0036,-265.977 695.6325,-255.7242"/>
+<polygon fill="#000000" stroke="#000000" points="697.1319,-258.8974 705.2064,-252.038 694.6166,-252.3649 697.1319,-258.8974"/>
+</g>
+<!-- 517179926353339293&#45;&gt;4947351087640734691 -->
+<g id="edge9" class="edge">
+<title>517179926353339293-&gt;4947351087640734691</title>
+<path fill="none" stroke="#000000" d="M567.1436,-287.9555C571.5002,-250.3144 581.5844,-163.1867 586.7999,-118.1246"/>
+<polygon fill="#000000" stroke="#000000" points="590.2819,-118.4812 587.955,-108.1451 583.3284,-117.6763 590.2819,-118.4812"/>
+</g>
+<!-- 8313213127749369813 -->
+<g id="node7" class="node">
+<title>8313213127749369813</title>
+<g id="a_node7"><a xlink:href="http://scholar.google.com/scholar?cluster=8313213127749369813&amp;hl=en&amp;as_sdt=0,5&amp;scioq=information+theory" xlink:title="CE Shannon - 1948, ieeexplore.ieee.org - citated by 75638">
+<polygon fill="#6cb993" stroke="#6cb993" points="422.1015,-324 172.0087,-324 172.0087,-288 422.1015,-288 422.1015,-324"/>
+<text text-anchor="middle" x="297.0551" y="-301.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">A mathematical theory of communication</text>
+</a>
+</g>
+</g>
+<!-- 8313213127749369813&#45;&gt;11741766459931279286 -->
+<g id="edge5" class="edge">
+<title>8313213127749369813-&gt;11741766459931279286</title>
+<path fill="none" stroke="#000000" d="M317.9995,-287.8314C328.1242,-279.0485 340.4328,-268.3712 351.4099,-258.8489"/>
+<polygon fill="#000000" stroke="#000000" points="353.857,-261.3595 359.1174,-252.1628 349.27,-256.0718 353.857,-261.3595"/>
+</g>
+<!-- 8313213127749369813&#45;&gt;8002773586739194411 -->
+<g id="edge4" class="edge">
+<title>8313213127749369813-&gt;8002773586739194411</title>
+<path fill="none" stroke="#000000" d="M271.3329,-287.9213C259.7732,-278.496 246.9775,-266.0124 239.0551,-252 228.3458,-233.0583 223.654,-208.7835 221.608,-190.2189"/>
+<polygon fill="#000000" stroke="#000000" points="225.073,-189.6745 220.6835,-180.0317 218.1017,-190.3071 225.073,-189.6745"/>
+</g>
+<!-- 8313213127749369813&#45;&gt;5322157415978095001 -->
+<g id="edge6" class="edge">
+<title>8313213127749369813-&gt;5322157415978095001</title>
+<path fill="none" stroke="#000000" d="M410.9902,-287.9707C476.9647,-277.5308 560.0766,-264.379 627.7384,-253.6721"/>
+<polygon fill="#000000" stroke="#000000" points="628.7021,-257.0632 638.0321,-252.0432 627.6079,-250.1493 628.7021,-257.0632"/>
+</g>
+<!-- 4947351087640734691&#45;&gt;14459559319851391154 -->
 <g id="edge12" class="edge">
-<title>642710335645396180-&gt;17122260673017766250</title>
-<path fill="none" stroke="#000000" d="M2511.8763,-71.8314C2533.6766,-62.2018 2560.6323,-50.295 2583.6449,-40.1299"/>
-<polygon fill="#000000" stroke="#000000" points="2585.1753,-43.2802 2592.9085,-36.038 2582.3469,-36.877 2585.1753,-43.2802"/>
-</g>
-<!-- 15582226238244830039&#45;&gt;7761921964178916315 -->
-<g id="edge20" class="edge">
-<title>15582226238244830039-&gt;7761921964178916315</title>
-<path fill="none" stroke="#000000" d="M2029.7205,-180.4133C2030.4516,-188.0593 2030.6648,-197.1084 2030.36,-205.5726"/>
-<polygon fill="#000000" stroke="#000000" points="2026.8493,-205.6264 2029.6969,-215.8314 2033.8347,-206.078 2026.8493,-205.6264"/>
-</g>
-<!-- 15582226238244830039&#45;&gt;642710335645396180 -->
-<g id="edge21" class="edge">
-<title>15582226238244830039-&gt;642710335645396180</title>
-<path fill="none" stroke="#000000" d="M2135.6763,-143.9707C2200.4908,-133.5308 2282.1415,-120.379 2348.6136,-109.6721"/>
-<polygon fill="#000000" stroke="#000000" points="2349.4102,-113.089 2358.7263,-108.0432 2348.2969,-106.1781 2349.4102,-113.089"/>
-</g>
-<!-- 15582226238244830039&#45;&gt;15508603189300997586 -->
-<g id="edge22" class="edge">
-<title>15582226238244830039-&gt;15508603189300997586</title>
-<path fill="none" stroke="#000000" d="M1722.5362,-149.4782C1603.8918,-141.3906 1491.2669,-128.4264 1472.7445,-108 1444.9059,-77.2997 1488.2592,-54.102 1535.9789,-38.9525"/>
-<polygon fill="#000000" stroke="#000000" points="1537.0172,-42.2951 1545.5613,-36.0301 1534.9752,-35.5996 1537.0172,-42.2951"/>
-</g>
-<!-- 8771315013867850515&#45;&gt;15508603189300997586 -->
-<g id="edge18" class="edge">
-<title>8771315013867850515-&gt;15508603189300997586</title>
-<path fill="none" stroke="#000000" d="M1755.3416,-71.8314C1732.2354,-62.159 1703.6407,-50.1891 1679.2868,-39.9944"/>
-<polygon fill="#000000" stroke="#000000" points="1680.4112,-36.6709 1669.8353,-36.038 1677.7082,-43.128 1680.4112,-36.6709"/>
-</g>
-<!-- 8771315013867850515&#45;&gt;17122260673017766250 -->
-<g id="edge19" class="edge">
-<title>8771315013867850515-&gt;17122260673017766250</title>
-<path fill="none" stroke="#000000" d="M2007.5652,-71.9939C2146.6852,-59.9979 2327.4198,-44.4136 2458.9355,-33.0733"/>
-<polygon fill="#000000" stroke="#000000" points="2459.4502,-36.5421 2469.1125,-32.1958 2458.8487,-29.5679 2459.4502,-36.5421"/>
-</g>
-<!-- 2173003231037307028 -->
-<g id="node15" class="node">
-<title>2173003231037307028</title>
-<g id="a_node15"><a xlink:href="http://scholar.google.com/scholar?cluster=2173003231037307028&amp;hl=en&amp;as_sdt=0,5" xlink:title="DK Walters - 2002, asmedigitalcollection.asme.org - citated by 287">
-<polygon fill="#a2125d" stroke="#a2125d" points="2926.9565,-324 2460.5325,-324 2460.5325,-288 2926.9565,-288 2926.9565,-324"/>
-<text text-anchor="middle" x="2693.7445" y="-301.8" font-family="Times,serif" font-size="14.00" fill="#ffffff">A new model for boundary-layer transition using a single-point RANS approach</text>
-</a>
-</g>
-</g>
-<!-- 2173003231037307028&#45;&gt;14508574582001423339 -->
-<g id="edge26" class="edge">
-<title>2173003231037307028-&gt;14508574582001423339</title>
-<path fill="none" stroke="#000000" d="M2639.2663,-287.9243C2609.3432,-277.9959 2572.0602,-265.6255 2540.7541,-255.2382"/>
-<polygon fill="#000000" stroke="#000000" points="2541.8385,-251.9104 2531.2451,-252.0831 2539.6341,-258.5543 2541.8385,-251.9104"/>
-</g>
-<!-- 2173003231037307028&#45;&gt;7865638114333325652 -->
-<g id="edge24" class="edge">
-<title>2173003231037307028-&gt;7865638114333325652</title>
-<path fill="none" stroke="#000000" d="M2694.7049,-287.9496C2694.783,-268.0632 2691.8816,-236.2252 2674.7445,-216 2662.9569,-202.0882 2647.1186,-191.7405 2630.3761,-184.0497"/>
-<polygon fill="#000000" stroke="#000000" points="2631.5727,-180.7549 2621.0017,-180.0446 2628.8225,-187.1921 2631.5727,-180.7549"/>
-</g>
-<!-- 2173003231037307028&#45;&gt;642710335645396180 -->
-<g id="edge23" class="edge">
-<title>2173003231037307028-&gt;642710335645396180</title>
-<path fill="none" stroke="#000000" d="M2701.5946,-287.8652C2714.3732,-255.2131 2735.0806,-186.0276 2701.7445,-144 2690.144,-129.375 2657.7948,-118.3365 2620.8455,-110.1784"/>
-<polygon fill="#000000" stroke="#000000" points="2621.3495,-106.7076 2610.8413,-108.0598 2619.8992,-113.5557 2621.3495,-106.7076"/>
-</g>
-<!-- 2173003231037307028&#45;&gt;8771315013867850515 -->
-<g id="edge25" class="edge">
-<title>2173003231037307028-&gt;8771315013867850515</title>
-<path fill="none" stroke="#000000" d="M2460.5938,-301.5563C2207.0132,-295.2765 1829.4993,-281.1519 1768.7445,-252 1718.2352,-227.7642 1675.5701,-192.4228 1703.7445,-144 1711.2639,-131.0766 1723.1574,-120.9924 1736.0191,-113.224"/>
-<polygon fill="#000000" stroke="#000000" points="1737.9977,-116.1286 1745.0361,-108.2095 1734.5955,-110.0109 1737.9977,-116.1286"/>
-</g>
-<!-- 2173003231037307028&#45;&gt;17122260673017766250 -->
-<g id="edge27" class="edge">
-<title>2173003231037307028-&gt;17122260673017766250</title>
-<path fill="none" stroke="#000000" d="M2713.5153,-287.9472C2756.1549,-246.8204 2848.8471,-144.1484 2796.7445,-72 2787.5312,-59.242 2758.1933,-47.8225 2726.8972,-38.8075"/>
-<polygon fill="#000000" stroke="#000000" points="2727.7145,-35.4019 2717.1419,-36.0881 2725.8348,-42.1448 2727.7145,-35.4019"/>
+<title>4947351087640734691-&gt;14459559319851391154</title>
+<path fill="none" stroke="#000000" d="M529.0496,-71.9243C495.2523,-61.9103 453.0707,-49.412 417.8289,-38.97"/>
+<polygon fill="#000000" stroke="#000000" points="418.668,-35.5683 408.0857,-36.0831 416.6794,-42.2799 418.668,-35.5683"/>
 </g>
 </g>
 </svg>

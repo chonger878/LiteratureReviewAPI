@@ -125,6 +125,14 @@ async function getArticles(url, searched, searchedBranch) {
 
 let allData = JSON.parse(JSON.stringify(Data));
 
+for(var d in allData) {
+  for(var i = 0; i < allData[d].length; i++) {
+    if(allData[d][i].hasOwnProperty('description')) {
+      delete allData[d][i].description;
+    }
+  }
+}
+
 /**
  * queryDatabase - queries the database for results from a specific search url
  *
@@ -136,9 +144,14 @@ async function queryDatabase(search, searched, searchedBranch) {
     //find and save to file if not available
     Data[search] = await getArticles(search, searched, searchedBranch);
     Data[search][0].p = (MaximumArticles + 9) / 10;
+    for(var i = 0; i < Data[search].length; i++) {
+      if(Data[search][i].hasOwnProperty('description')) {
+        delete Data[search][i].description;
+      }
+    }
     console.log(Data[search].map(prettyMap).join('\n'));
     allData[search] = JSON.parse(JSON.stringify(Data[search]));
-    fs.writeFileSync('data.js', "var Data=" + JSON.stringify(allData));
+    fs.writeFileSync('resources/app/src/data.js', "var Data=" + JSON.stringify(allData));
   }
   return JSON.parse(JSON.stringify(allData[search]));
 }
@@ -253,7 +266,7 @@ function branch(steps, article, parent, searched, searchedBranch, queued, index)
 
   formatArticle(article, steps, index, searchedBranch);
 
-  if(article.numCitations > CitationMinimum){
+  if(article.numCitations > CitationMinimum) {
     queued.push({ steps: steps, article: article, parent: parent });
   }
 }
@@ -492,7 +505,7 @@ async function main() {
 }
 
 function openSVG(a) {
-  fs.writeFileSync('src/graph.svg', decodeURIComponent(a.dataset["href"]));
+  fs.writeFileSync('resources/app/src/graph.svg', decodeURIComponent(a.dataset["href"]));
   window.open('graph.svg', '_blank', 'nodeIntegration=no');
 }
 
