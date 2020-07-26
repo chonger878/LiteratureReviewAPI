@@ -1,7 +1,7 @@
 {
   "name": "Scholarly-Graphs",
   "productName": "Scholarly Graphs",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Make graphs of paper in given fields of study",
   "main": "src/index.js",
   "scripts": {

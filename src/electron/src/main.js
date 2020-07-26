@@ -4,6 +4,8 @@ TODO:
 - seperate default data
 */
 
+var debug = false;
+
 const fs = require('fs');
 
 const { ipcRenderer } = require('electron');
@@ -22,6 +24,7 @@ var MaximumArticles = 1; // Most articles searched (rounded up to the nearest pa
 var Sleep = 0.3; // how many minutes maximum to wait between calls (minimum is 1/3)
 var forceQuery = false;
 var abortSearch = false;
+var addedData = false;
 var abortSearchBtn = document.getElementById('abortSearch');
 
 function abortSearchF() {
@@ -67,10 +70,18 @@ async function getArticles(url, searched, searchedBranch) {
   let page = 0;
   while(lowest > CitationMinimum && children.length < MaximumArticles) {
     if(abortSearch) { throw 'aborting'; }
+
+    let currentURL = url + `${page?`&start=${page}`:''}`;
+    if(debug) {
+      console.log('- query: ' + currentURL);
+    }
+
     if(started && Sleep) {
       //offset Bell curve of delay to maybe look more human
       let ms = sleepDuration();
-      console.log('sleep for ' + (ms / 10 >> 0) / 100 + ' seconds');
+      if(debug) {
+        console.log('sleep for ' + (ms / 10 >> 0) / 100 + ' seconds');
+      }
       if(ms > 1000) {
         renderGraph(searched, searchedBranch);
       }
@@ -78,9 +89,6 @@ async function getArticles(url, searched, searchedBranch) {
       if(abortSearch) { throw 'aborting'; }
     }
     started = true;
-
-    let currentURL = url + `${page?`&start=${page}`:''}`;
-    console.log('- query: ' + currentURL);
 
     //try multiple times in the event of an error, like ECONNREFUSED or ETIMEDOUT
     let done = 0,
@@ -96,11 +104,15 @@ async function getArticles(url, searched, searchedBranch) {
       } catch (e) {
         done++;
         if(done < 5) {
-          console.error(e);
-          console.log(`error: ${e}\nprompting . . . ` + done);
+          if(debug) {
+            console.error(e);
+            console.log(`error: ${e}\nprompting . . . ` + done);
+          }
           ipcRenderer.sendSync('synchronous-message', JSON.stringify(await promptCookie()));
         } else {
-          console.error(e);
+          if(debug) {
+            console.error(e);
+          }
         }
       }
     }
@@ -125,10 +137,50 @@ async function getArticles(url, searched, searchedBranch) {
 
 let allData = JSON.parse(JSON.stringify(Data));
 
-for(var d in allData) {
-  for(var i = 0; i < allData[d].length; i++) {
-    if(allData[d][i].hasOwnProperty('description')) {
-      delete allData[d][i].description;
+async function queryArticles(url) {
+  if(debug) {
+    console.log('query DB: ' + url);
+  }
+  //  AJAX call
+  return new Promise((resolve, reject) => {
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://scholarly-x.herokuapp.com/query?query=' + escape(url), true);
+    //xhr.open('GET', 'http://localhost:1337/query?query=' + escape(url), true);
+    xhr.send();
+    xhr.onreadystatechange = function() {
+      if(xhr.readyState === 4) {
+        if(xhr.status === 200) {
+          let resp = xhr.responseText;
+          let respJson = JSON.parse(resp);
+          resolve(respJson);
+        } else {
+          if(debug) {
+            console.error(`query error ${xhr.status}\n${xhr.responseText}`);
+          }
+          reject(xhr.responseText);
+        }
+      }
+    }
+  })
+}
+
+function postArticle(search, article) {
+  let xhr = new XMLHttpRequest();
+  xhr.open('POST', 'https://scholarly-x.herokuapp.com/submit');
+  //xhr.open('POST', 'http://localhost:1337/submit');
+  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xhr.send(JSON.stringify({ search: search, data: article }));
+  xhr.onreadystatechange = function() {
+    if(xhr.readyState === 4) {
+      if(xhr.status === 200) {
+        if(debug) {
+          console.log('submitted ' + search);
+        }
+      } else {
+        if(debug) {
+          console.error('error ' + xhr.status + '\n' + xhr.responseText);
+        }
+      }
     }
   }
 }
@@ -141,17 +193,40 @@ for(var d in allData) {
  */
 async function queryDatabase(search, searched, searchedBranch) {
   if(forceQuery || !Data.hasOwnProperty(search) || allData[search][0].p < (MaximumArticles + 9) / 10) {
-    //find and save to file if not available
-    Data[search] = await getArticles(search, searched, searchedBranch);
-    Data[search][0].p = (MaximumArticles + 9) / 10;
-    for(var i = 0; i < Data[search].length; i++) {
-      if(Data[search][i].hasOwnProperty('description')) {
-        delete Data[search][i].description;
+    try {
+      if(!forceQuery) {
+        let queryResult = false;
+        queryResult = await queryArticles(search);
+        if(debug) {
+          //console.log(queryResult);
+          //console.log(JSON.stringify(queryResult));
+        }
+        if(queryResult && queryResult[0].p >= (MaximumArticles + 9) / 10) {
+          Data[search] = queryResult;
+        } else { throw 'insufficient result'; }
+      } else { throw 'forcing'; }
+    } catch (e) {
+      if(debug) {
+        console.error(e);
       }
+      //find and save to file if not available
+      Data[search] = await getArticles(search, searched, searchedBranch);
+      Data[search][0].p = (MaximumArticles + 9) / 10;
+      for(var i = 0; i < Data[search].length; i++) {
+        if(Data[search][i].hasOwnProperty('description')) {
+          delete Data[search][i].description;
+        }
+        if(!Data[search][i].year) {
+          Data[search][i].year = 0;
+        }
+      }
+      postArticle(search, Data[search]);
     }
-    console.log(Data[search].map(prettyMap).join('\n'));
+    if(debug) {
+      console.log(Data[search].map(prettyMap).join('\n'));
+    }
     allData[search] = JSON.parse(JSON.stringify(Data[search]));
-    fs.writeFileSync('resources/app/src/data.js', "var Data=" + JSON.stringify(allData));
+    addedData = true;
   }
   return JSON.parse(JSON.stringify(allData[search]));
 }
@@ -177,8 +252,11 @@ function getChildrenArticles(article, searched, searchedBranch) {
  * @return {[Article Array Promise]} resolves with a list of children articles
  */
 function getNeighborArticles(article, searched, searchedBranch) {
-  let url = article.relatedUrl.replace('http://scholar.google.com/scholar?q=', '');
-  return queryDatabase(url, searched, searchedBranch);
+  if(article.hasOwnProperty('relatedUrl')) {
+    let url = article.relatedUrl.replace('http://scholar.google.com/scholar?q=', '');
+    return queryDatabase(url, searched, searchedBranch);
+  }
+  return [];
 }
 
 /**
@@ -272,7 +350,9 @@ function branch(steps, article, parent, searched, searchedBranch, queued, index)
 }
 
 async function searchBranch(steps, article, searched, searchedBranch, queued) {
-  console.log(article.steps + '\n' + article.relevance + ' --> ' + article.title);
+  if(debug) {
+    console.log(article.steps + '\n' + article.relevance + ' -- ' + article.title);
+  }
   if(abortSearch) { throw 'aborting'; }
   let children = await getChildrenArticles(article, searched, searchedBranch);
   progressBar.value++;
@@ -297,7 +377,9 @@ async function searchBranch(steps, article, searched, searchedBranch, queued) {
  */
 async function nextBranch(searched, searchedBranch, queued) {
   if(queued.length <= 0) {
-    console.log('No queue');
+    if(debug) {
+      console.log('No queue');
+    }
     return;
   }
   let bestCandidate = [0, 0];
@@ -311,7 +393,9 @@ async function nextBranch(searched, searchedBranch, queued) {
   try {
     await searchBranch(best.article.steps, best.article, searched, searchedBranch, queued);
   } catch (e) {
-    console.error(e);
+    if(debug) {
+      console.error(e);
+    }
   }
 }
 
@@ -370,7 +454,9 @@ function renderGraph(searched, searchedBranch) {
     })
     .catch(error => {
       viz = new Viz();
-      console.error(error);
+      if(debug) {
+        console.error(error);
+      }
     });
 }
 
@@ -441,14 +527,18 @@ async function buildArticleGraph(searches, args) {
     }
   } catch (e) {
     if(!abortSearch) {
-      console.error(e);
+      if(debug) {
+        console.error(e);
+      }
     }
   }
 
   progressBar.style.display = "none";
   renderGraph(searched, searchedBranch);
 
-  console.log('Finished searching: ' + args[0]);
+  if(debug) {
+    console.log('Finished searching: ' + args[0]);
+  }
 
   //printRelevent(searchedBranch);
 }
@@ -494,6 +584,7 @@ function prettyMap(article) {
 
 var searching = true;
 async function main() {
+  addedData = false;
   abortSearch = false;
   abortSearchBtn.style.display = "inline";
   await buildArticleGraph(Searches, [document.getElementById('q').value.replace(/  +/g, ' ').toLowerCase().trim()]);
@@ -502,6 +593,9 @@ async function main() {
   }
   searching = false;
   abortSearchBtn.style.display = "none";
+  if(addedData) {
+    fs.writeFileSync('resources/app/src/data.js', "var Data=" + JSON.stringify(allData));
+  }
 }
 
 function openSVG(a) {
