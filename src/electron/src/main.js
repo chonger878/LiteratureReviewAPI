@@ -587,13 +587,12 @@ async function main() {
   addedData = false;
   abortSearch = false;
   abortSearchBtn.style.display = "inline";
-  await buildArticleGraph(Searches, [document.getElementById('q').value.replace(/  +/g, ' ').toLowerCase().trim()]);
-  if(started) {
-    setAutoComplete();
-  }
+  await buildArticleGraph(Searches, [encodeURIComponent(document.getElementById('q').value.replace(/  +/g, ' ').toLowerCase().trim()).replace(/%20/g,'+')]);
+
   searching = false;
   abortSearchBtn.style.display = "none";
   if(addedData) {
+    setAutoComplete();
     fs.writeFileSync('resources/app/src/data.js', "var Data=" + JSON.stringify(allData));
   }
 }
