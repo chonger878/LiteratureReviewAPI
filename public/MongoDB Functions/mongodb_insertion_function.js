@@ -6,10 +6,10 @@ var url=
 
 MongoClient.connect(url, function(err,db) {
     if(err) throw err;
-    var treesdb = db.db.("scholarlytrees");
-    var dbObj = [];
+    //var treesdb = db.("scholarlytrees");
+    var dbObj = [{articleName: "test title", articleAuthor: "test author", articleUrl: "http://www.testurl.com/"}];
 
-    treesdb.collection("articles-listings").insertMany(dbObj, function(error,response) {
+    treesdb.collection("articles-listings").insertOne(dbObj, function(error,response) {
         if (error) throw error;
         console.log(response.insertedCount + "documents inserted for scholarly articles.");
         treesdb.close();
