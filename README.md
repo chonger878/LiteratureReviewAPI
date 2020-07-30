@@ -1,16 +1,11 @@
 # LiteratureReviewAPI
-Work in Progress: https://chonger878.github.io/LiteratureReviewAPI/src/client/public/
+Work in Progress: https://chonger878.github.io/LiteratureReviewAPI/search/
 Discord server: https://discord.gg/hx7ufM
 
 # TODO:
-- backend database
-- frontend - backend integration
-- web API
-  - database query
-  - queue queries for search
 - frontend
   - pretty style/CSS
-  - give user electron app on failed query
+  - help pages/documentation
 - electron app
   - compile for Windows, Linux, and MacOS
 - abstract out traversal code
