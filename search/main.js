@@ -39,7 +39,60 @@ async function getArticles(url) {
   })
 }
 
+var controlRe = /[\x00-\x1f\x80-\x9f]/g;
+var reservedRe = /^\.+$/;
+var windowsReservedRe = /^(con|prn|aux|nul|com[0-9]|lpt[0-9])(\..*)?$/i;
+var windowsTrailingRe = /[\. ]+$/;
+function sanitize(input) {
+  let replacement = '';
+  if(typeof input !== 'string') {
+    throw new Error('Input must be string');
+  }
+  var sanitized = input
+    .replace(/\//g, '{sl}')
+    .replace(/\?/g, '{qu}')
+    .replace(/</g, '{gt}')
+    .replace(/>/g, '{lt}')
+    .replace(/\\/g, '{bs}')
+    .replace(/:/g, '{cl}')
+    .replace(/\*/g, '{ax}')
+    .replace(/\|/g, '{pp}')
+    .replace(/"/g, '{dq}')
+    .replace(controlRe, replacement)
+    .replace(reservedRe, replacement)
+    .replace(windowsReservedRe, replacement)
+    .replace(windowsTrailingRe, replacement);
+  return sanitized.slice(0, 255);
+}
+
 let allData = JSON.parse(JSON.stringify(Data));
+
+async function loadArticles(query) {
+  if(allData.hasOwnProperty(query)){return;}
+  //  AJAX call
+  return new Promise((resolve, reject) => {
+    let xhr = new XMLHttpRequest();
+    //xhr.open('GET', `https://cdn.jsdelivr.net/gh/chonger878/LiteratureReviewAPI@Edward-front/src/DB/${encodeURIComponent(sanitize(query))}.json`, true);
+    xhr.open('GET', `/src/DB/${encodeURIComponent(sanitize(query))}.json`,true);
+    xhr.send();
+    xhr.onreadystatechange = function() {
+      if(xhr.readyState === 4) {
+        try {
+          let resp = xhr.responseText;
+          let respJson = JSON.parse(resp);
+          //console.log(respJson);
+          for(let k in respJson) {
+            //console.log('- '+k);
+            Data[k] = respJson[k];
+            allData[k] = JSON.parse(JSON.stringify(respJson[k]));
+          }
+          resolve(true);
+        } catch (e) { console.error(e); resolve(false); }
+      }
+    }
+  })
+}
+loadArticles('information+theory');
 
 /**
  * queryDatabase - queries the database for results from a specific search url
@@ -48,8 +101,14 @@ let allData = JSON.parse(JSON.stringify(Data));
  * @return {[Article Object]} Article object Array
  */
 async function queryDatabase(search, searched, searchedBranch) {
-  if(!Data.hasOwnProperty(search) || allData[search][0].p < (MaximumArticles + 9) / 10) {
-    //find and save to file if not available
+  //console.log(search);
+  if(!Data.hasOwnProperty(search)) {//|| allData[search][0].p < (MaximumArticles + 9) / 10
+    promptDownload();
+    abortSearch = true;
+    throw 'abort';
+
+
+    /*find and save to file if not available
     var response = await getArticles(search, searched, searchedBranch);
     if(response.hasOwnProperty('error')) {
       promptDownload();
@@ -64,6 +123,7 @@ async function queryDatabase(search, searched, searchedBranch) {
       }
     }
     allData[search] = JSON.parse(JSON.stringify(Data[search]));
+    */
   }
   return JSON.parse(JSON.stringify(allData[search]));
 }
@@ -325,6 +385,7 @@ function printRelevent(searchedBranch) {
  * @param  {[arguments]} args the same arguments as searchArticles in args
  */
 async function buildArticleGraph(searches, args) {
+  await loadArticles(args[0]);
   progressBar.max = (searches * 1 + Presearch) * 2 + 2;
   let searched = {};
   let searchedBranch = {};
@@ -404,7 +465,7 @@ function prettyMap(article) {
 var searching = true;
 async function main() {
   abortSearch = false;
-  await buildArticleGraph(Searches, [encodeURIComponent(document.getElementById('q').value.replace(/  +/g, ' ').toLowerCase().trim()).replace(/%20/g, '+')]);
+  await buildArticleGraph(Searches, [encodeURIComponent(document.getElementById('q').value.replace(/  +/g, ' ').toLowerCase().trim()).replace(/%20| /g, '+')]);
   if(started) {
     setAutoComplete();
   }
@@ -447,7 +508,7 @@ function promptDownload() {
   downloadModal.style.display = "block";
 }
 
-var defaultUrl = { q: 'information theory', depth: 8, minRel: 50, stepSetting: 500, indexSetting: 500, presearchSetting: 5, pagesSetting: 1, maxDepthSetting: 20 };
+var defaultUrl = { q: 'information theory', depth: 8, minRel: 50, stepSetting: 500, indexSetting: 500, presearchSetting: 5, pagesSetting: 1, maxDepthSetting: 10 };
 
 function setUrl() {
   if(!history.pushState) { return; }
