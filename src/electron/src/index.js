@@ -28,7 +28,7 @@ const createWindow = () => {
     fullscreenable: false,
     //fullscreen:true,
     //fullscreenWindowTitle:true,
-    icon: "src/icons/icon.ico",
+    //icon: "resources/app/src/icons/icon.ico",
     webPreferences: {
       nodeIntegration: true,
     }
@@ -59,12 +59,37 @@ const createWindow = () => {
 
     let shouldPopup = false;
 
+    if(params.dictionarySuggestions.length > 0) {
+      // Add each spelling suggestion
+      for(const suggestion of params.dictionarySuggestions) {
+        menu.append(new MenuItem({
+          label: suggestion,
+          click: () => mainWindow.webContents.replaceMisspelling(suggestion)
+        }))
+      }
+
+      // Allow users to add the misspelled word to the dictionary
+      if(params.misspelledWord) {
+        menu.append(new MenuItem({ type: 'separator' }))
+        menu.append(
+          new MenuItem({
+            label: 'Add to dictionary',
+            click: () => mainWindow.webContents.session.addWordToSpellCheckerDictionary(params.misspelledWord)
+          })
+        )
+      }
+      shouldPopup = true;
+    }
+
     if(params.editFlags.canSelectAll && params.selectionText) {
+      if(shouldPopup) {
+        menu.append(new MenuItem({ type: 'separator' }))
+      }
       menu.append(
         new MenuItem({
           label: "Select all",
-          role:'select all',
-          accelerator:'CommandOrControl+A',
+          role: 'select all',
+          accelerator: 'CommandOrControl+A',
           click: () => mainWindow.webContents.selectAll()
         })
       )
@@ -79,8 +104,8 @@ const createWindow = () => {
       menu.append(
         new MenuItem({
           label: "Copy",
-          role:'copy',
-          accelerator:'CommandOrControl+C',
+          role: 'copy',
+          accelerator: 'CommandOrControl+C',
           click: () => clipboard.writeText(params.selectionText, 'selection')
         })
       )
@@ -91,8 +116,8 @@ const createWindow = () => {
       menu.append(
         new MenuItem({
           label: "Paste",
-          role:'paste',
-          accelerator:'CommandOrControl+V',
+          role: 'paste',
+          accelerator: 'CommandOrControl+V',
           click: () => mainWindow.webContents.paste()
         })
       )
@@ -106,34 +131,10 @@ const createWindow = () => {
       menu.append(
         new MenuItem({
           label: "Copy link address",
-          role:'copy link address',
+          role: 'copy link address',
           click: () => clipboard.writeText(params.linkURL, 'selection')
         })
       )
-      shouldPopup = true;
-    }
-
-    if(params.dictionarySuggestions.length > 0) {
-      if(shouldPopup) {
-        menu.append(new MenuItem({ type: 'separator' }))
-      }
-      // Add each spelling suggestion
-      for(const suggestion of params.dictionarySuggestions) {
-        menu.append(new MenuItem({
-          label: suggestion,
-          click: () => mainWindow.webContents.replaceMisspelling(suggestion)
-        }))
-      }
-
-      // Allow users to add the misspelled word to the dictionary
-      if(params.misspelledWord) {
-        menu.append(
-          new MenuItem({
-            label: 'Add to dictionary',
-            click: () => mainWindow.webContents.session.addWordToSpellCheckerDictionary(params.misspelledWord)
-          })
-        )
-      }
       shouldPopup = true;
     }
 

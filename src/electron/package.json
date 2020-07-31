@@ -1,8 +1,8 @@
 {
-  "name": "literature-graphs",
-  "productName": "literature-graphs",
-  "version": "1.0.0",
-  "description": "My Electron application description",
+  "name": "Scholarly-Graphs",
+  "productName": "Scholarly Graphs",
+  "version": "0.1.0",
+  "description": "Make graphs of paper in given fields of study",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -26,7 +26,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "literature_graphs"
+            "name": "ScholarlyGraphs"
           }
         },
         {

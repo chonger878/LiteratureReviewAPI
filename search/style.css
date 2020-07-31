@@ -1,0 +1,138 @@
+td input{
+  width:30vw;
+}
+
+#parameters{
+  padding: 0.5em;
+}
+
+table td {
+  border: 0;
+  text-align: right;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+progress {
+  margin-top: 0.5em;
+  padding: 2em;
+  width: 50%;
+}
+
+td .slider {
+  width: 100%;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#graph svg {
+  width: 100%;
+  height: 60%;
+  text-align: center;
+}
+
+#search {
+  background-color:#f4f4f4;
+  padding: 0.25em;
+  text-align: center;
+}
+
+input {
+  font-size: 120%;
+}
+
+#key {
+  position: fixed;
+  display:flex;
+  left: 0;
+  bottom: 0;
+  width:20%;
+}
+#keyImg{
+  width: 100%;
+}
+#key:hover>#keyImg{
+  position:relative;
+  left:80vw;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  padding-top: 100px;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  text-align: center;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+.btn {
+  border: none; /* Remove borders */
+  color: white; /* Add a text color */
+  /*padding: 14px 28px; /* Add some padding */
+  padding: 4px;
+  cursor: pointer; /* Add a pointer cursor on mouse-over */
+}
+
+.success {background-color: #4CAF50;} /* Green */
+.success:hover {background-color: #46a049;}
+
+.info {background-color: #2196F3;} /* Blue */
+.info:hover {background: #0b7dda;}
+
+.warning {background-color: #ff9800;} /* Orange */
+.warning:hover {background: #e68a00;}
+
+.danger {background-color: #f44336;} /* Red */
+.danger:hover {background: #da190b;}
+
+.default {background-color: #e7e7e7; color: black;} /* Gray */
+.default:hover {background: #ddd;}

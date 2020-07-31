@@ -72,8 +72,8 @@ async function loadArticles(query) {
   //  AJAX call
   return new Promise((resolve, reject) => {
     let xhr = new XMLHttpRequest();
-    //xhr.open('GET', `https://cdn.jsdelivr.net/gh/chonger878/LiteratureReviewAPI@Edward-front/src/DB/${encodeURIComponent(sanitize(query))}.json`, true);
-    xhr.open('GET', `../src/DB/${encodeURIComponent(sanitize(query))}.json`,true);
+    //xhr.open('GET', `https://cdn.jsdelivr.net/gh/chonger878/LiteratureReviewAPI@master/src/DB/${encodeURIComponent(sanitize(query))}.json`, true);
+    xhr.open('GET', `https://raw.githubusercontent.com/chonger878/LiteratureReviewAPI/master/src/DB/${encodeURIComponent(sanitize(query))}.json`,true);
     xhr.send();
     xhr.onreadystatechange = function() {
       if(xhr.readyState === 4) {
