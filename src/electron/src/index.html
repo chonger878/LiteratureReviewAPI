@@ -10,7 +10,10 @@
 <body>
   <div id="myModal" class="modal">
     <div class="modal-content">
-      <p>Either change your IP address or get the request cookie from Google Scholar</p>
+      <p>
+        Either change your IP address or get the request cookie from Google Scholar<br>
+        <i><a href="https://github.com/chonger878/LiteratureReviewAPI/wiki/Cookie-Error">What's this?</a></i>
+      </p>
       <form onsubmit="submitModal();return false">
         <input id='cookie' placeholder="Cookie"><input id='userAgent' placeholder="User-Agent">
         <input type='submit' value='OK' class='btn info'>
@@ -23,6 +26,12 @@
       <span class="close" onclick="closeModal()">&times;</span>
       <table>
         <tbody>
+          <tr>
+            <td></td>
+            <td>
+              <a href="https://github.com/chonger878/LiteratureReviewAPI/wiki/Search-Parameters#Main-parameters"><input type='button' value='Help' class="btn info" style="width:100%"></a>
+            </td>
+          </tr>
           <tr>
             <td>
               <label for='stepSetting'>Depth Weight:</label>

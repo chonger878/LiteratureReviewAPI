@@ -184,7 +184,7 @@ async function loadArticles(query) {
   //  AJAX call
   return new Promise((resolve, reject) => {
     let xhr = new XMLHttpRequest();
-    //xhr.open('GET', `https://cdn.jsdelivr.net/gh/chonger878/LiteratureReviewAPI@Edward-front/src/DB/${encodeURIComponent(sanitize(query))}.json`, true);
+    //xhr.open('GET', `https://cdn.jsdelivr.net/gh/chonger878/LiteratureReviewAPI@master/src/DB/${encodeURIComponent(sanitize(query))}.json`, true);
     xhr.open('GET', `https://raw.githubusercontent.com/chonger878/LiteratureReviewAPI/master/src/DB/${encodeURIComponent(sanitize(query))}.json`, true);
     xhr.send();
     xhr.onreadystatechange = function() {
@@ -199,7 +199,7 @@ async function loadArticles(query) {
           }
           resolve(true);
         } catch (e) {
-          if(debug){
+          if(debug) {
             console.error(e);
           }
           resolve(false);
@@ -518,7 +518,9 @@ function printRelevent(searchedBranch) {
  * @param  {[arguments]} args the same arguments as searchArticles in args
  */
 async function buildArticleGraph(searches, args) {
-  await loadArticles(args[0]);
+  if(autocompleteData.indexOf(document.getElementById('q').value.replace(/  +/g, ' ').toLowerCase().trim()) >= 0) {
+    await loadArticles(args[0]);
+  }
   progressBar.max = (searches * 1 + Presearch) * 2 + 2;
   let searched = {};
   let searchedBranch = {};
