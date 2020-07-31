@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Montserrat';
+    background: #333;
+    color: #fff;
+    height: 100vh;
+    line-height: 1.6;
+    overflow: hidden;
+  }
+  
+  .container {
+    width: 100%;
+    height: 100%;
+    /* CSS Smooth Scroll */
+    overflow-y: scroll; 
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+  }
+  
+  .lead {
+    font-size: 1.5rem;
+  }
+  
+  .navbar {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    width: 100%;
+    height: 60px;
+    background: rgba(0,0,0,0.7);
+  }
+  
+  .navbar ul {
+    display: flex;
+    list-style: none;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .navbar ul li {
+    margin: 0 1rem;
+    padding: 1rem;
+  }
+  
+  .navbar ul li a {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #f4f4f4;
+  }
+  
+  .navbar ul li a:hover {
+    color: pink;
+    transition: ease-in 0.25s;
+  }
+  
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    height: 100vh;
+   
+    /* Scroll Snap */
+    scroll-snap-align: center;
+  }
+  
+  section h1 {
+    font-size: 4rem;
+  }
+  
+  section#home{
+    background: url(background.png);
+    background-size:     cover;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center center;
+  }
+
+  
+  section#search{
+    background: url(search.png);
+    background-size:     cover;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center center;
+  }
+  
+  section#credits{
+    background: url(search.png);
+    background-size:     cover;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center center;
+  }
+
+
+a.example input[type=text] {
+    padding: 20px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width:70%;
+    background: #f1f1f1;
+    margin-bottom: 20px;
+  }
+  
+  a.example button {
+    /*float: left;*/
+    width: 100%;
+    padding: 30px;
+    background: #9ab9d3;
+    color: white;
+    font-size: 40px;
+    border: 2px solid grey;
+    cursor: pointer;
+  }
+  
+  a.example button:hover {
+    background: #787eb4;
+    transition: ease-in .25s;
+  }
+  
+
+  a.example::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  /* THE CODE FOR THE AUTHORS*/
+
+  .wrapper{
+    width: 1400px;
+    margin: 70px auto;
+  }
+
+  .sin-team{
+      width: 28%;
+      float: left;
+      margin: 15px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.8);
+      padding: 15px;
+      color: #fff;
+      background: #262626;
+      border-radius: 15px;
+      shape-outside: circle();
+  }
+
+  .sin-team img{
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      float: left;
+      margin: 40px 20px 30px 0;
+      border: 5px solid #fff;
+  }
+
+  p{
+      text-align: justify;
+      line-height: 15px;
+      font-size: 12;
+  }
+/*Pop out text*/
