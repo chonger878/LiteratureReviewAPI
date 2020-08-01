@@ -86,6 +86,7 @@
 
 section#about{
     background: url(about.png);
+    background-color: #f8f8f8;
     background-size:     cover;                      /* <------ */
     background-repeat:   no-repeat;
     background-position: center center;
@@ -175,3 +176,28 @@ a.example input[type=text] {
       font-size: 12;
   }
 /*Pop out text*/
+
+.flex-container {
+  display: flex;
+  padding: 200px;
+}
+
+.flex-child {
+  flex: 1;
+}  
+
+.flex-child:first-child {
+  margin-right: 340px;
+} 
+
+.flex-child p{
+  color: #262626;
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+.flex-child h1{
+  color: #262626;
+  font-size: 45px;
+}
+
