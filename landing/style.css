@@ -142,8 +142,10 @@ a.example input[type=text] {
   /* THE CODE FOR THE AUTHORS*/
 
   .wrapper{
-    width: 1400px;
+    max-width: 1400px;
     margin: 70px auto;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
   .sin-team{
