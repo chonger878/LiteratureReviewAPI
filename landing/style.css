@@ -84,7 +84,13 @@
     background-position: center center;
   }
 
-  
+section#about{
+    background: url(about.png);
+    background-size:     cover;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center center;
+  }  
+
   section#search{
     background: url(search.png);
     background-size:     cover;                      /* <------ */
