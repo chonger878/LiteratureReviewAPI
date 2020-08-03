@@ -43,6 +43,7 @@ var controlRe = /[\x00-\x1f\x80-\x9f]/g;
 var reservedRe = /^\.+$/;
 var windowsReservedRe = /^(con|prn|aux|nul|com[0-9]|lpt[0-9])(\..*)?$/i;
 var windowsTrailingRe = /[\. ]+$/;
+
 function sanitize(input) {
   let replacement = '';
   if(typeof input !== 'string') {
@@ -68,12 +69,12 @@ function sanitize(input) {
 let allData = JSON.parse(JSON.stringify(Data));
 
 async function loadArticles(query) {
-  if(allData.hasOwnProperty(query)){return;}
+  if(allData.hasOwnProperty(query)) { return; }
   //  AJAX call
   return new Promise((resolve, reject) => {
     let xhr = new XMLHttpRequest();
     //xhr.open('GET', `https://cdn.jsdelivr.net/gh/chonger878/LiteratureReviewAPI@master/src/DB/${encodeURIComponent(sanitize(query))}.json`, true);
-    xhr.open('GET', `https://raw.githubusercontent.com/chonger878/LiteratureReviewAPI/master/src/DB/${encodeURIComponent(sanitize(query))}.json`,true);
+    xhr.open('GET', `https://raw.githubusercontent.com/chonger878/LiteratureReviewAPI/master/src/DB/${encodeURIComponent(sanitize(query))}.json`, true);
     xhr.send();
     xhr.onreadystatechange = function() {
       if(xhr.readyState === 4) {
@@ -87,7 +88,10 @@ async function loadArticles(query) {
             allData[k] = JSON.parse(JSON.stringify(respJson[k]));
           }
           resolve(true);
-        } catch (e) { console.error(e); resolve(false); }
+        } catch (e) {
+          console.error(e);
+          resolve(false);
+        }
       }
     }
   })
@@ -102,10 +106,11 @@ loadArticles('information+theory');
  */
 async function queryDatabase(search, searched, searchedBranch) {
   console.log(search);
-  if(!Data.hasOwnProperty(search)) {//|| allData[search][0].p < (MaximumArticles + 9) / 10
+  if(!Data.hasOwnProperty(search)) { //|| allData[search][0].p < (MaximumArticles + 9) / 10
     promptDownload();
-    abortSearch = true;
-    throw 'abort';
+    return [];
+    //abortSearch = true;
+    //throw 'abort';
 
 
     /*find and save to file if not available
