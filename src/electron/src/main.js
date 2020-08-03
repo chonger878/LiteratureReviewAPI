@@ -21,7 +21,7 @@ var AllowUnconnected = htmlAllowUnconnected.checked;
 const CitationMinimum = 5; // How many citations needed to search
 var MaximumArticles = 1; // Most articles searched (rounded up to the nearest page) (each page has ~10 articles)
 
-var Sleep = 0.3; // how many minutes maximum to wait between calls (minimum is 1/3)
+var Sleep = 0; // how many minutes maximum to wait between calls (minimum is 1/3)
 var forceQuery = false;
 var abortSearch = false;
 var addedData = false;
@@ -179,29 +179,30 @@ function loadData(search, data) {
   allData[search] = JSON.parse(JSON.stringify(Data[search]));
 }
 
+let appearsCached = 0;
+
 async function loadArticles(query) {
-  if(allData.hasOwnProperty(query)) { return; }
+  if(appearsCached > 2 || allData.hasOwnProperty(query)) { return; }
   //  AJAX call
   return new Promise((resolve, reject) => {
     let xhr = new XMLHttpRequest();
-    //xhr.open('GET', `https://cdn.jsdelivr.net/gh/chonger878/LiteratureReviewAPI@master/src/DB/${encodeURIComponent(sanitize(query))}.json`, true);
-    xhr.open('GET', `https://raw.githubusercontent.com/chonger878/LiteratureReviewAPI/master/src/DB/${encodeURIComponent(sanitize(query))}.json`, true);
+    xhr.open('GET', `https://cdn.jsdelivr.net/gh/chonger878/LiteratureReviewAPI@latest/src/DB/${encodeURIComponent(sanitize(query))}.json`, true);
     xhr.send();
     xhr.onreadystatechange = function() {
       if(xhr.readyState === 4) {
         try {
           let resp = xhr.responseText;
           let respJson = JSON.parse(resp);
-          //console.log(respJson);
           for(let k in respJson) {
-            //console.log('- ' + k);
-            loadData(k, respJson[k]);
+            Data[k] = respJson[k];
+            allData[k] = JSON.parse(JSON.stringify(respJson[k]));
           }
           resolve(true);
         } catch (e) {
           if(debug) {
             console.error(e);
           }
+          appearsCached++;
           resolve(false);
         }
       }
@@ -239,6 +240,9 @@ function postArticle(search, article) {
  */
 async function queryDatabase(search, searched, searchedBranch) {
   //console.log(search+' <--');
+  if(!Data.hasOwnProperty(search)) {
+    await loadArticles(search);
+  }
   if(forceQuery || !Data.hasOwnProperty(search) || allData[search][0].p < (MaximumArticles + 9) / 10) {
     //find and save to file if not available
     let data = await getArticles(search, searched, searchedBranch);
@@ -518,9 +522,6 @@ function printRelevent(searchedBranch) {
  * @param  {[arguments]} args the same arguments as searchArticles in args
  */
 async function buildArticleGraph(searches, args) {
-  if(autocompleteData.indexOf(document.getElementById('q').value.replace(/  +/g, ' ').toLowerCase().trim()) >= 0) {
-    await loadArticles(args[0]);
-  }
   progressBar.max = (searches * 1 + Presearch) * 2 + 2;
   let searched = {};
   let searchedBranch = {};
@@ -608,6 +609,7 @@ function prettyMap(article) {
 
 var searching = true;
 async function main() {
+  appearsCached = 0;
   addedData = false;
   abortSearch = false;
   abortSearchBtn.style.display = "inline";
