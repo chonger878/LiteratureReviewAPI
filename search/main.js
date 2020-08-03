@@ -1,3 +1,5 @@
+var debug = false;
+
 var htmlMinimumRelevance = document.getElementById("minRel");
 var htmlSearches = document.getElementById("depth");
 var htmlAllowUnconnected = document.getElementById("singles");
@@ -43,6 +45,7 @@ var controlRe = /[\x00-\x1f\x80-\x9f]/g;
 var reservedRe = /^\.+$/;
 var windowsReservedRe = /^(con|prn|aux|nul|com[0-9]|lpt[0-9])(\..*)?$/i;
 var windowsTrailingRe = /[\. ]+$/;
+
 function sanitize(input) {
   let replacement = '';
   if(typeof input !== 'string') {
@@ -68,31 +71,34 @@ function sanitize(input) {
 let allData = JSON.parse(JSON.stringify(Data));
 
 async function loadArticles(query) {
-  if(allData.hasOwnProperty(query)){return;}
+  if(allData.hasOwnProperty(query)) { return; }
   //  AJAX call
   return new Promise((resolve, reject) => {
     let xhr = new XMLHttpRequest();
     //xhr.open('GET', `https://cdn.jsdelivr.net/gh/chonger878/LiteratureReviewAPI@master/src/DB/${encodeURIComponent(sanitize(query))}.json`, true);
-    xhr.open('GET', `https://raw.githubusercontent.com/chonger878/LiteratureReviewAPI/master/src/DB/${encodeURIComponent(sanitize(query))}.json`,true);
+    //xhr.open('GET', `https://raw.githubusercontent.com/chonger878/LiteratureReviewAPI/master/src/DB/${encodeURIComponent(sanitize(query))}.json`, true);
+    xhr.open('GET', `https://raw.githubusercontent.com/chonger878/LiteratureReviewAPI/GIT-HELP/src/DB/${encodeURIComponent(sanitize(query))}.json`, true);
     xhr.send();
     xhr.onreadystatechange = function() {
       if(xhr.readyState === 4) {
         try {
           let resp = xhr.responseText;
           let respJson = JSON.parse(resp);
-          //console.log(respJson);
           for(let k in respJson) {
-            //console.log('- '+k);
             Data[k] = respJson[k];
             allData[k] = JSON.parse(JSON.stringify(respJson[k]));
           }
           resolve(true);
-        } catch (e) { console.error(e); resolve(false); }
+        } catch (e) {
+          if(debug){
+            console.error(e);
+          }
+          resolve(false);
+        }
       }
     }
   })
 }
-loadArticles('information+theory');
 
 /**
  * queryDatabase - queries the database for results from a specific search url
@@ -101,29 +107,12 @@ loadArticles('information+theory');
  * @return {[Article Object]} Article object Array
  */
 async function queryDatabase(search, searched, searchedBranch) {
-  console.log(search);
-  if(!Data.hasOwnProperty(search)) {//|| allData[search][0].p < (MaximumArticles + 9) / 10
-    promptDownload();
-    abortSearch = true;
-    throw 'abort';
-
-
-    /*find and save to file if not available
-    var response = await getArticles(search, searched, searchedBranch);
-    if(response.hasOwnProperty('error')) {
+  if(!Data.hasOwnProperty(search)) { //|| allData[search][0].p < (MaximumArticles + 9) / 10
+    let foundData = await loadArticles(search);
+    if(!foundData){
       promptDownload();
-      abortSearch = true;
-      throw 'abort';
+      return [];
     }
-    Data[search] = response;
-    Data[search][0].p = (MaximumArticles + 9) / 10;
-    for(var i = 0; i < Data[search].length; i++) {
-      if(Data[search][i].hasOwnProperty('description')) {
-        delete Data[search][i].description;
-      }
-    }
-    allData[search] = JSON.parse(JSON.stringify(Data[search]));
-    */
   }
   return JSON.parse(JSON.stringify(allData[search]));
 }
@@ -271,7 +260,9 @@ async function searchBranch(steps, article, searched, searchedBranch, queued) {
  */
 async function nextBranch(searched, searchedBranch, queued) {
   if(queued.length <= 0) {
-    console.log('No queue');
+    if(debug){
+      console.log('No queue');
+    }
     return;
   }
   let bestCandidate = [0, 0];
@@ -285,7 +276,9 @@ async function nextBranch(searched, searchedBranch, queued) {
   try {
     await searchBranch(best.article.steps, best.article, searched, searchedBranch, queued);
   } catch (e) {
-    console.error(e);
+    if(debug){
+      console.error(e);
+    }
   }
 }
 
@@ -342,9 +335,11 @@ function renderGraph(searched, searchedBranch) {
       document.getElementById('graph').innerHTML = '<a onclick="openSVG(this,event)" href="data:image/svg+xml;utf8,' + encodeURIComponent(element.outerHTML) + '">' + element.outerHTML + '</a>';
       fixExternalLinks();
     })
-    .catch(error => {
+    .catch(e => {
       viz = new Viz();
-      console.error(error);
+      if(debug){
+        console.error(e);
+      }
     });
 }
 
@@ -385,7 +380,6 @@ function printRelevent(searchedBranch) {
  * @param  {[arguments]} args the same arguments as searchArticles in args
  */
 async function buildArticleGraph(searches, args) {
-  await loadArticles(args[0]);
   progressBar.max = (searches * 1 + Presearch) * 2 + 2;
   let searched = {};
   let searchedBranch = {};
@@ -415,7 +409,9 @@ async function buildArticleGraph(searches, args) {
     }
   } catch (e) {
     if(!abortSearch) {
-      console.error(e);
+      if(debug){
+        console.error(e);
+      }
     }
   }
 
