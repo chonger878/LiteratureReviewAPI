@@ -9,12 +9,6 @@ chrome.devtools.network.onRequestFinished.addListener(function(request) {
     test = request;
     cookieVal.value = request.request.headers.filter(a=>a.name=='cookie')[0].value;
   }
-  /*
-  if(request.response.bodySize > 1) {
-    chrome.devtools.inspectedWindow.eval(
-      'console.log("Large image: " + unescape("' +
-      escape(request.request.url) + '"))');
-  }//*/
 });
 
 cookieVal.value = 'Refresh Google Scholar';
