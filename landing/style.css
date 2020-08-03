@@ -56,7 +56,7 @@
   }
   
   .navbar ul li a:hover {
-    color: pink;
+    color: rgb(169, 196, 238);
     transition: ease-in 0.25s;
   }
   
