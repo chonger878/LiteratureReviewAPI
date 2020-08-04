@@ -1,6 +1,6 @@
 ## Useful links
 - [Web app](https://chonger878.github.io/LiteratureReviewAPI/search/)
-- [Downloads](https://github.com/chonger878/LiteratureReviewAPI/releases)
+- [Downloads](https://github.com/chonger878/LiteratureReviewAPI/wiki/Downloads)
 - [Wiki](https://github.com/chonger878/LiteratureReviewAPI/wiki)
 - [Discord server](https://discord.gg/hx7ufM)
 
