@@ -2,7 +2,7 @@
 - [Web app](https://chonger878.github.io/LiteratureReviewAPI/search/)
 - [Downloads](https://github.com/chonger878/LiteratureReviewAPI/wiki/Downloads)
 - [Wiki](https://github.com/chonger878/LiteratureReviewAPI/wiki)
-- [Discord server](https://discord.gg/hx7ufM)
+- [Discord server](https://discord.gg/PX4sdd6)
 
 # Scholarly Graphs
 Generate graphs of scholarly topics based on data from Google Scholar to help in researching and finding seminal papers while visualizing their influence & most relevant influences.
