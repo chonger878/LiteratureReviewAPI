@@ -565,7 +565,15 @@ async function buildArticleGraph(searches, args) {
     console.log('Finished searching: ' + args[0]);
   }
 
-  //printRelevent(searchedBranch);
+  if(MinimumRelevance > 0 && Object.keys(searchedBranch).map(k => searchedBranch[k].relevance > MinimumRelevance ? 1 : 0).indexOf(1) < 0) {
+    if(MinimumRelevance < 0.1) {
+      MinimumRelevance = 0;
+    } else {
+      MinimumRelevance -= 0.1;
+    }
+    htmlMinimumRelevance.value=Math.pow(MinimumRelevance*3,1/3)/3*100;
+    buildArticleGraph(searches, args);
+  }
 }
 
 /**
@@ -733,18 +741,12 @@ document.getElementById('userAgentSetting').onchange = function() {
   ipcRenderer.sendSync('synchronous-message', JSON.stringify({ cookie: '', userAgent: this.value }));
 }
 
-var mlt = 0.2;
-
-function getM() {
-  return 2 - (2 - htmlMinimumRelevance.value / 100);
-  //return 2 - (2 - htmlMinimumRelevance.value / 100) * (1 + //Math.pow(htmlIndexWeight.value / 1000 + htmlStepWeight.value / 1000 - 1, 3) * mlt);
-}
-MinimumRelevance = Math.pow(getM() * 3, 3) / 3;
+MinimumRelevance = Math.pow(htmlMinimumRelevance.value / 100 * 3, 3) / 3;
 
 async function submitSearch() {
   if(searching) { return; }
   searching = true;
-  MinimumRelevance = Math.pow(getM() * 3, 3) / 3;
+  MinimumRelevance = Math.pow(htmlMinimumRelevance.value / 100 * 3, 3) / 3;
   Searches = htmlSearches.value;
   AllowUnconnected = htmlAllowUnconnected.checked;
 
