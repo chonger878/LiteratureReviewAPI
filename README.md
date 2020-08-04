@@ -1,4 +1,4 @@
-[![Discord Chat](https://img.shields.io/discord/729447428696047689.svg)](https://discord.gg/hx7ufM)
+[![Discord Chat](https://img.shields.io/discord/729447428696047689.svg)](https://discord.gg/PX4sdd6)
 ## Useful links
 - [Web app](https://chonger878.github.io/LiteratureReviewAPI/search/)
 - [Downloads](https://github.com/chonger878/LiteratureReviewAPI/wiki/Downloads)
