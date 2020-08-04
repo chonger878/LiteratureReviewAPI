@@ -168,6 +168,12 @@ function getArticleID(article) {
 }
 var parentWeight = 1;
 
+/**
+ * stepValue - alters article weight based on steps and StepWeight
+ *
+ * @param  {number} steps steps to get to article
+ * @return {number}
+ */
 function stepValue(steps) {
   var val = steps.length * 2;
   for(var i = 0; i < steps.length; i++) {
@@ -176,6 +182,13 @@ function stepValue(steps) {
   return val;
 }
 
+/**
+ * counterWeight - counters ecessively small/large vales
+ *
+ * @param  {type} v
+ * @param  {type} x
+ * @return {type}
+ */
 function counterWeight(v, x) {
   return -Math.log(v) * Math.pow(v, x);
 }
@@ -195,7 +208,6 @@ function articleRelevance(article, steps, index) {
       1 +
       Math.min(1, 1.4 / (Math.abs(article.year - 1900) / 50 + 1))
     ) *
-    //Math.pow(1 - IndexWeight, stepValue(steps))
     (2 * counterWeight(1 - IndexWeight, stepValue(steps) / 10));
 }
 
