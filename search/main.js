@@ -75,9 +75,7 @@ async function loadArticles(query) {
   //  AJAX call
   return new Promise((resolve, reject) => {
     let xhr = new XMLHttpRequest();
-    //xhr.open('GET', `https://cdn.jsdelivr.net/gh/chonger878/LiteratureReviewAPI@master/src/DB/${encodeURIComponent(sanitize(query))}.json`, true);
-    //xhr.open('GET', `https://raw.githubusercontent.com/chonger878/LiteratureReviewAPI/master/src/DB/${encodeURIComponent(sanitize(query))}.json`, true);
-    xhr.open('GET', `https://raw.githubusercontent.com/chonger878/LiteratureReviewAPI/GIT-HELP/src/DB/${encodeURIComponent(sanitize(query))}.json`, true);
+    xhr.open('GET', `https://cdn.jsdelivr.net/gh/chonger878/LiteratureReviewAPI@latest/src/DB/${encodeURIComponent(sanitize(query))}.json`, true);
     xhr.send();
     xhr.onreadystatechange = function() {
       if(xhr.readyState === 4) {
@@ -415,8 +413,19 @@ async function buildArticleGraph(searches, args) {
     }
   }
 
-  progressBar.style.display = "none";
-  renderGraph(searched, searchedBranch);
+  if(MinimumRelevance > 0 && Object.keys(searchedBranch).map(k => searchedBranch[k].relevance > MinimumRelevance ? 1 : 0).indexOf(1) < 0) {
+    if(MinimumRelevance < 0.1) {
+      MinimumRelevance = 0;
+    } else {
+      MinimumRelevance -= 0.1;
+    }
+    htmlMinimumRelevance.value=Math.pow(MinimumRelevance*3,1/3)/3*100;
+    buildArticleGraph(searches, args);
+  }
+  else{
+    progressBar.style.display = "none";
+    renderGraph(searched, searchedBranch);
+  }
 }
 
 /**
@@ -563,19 +572,13 @@ document.getElementById('pagesSetting').onchange = function() {
   }
 }
 
-var mlt = 0.2;
-
-function getM() {
-  return 2 - (2 - htmlMinimumRelevance.value / 100);
-  //return 2 - (2 - htmlMinimumRelevance.value / 100) * (1 + //Math.pow(htmlIndexWeight.value / 1000 + htmlStepWeight.value / 1000 - 1, 3) * mlt);
-}
-MinimumRelevance = Math.pow(getM() * 3, 3) / 3;
+MinimumRelevance = Math.pow(htmlMinimumRelevance.value / 100 * 3, 3) / 3;
 
 async function submitSearch() {
   if(searching) { return; }
   setUrl();
   searching = true;
-  MinimumRelevance = Math.pow(getM() * 3, 3) / 3;
+  MinimumRelevance = Math.pow(htmlMinimumRelevance.value / 100 * 3, 3) / 3;
   Searches = htmlSearches.value;
   AllowUnconnected = htmlAllowUnconnected.checked;
 
