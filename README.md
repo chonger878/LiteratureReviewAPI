@@ -1,9 +1,8 @@
-[![Discord Chat](https://img.shields.io/discord/308323056592486420.svg)]
+[![Discord Chat](https://img.shields.io/discord/729447428696047689.svg)](https://discord.gg/hx7ufM)
 ## Useful links
 - [Web app](https://chonger878.github.io/LiteratureReviewAPI/search/)
 - [Downloads](https://github.com/chonger878/LiteratureReviewAPI/wiki/Downloads)
 - [Wiki](https://github.com/chonger878/LiteratureReviewAPI/wiki)
-- [Discord server](https://discord.gg/hx7ufM)
 
 # Scholarly Graphs
 Generate graphs of scholarly topics based on data from Google Scholar to help in researching and finding seminal papers while visualizing their influence & most relevant influences.
