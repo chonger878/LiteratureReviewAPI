@@ -1,3 +1,4 @@
+[![Discord Chat](https://img.shields.io/discord/308323056592486420.svg)]
 ## Useful links
 - [Web app](https://chonger878.github.io/LiteratureReviewAPI/search/)
 - [Downloads](https://github.com/chonger878/LiteratureReviewAPI/wiki/Downloads)
