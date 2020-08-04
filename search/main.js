@@ -247,6 +247,7 @@ async function searchBranch(steps, article, searched, searchedBranch, queued) {
   for(let i = 0; i < neighbors.length; i++) {
     branch(steps, neighbors[i], false, searched, searchedBranch, queued, i);
   }
+  renderGraph(searched, searchedBranch);
 }
 
 /**
@@ -513,7 +514,7 @@ function promptDownload() {
   downloadModal.style.display = "block";
 }
 
-var defaultUrl = { q: 'information theory', depth: 8, minRel: 50, stepSetting: 500, indexSetting: 500, presearchSetting: 5, pagesSetting: 1, maxDepthSetting: 10 };
+var defaultUrl = { q: 'information theory', depth: 8, minRel: 50, stepSetting: 500, indexSetting: 500, presearchSetting: 5, pagesSetting: 1, maxDepthSetting: 20 };
 
 function setUrl() {
   if(!history.pushState) { return; }
